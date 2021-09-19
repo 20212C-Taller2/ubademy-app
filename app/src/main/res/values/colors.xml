@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="ubademy_1">#FFC3E1F0</color>
+    <color name="ubademy_2">#FF82C3E6</color>
+    <color name="ubademy_3">#FF199BD2</color>
+    <color name="ubademy_1_dark">#FF97B5C4</color>
+    <color name="ubademy_2_dark">#FF3D7EA1</color>
+    <color name="ubademy_3_dark">#FF004E6F</color>
+    <color name="ubademy_1_teal">#FF85E1DD</color>
+    <color name="ubademy_2_teal">#FF40C3C8</color>
+    <color name="ubademy_3_teal">#FF099B9F</color>
+    <color name="ubademy_1_teal_dark">#FF48A4A0</color>
+    <color name="ubademy_2_teal_dark">#FF00797E</color>
+    <color name="ubademy_3_teal_dark">#FF00494B</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
