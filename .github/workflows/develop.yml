@@ -1,0 +1,26 @@
+name: generate-develop-apk
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  apk:
+    name: Generate develop APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: 11
+      - name: Build debug APK
+        run: bash ./gradlew assembleDebug --stacktrace
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: Debug APK (develop)
+          path: app/build/outputs/apk/debug/app-debug-develop.apk
