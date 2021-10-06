@@ -23,20 +23,20 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/usernameLabel"
+                android:id="@+id/emailLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/username" />
+                android:text="@string/email" />
 
             <EditText
-                android:id="@+id/usernameInput"
-                android:text="@={loginViewModel.username}"
-                android:autofillHints="username"
+                android:id="@+id/emailInput"
+                android:text="@={loginViewModel.email}"
+                android:autofillHints="emailAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/username"
-                android:inputType="textPersonName" />
+                android:hint="@string/email"
+                android:inputType="textEmailAddress" />
 
             <TextView
                 android:id="@+id/passwordLabel"

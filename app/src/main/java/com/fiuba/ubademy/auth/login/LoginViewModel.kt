@@ -6,11 +6,11 @@ import timber.log.Timber
 
 class LoginViewModel : ViewModel() {
 
-    var username = MutableLiveData<String>()
+    var email = MutableLiveData<String>()
     var password = MutableLiveData<String>()
 
     fun login() {
-        Timber.i("username: ${username.value}")
+        Timber.i("email: ${email.value}")
         Timber.i("password: ${password.value}")
     }
 }
