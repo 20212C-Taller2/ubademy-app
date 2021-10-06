@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Ubademy</string>
-    <string name="email">Email</string>
+    <string name="username">Usuario</string>
     <string name="password">Contraseña</string>
+    <string name="login">Ingresar</string>
 </resources>
