@@ -9,5 +9,14 @@
         android:id="@+id/loginFragment"
         android:name="com.fiuba.ubademy.auth.login.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login"/>
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_createAccountFragment"
+            app:destination="@id/createAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFragment"
+        android:name="com.fiuba.ubademy.auth.createaccount.CreateAccountFragment"
+        android:label="create_account_fragment"
+        tools:layout="@layout/fragment_create_account" />
 </navigation>

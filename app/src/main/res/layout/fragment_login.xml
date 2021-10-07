@@ -57,12 +57,20 @@
 
             <Button
                 android:id="@+id/loginButton"
-                android:onClick="@{() -> loginViewModel.login()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_l"
                 android:text="@string/login" />
+
+            <Button
+                android:id="@+id/createAccountButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_l"
+                android:backgroundTint="@color/ubademy_1_teal_dark"
+                android:text="@string/create_account" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,4 +3,5 @@
     <string name="email">Email</string>
     <string name="password">Contraseña</string>
     <string name="login">Ingresar</string>
+    <string name="create_account">Crear cuenta</string>
 </resources>
