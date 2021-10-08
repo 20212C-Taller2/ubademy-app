@@ -18,5 +18,20 @@
         android:id="@+id/createAccountFragment"
         android:name="com.fiuba.ubademy.auth.createaccount.CreateAccountFragment"
         android:label="create_account_fragment"
-        tools:layout="@layout/fragment_create_account" />
+        tools:layout="@layout/fragment_create_account" >
+        <action
+            android:id="@+id/action_createAccountFragment_to_accountCreatedFragment"
+            app:destination="@id/accountCreatedFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountCreatedFragment"
+        android:name="com.fiuba.ubademy.auth.accountcreated.AccountCreatedFragment"
+        android:label="AccountCreatedFragment"
+        tools:layout="@layout/fragment_account_created" >
+        <action
+            android:id="@+id/action_accountCreatedFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

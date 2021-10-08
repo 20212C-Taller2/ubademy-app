@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentCreateAccountBinding
 import com.fiuba.ubademy.utils.hideKeyboard
@@ -41,9 +42,10 @@ class CreateAccountFragment : Fragment() {
 
     private fun createAccount(view: View) {
         view.hideKeyboard()
-        Timber.i("email: ${binding.createAccountViewModel?.firstName?.value}")
-        Timber.i("password: ${binding.createAccountViewModel?.lastName?.value}")
-        Timber.i("password: ${binding.createAccountViewModel?.email?.value}")
+        Timber.i("first name: ${binding.createAccountViewModel?.firstName?.value}")
+        Timber.i("last name: ${binding.createAccountViewModel?.lastName?.value}")
+        Timber.i("email: ${binding.createAccountViewModel?.email?.value}")
         Timber.i("password: ${binding.createAccountViewModel?.password?.value}")
+        view.findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToAccountCreatedFragment())
     }
 }
