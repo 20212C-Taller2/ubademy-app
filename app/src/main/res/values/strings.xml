@@ -4,4 +4,6 @@
     <string name="password">Contraseña</string>
     <string name="login">Ingresar</string>
     <string name="create_account">Crear cuenta</string>
+    <string name="first_name">Nombre</string>
+    <string name="last_name">Apellido</string>
 </resources>

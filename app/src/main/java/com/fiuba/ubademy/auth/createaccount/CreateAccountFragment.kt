@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentCreateAccountBinding
+import com.fiuba.ubademy.utils.hideKeyboard
+import timber.log.Timber
 
 class CreateAccountFragment : Fragment() {
 
@@ -27,10 +29,21 @@ class CreateAccountFragment : Fragment() {
             false
         )
 
+        binding.submitCreateAccountFormButton.setOnClickListener { view ->
+            createAccount(view)
+        }
+
         binding.createAccountViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
     }
 
+    private fun createAccount(view: View) {
+        view.hideKeyboard()
+        Timber.i("email: ${binding.createAccountViewModel?.firstName?.value}")
+        Timber.i("password: ${binding.createAccountViewModel?.lastName?.value}")
+        Timber.i("password: ${binding.createAccountViewModel?.email?.value}")
+        Timber.i("password: ${binding.createAccountViewModel?.password?.value}")
+    }
 }

@@ -3,4 +3,8 @@
     <dimen name="margin_s">8dp</dimen>
     <dimen name="margin_m">16dp</dimen>
     <dimen name="margin_l">24dp</dimen>
+    <dimen name="padding_s">8dp</dimen>
+    <dimen name="padding_m">16dp</dimen>
+    <dimen name="padding_l">24dp</dimen>
+    <dimen name="input_width_m">240dp</dimen>
 </resources>
