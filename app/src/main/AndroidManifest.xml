@@ -3,6 +3,7 @@
     package="com.fiuba.ubademy">
 
     <application
+        android:name=".UbademyApplication"
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,11 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ubademy">
         <activity
-            android:name=".SplashScreen"
+            android:name=".AuthActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.Ubademy.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

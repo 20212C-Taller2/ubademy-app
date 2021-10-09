@@ -8,7 +8,7 @@ import android.os.Looper
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 
-class SplashScreen : AppCompatActivity() {
+class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
@@ -18,10 +18,10 @@ class SplashScreen : AppCompatActivity() {
         val splashScreenView: ImageView = findViewById(R.id.splashScreenLogo)
         splashScreenView.startAnimation(splashScreenAnimation)
 
-        val mainIntent = Intent(this, MainActivity::class.java)
+        val authIntent = Intent(this, AuthActivity::class.java)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(mainIntent)
+            startActivity(authIntent)
             finish()
         }, 2000)
 
