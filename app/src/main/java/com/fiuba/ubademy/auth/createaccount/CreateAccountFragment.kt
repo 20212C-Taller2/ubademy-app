@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentCreateAccountBinding
+import com.fiuba.ubademy.utils.BusyFragment
 import com.fiuba.ubademy.utils.hideKeyboard
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class CreateAccountFragment : Fragment() {
@@ -31,7 +34,9 @@ class CreateAccountFragment : Fragment() {
         )
 
         binding.submitCreateAccountFormButton.setOnClickListener { view ->
-            createAccount(view)
+            lifecycleScope.launch {
+                createAccount(view)
+            }
         }
 
         binding.createAccountViewModel = viewModel
@@ -40,12 +45,17 @@ class CreateAccountFragment : Fragment() {
         return binding.root
     }
 
-    private fun createAccount(view: View) {
+    private suspend fun createAccount(view: View) {
         view.hideKeyboard()
         Timber.i("first name: ${binding.createAccountViewModel?.firstName?.value}")
         Timber.i("last name: ${binding.createAccountViewModel?.lastName?.value}")
         Timber.i("email: ${binding.createAccountViewModel?.email?.value}")
         Timber.i("password: ${binding.createAccountViewModel?.password?.value}")
+
+        val busy = BusyFragment.show(this.parentFragmentManager)
+        binding.createAccountViewModel?.submitAccountCreatedForm()
+        busy.dismiss()
+
         view.findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToAccountCreatedFragment())
     }
 }
