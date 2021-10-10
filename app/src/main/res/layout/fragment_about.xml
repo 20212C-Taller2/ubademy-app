@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main.about.AboutFragment">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/aboutLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:src="@drawable/ic_launcher_ubademy_foreground" />
+
+        <TextView
+            android:id="@+id/aboutAppNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_s"
+            android:fontFamily="@font/kodchasan_regular"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/aboutUbaLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_l"
+            android:text="@string/uba"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/aboutFiLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fi"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/aboutMatterLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_l"
+            android:text="@string/matter"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/aboutSemesterLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/semester"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/aboutGroupLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/group"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
