@@ -34,6 +34,7 @@
             android:layout_marginTop="@dimen/margin_s"
             android:fontFamily="@font/kodchasan_regular"
             android:text="@string/app_name"
+            android:textAlignment="center"
             android:textAllCaps="true"
             android:textSize="24sp" />
 
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_l"
             android:text="@string/uba"
+            android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -51,6 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fi"
+            android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="bold" />
 
