@@ -15,7 +15,7 @@ class CreateAccountViewModel : ViewModel() {
     var email = MutableLiveData<String>()
     var password = MutableLiveData<String>()
 
-    suspend fun submitAccountCreatedForm() {
+    suspend fun createAccount() {
         val job = viewModelScope.launch(Dispatchers.IO) {
             delay(3000)
             Timber.i("PIPIPI")

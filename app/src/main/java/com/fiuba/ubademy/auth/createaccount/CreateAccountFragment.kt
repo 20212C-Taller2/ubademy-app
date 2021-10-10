@@ -53,7 +53,7 @@ class CreateAccountFragment : Fragment() {
         Timber.i("password: ${binding.createAccountViewModel?.password?.value}")
 
         val busy = BusyFragment.show(this.parentFragmentManager)
-        binding.createAccountViewModel?.submitAccountCreatedForm()
+        binding.createAccountViewModel?.createAccount()
         busy.dismiss()
 
         view.findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToAccountCreatedFragment())
