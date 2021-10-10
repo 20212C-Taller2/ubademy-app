@@ -8,4 +8,10 @@
     <string name="last_name">Apellido</string>
     <string name="account_created_text">Su cuenta se ha creado con éxito.\n\nPuede usar sus credenciales para ingresar al sistema.</string>
     <string name="return_to_login">Volver a login</string>
+    <string name="about">Acerca de Ubademy</string>
+    <string name="fi">Facultad de Ingeniería</string>
+    <string name="uba">Universidad de Buenos Aires</string>
+    <string name="matter">75:52 - Taller de Programación II</string>
+    <string name="semester">2do cuatrimestre 2021</string>
+    <string name="group">Grupo 10</string>
 </resources>
