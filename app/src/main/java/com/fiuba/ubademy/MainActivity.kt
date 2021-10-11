@@ -8,6 +8,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.fiuba.ubademy.databinding.ActivityMainBinding
+import com.fiuba.ubademy.utils.hideKeyboard
+import com.fiuba.ubademy.main.MainDrawerListener
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         drawerLayout = binding.mainDrawerLayout
 
+        drawerLayout.addDrawerListener(MainDrawerListener())
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -27,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        hideKeyboard()
         val navController = findNavController(R.id.mainNavHostFragment)
         return NavigationUI.navigateUp(navController, drawerLayout)
     }
