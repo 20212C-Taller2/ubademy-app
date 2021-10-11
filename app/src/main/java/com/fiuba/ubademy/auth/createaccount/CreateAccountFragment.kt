@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -47,15 +48,15 @@ class CreateAccountFragment : Fragment() {
 
     private suspend fun createAccount(view: View) {
         view.hideKeyboard()
-        Timber.i("first name: ${binding.createAccountViewModel?.firstName?.value}")
-        Timber.i("last name: ${binding.createAccountViewModel?.lastName?.value}")
-        Timber.i("email: ${binding.createAccountViewModel?.email?.value}")
-        Timber.i("password: ${binding.createAccountViewModel?.password?.value}")
 
         val busy = BusyFragment.show(this.parentFragmentManager)
-        binding.createAccountViewModel?.createAccount()
+        val success = binding.createAccountViewModel?.createAccount() ?: false
         busy.dismiss()
 
-        view.findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToAccountCreatedFragment())
+        if (success) {
+            view.findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToAccountCreatedFragment())
+        } else {
+            Toast.makeText(context, R.string.request_failed, Toast.LENGTH_SHORT).show()
+        }
     }
 }

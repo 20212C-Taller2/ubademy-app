@@ -6,6 +6,7 @@
     <string name="create_account">Crear cuenta</string>
     <string name="first_name">Nombre</string>
     <string name="last_name">Apellido</string>
+    <string name="request_failed">No se pudo realizar la petición al servidor, intente mas tarde</string>
     <string name="account_created_text">Su cuenta se ha creado con éxito.\n\nPuede usar sus credenciales para ingresar al sistema.</string>
     <string name="return_to_login">Volver a login</string>
     <string name="about">Acerca de Ubademy</string>
