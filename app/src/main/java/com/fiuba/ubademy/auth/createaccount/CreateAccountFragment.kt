@@ -15,7 +15,6 @@ import com.fiuba.ubademy.databinding.FragmentCreateAccountBinding
 import com.fiuba.ubademy.utils.BusyFragment
 import com.fiuba.ubademy.utils.hideKeyboard
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class CreateAccountFragment : Fragment() {
 

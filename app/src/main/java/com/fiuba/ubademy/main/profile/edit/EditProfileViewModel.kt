@@ -1,14 +1,15 @@
 package com.fiuba.ubademy.main.profile.edit
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class EditProfileViewModel : ViewModel() {
+class EditProfileViewModel(application: Application) : AndroidViewModel(application) {
 
     var firstName = MutableLiveData<String>()
     var lastName = MutableLiveData<String>()
