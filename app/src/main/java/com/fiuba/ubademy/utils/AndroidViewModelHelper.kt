@@ -34,3 +34,27 @@ fun AndroidViewModel.getSharedPreferencesData() : SharedPreferencesData {
         token = sharedPreferences.getString(pref_token_key, "")!!
     )
 }
+
+fun AndroidViewModel.updateSharedPreferencesFirstName(firstName: String) {
+    val sharedPreferences = getApplication<UbademyApplication>().getSharedPreferences(name, Context.MODE_PRIVATE)
+    with (sharedPreferences.edit()) {
+        putString(pref_first_name_key, firstName)
+        apply()
+    }
+}
+
+fun AndroidViewModel.updateSharedPreferencesLastName(lastName: String) {
+    val sharedPreferences = getApplication<UbademyApplication>().getSharedPreferences(name, Context.MODE_PRIVATE)
+    with (sharedPreferences.edit()) {
+        putString(pref_last_name_key, lastName)
+        apply()
+    }
+}
+
+fun AndroidViewModel.updateSharedPreferencesEmail(email: String) {
+    val sharedPreferences = getApplication<UbademyApplication>().getSharedPreferences(name, Context.MODE_PRIVATE)
+    with (sharedPreferences.edit()) {
+        putString(pref_email_key, email)
+        apply()
+    }
+}

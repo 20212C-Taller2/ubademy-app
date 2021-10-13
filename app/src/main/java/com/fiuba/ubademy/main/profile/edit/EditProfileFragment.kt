@@ -15,7 +15,6 @@ import com.fiuba.ubademy.databinding.FragmentEditProfileBinding
 import com.fiuba.ubademy.utils.BusyFragment
 import com.fiuba.ubademy.utils.hideKeyboard
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class EditProfileFragment : Fragment() {
 
@@ -36,7 +35,7 @@ class EditProfileFragment : Fragment() {
 
         binding.submitEditProfileFormButton.setOnClickListener { view ->
             lifecycleScope.launch {
-                saveChanges(view)
+                editProfile(view)
             }
         }
 
@@ -46,17 +45,20 @@ class EditProfileFragment : Fragment() {
         return binding.root
     }
 
-    private suspend fun saveChanges(view: View) {
+    private suspend fun editProfile(view: View) {
         view.hideKeyboard()
-        Timber.i("first name: ${binding.editProfileViewModel?.firstName?.value}")
-        Timber.i("last name: ${binding.editProfileViewModel?.lastName?.value}")
 
         val busy = BusyFragment.show(this.parentFragmentManager)
-        binding.editProfileViewModel?.saveChanges()
+        val editProfileStatus : EditProfileStatus = binding.editProfileViewModel!!.editProfile()
         busy.dismiss()
 
-        Toast.makeText(context, R.string.changes_have_been_saved, Toast.LENGTH_LONG).show()
-
-        view.findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToHomeFragment())
+        when (editProfileStatus) {
+            EditProfileStatus.SUCCESS -> {
+                Toast.makeText(context, R.string.changes_have_been_saved, Toast.LENGTH_LONG).show()
+                view.findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToHomeFragment())
+            }
+            EditProfileStatus.EMAIL_ALREADY_USED -> Toast.makeText(context, R.string.email_already_used, Toast.LENGTH_LONG).show()
+            EditProfileStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+        }
     }
 }
