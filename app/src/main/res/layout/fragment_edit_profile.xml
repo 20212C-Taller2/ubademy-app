@@ -33,11 +33,13 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/firstNameInput"
+                        android:id="@+id/firstNameEditProfileInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints="personGivenName"
                         android:hint="@string/first_name"
-                        android:inputType="textPersonName"
+                        android:importantForAutofill="yes"
+                        android:inputType="textPersonName|textCapSentences"
                         android:text="@={editProfileViewModel.firstName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,12 +49,30 @@
                     android:layout_marginTop="@dimen/margin_l">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/lastNameInput"
+                        android:id="@+id/lastNameEditProfileInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints="personFamilyName"
                         android:hint="@string/last_name"
-                        android:inputType="textPersonName"
+                        android:importantForAutofill="yes"
+                        android:inputType="textPersonName|textCapSentences"
                         android:text="@={editProfileViewModel.lastName}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_l">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailEditProfileInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="emailAddress"
+                        android:hint="@string/email"
+                        android:importantForAutofill="yes"
+                        android:inputType="textEmailAddress"
+                        android:text="@={editProfileViewModel.email}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button

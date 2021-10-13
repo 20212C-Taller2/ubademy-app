@@ -17,8 +17,8 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
     var email = MutableLiveData<String>()
     var password = MutableLiveData<String>()
 
-    suspend fun createAccount() : Boolean {
-        var success = false
+    suspend fun createAccount() : CreateAccountStatus {
+        var createAccountStatus = CreateAccountStatus.FAIL
 
         val job = viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -30,13 +30,17 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
                         password = password.value.toString()
                     )
                 )
-                success = response.body()?.auth ?: false
+                createAccountStatus = if (response.isSuccessful) {
+                    CreateAccountStatus.SUCCESS
+                } else {
+                    CreateAccountStatus.EMAIL_ALREADY_USED
+                }
             } catch (e: Exception) {
                 Timber.e(e)
             }
         }
         job.join()
 
-        return success
+        return createAccountStatus
     }
 }

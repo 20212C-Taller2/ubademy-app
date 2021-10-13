@@ -64,8 +64,8 @@ class LoginFragment : Fragment() {
                 startActivity(mainIntent)
                 //activity?.finish()
             }
-            LoginStatus.INVALID_CREDENTIALS -> Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_SHORT).show()
-            LoginStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_SHORT).show()
+            LoginStatus.INVALID_CREDENTIALS -> Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_LONG).show()
+            LoginStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
         }
     }
 }
