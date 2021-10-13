@@ -49,13 +49,15 @@ class CreateAccountFragment : Fragment() {
         view.hideKeyboard()
 
         val busy = BusyFragment.show(this.parentFragmentManager)
-        val success = binding.createAccountViewModel?.createAccount() ?: false
+        val createAccountStatus : CreateAccountStatus = binding.createAccountViewModel!!.createAccount()
         busy.dismiss()
 
-        if (success) {
-            view.findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToAccountCreatedFragment())
-        } else {
-            Toast.makeText(context, R.string.request_failed, Toast.LENGTH_SHORT).show()
+        when (createAccountStatus) {
+            CreateAccountStatus.SUCCESS -> {
+                view.findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToAccountCreatedFragment())
+            }
+            CreateAccountStatus.EMAIL_ALREADY_USED -> Toast.makeText(context, R.string.email_already_used, Toast.LENGTH_LONG).show()
+            CreateAccountStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
         }
     }
 }

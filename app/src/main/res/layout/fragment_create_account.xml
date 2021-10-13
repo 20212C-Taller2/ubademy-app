@@ -32,11 +32,13 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/firstNameInput"
+                        android:id="@+id/firstNameCreateAccountInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints="personGivenName"
                         android:hint="@string/first_name"
-                        android:inputType="textPersonName"
+                        android:importantForAutofill="yes"
+                        android:inputType="textPersonName|textCapSentences"
                         android:text="@={createAccountViewModel.firstName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,11 +48,13 @@
                     android:layout_marginTop="@dimen/margin_l">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/lastNameInput"
+                        android:id="@+id/lastNameCreateAccountInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints="personFamilyName"
                         android:hint="@string/last_name"
-                        android:inputType="textPersonName"
+                        android:importantForAutofill="yes"
+                        android:inputType="textPersonName|textCapSentences"
                         android:text="@={createAccountViewModel.lastName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,7 +67,9 @@
                         android:id="@+id/emailCreateAccountInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints="emailAddress"
                         android:hint="@string/email"
+                        android:importantForAutofill="yes"
                         android:inputType="textEmailAddress"
                         android:text="@={createAccountViewModel.email}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -78,7 +84,9 @@
                         android:id="@+id/passwordCreateAccountInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints="password"
                         android:hint="@string/password"
+                        android:importantForAutofill="yes"
                         android:inputType="textPassword"
                         android:text="@={createAccountViewModel.password}" />
                 </com.google.android.material.textfield.TextInputLayout>

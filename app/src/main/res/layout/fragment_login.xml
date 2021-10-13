@@ -30,7 +30,9 @@
                     android:id="@+id/emailLoginInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autofillHints="username"
                     android:hint="@string/email"
+                    android:importantForAutofill="yes"
                     android:inputType="textEmailAddress"
                     android:text="@={loginViewModel.email}" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -45,7 +47,9 @@
                     android:id="@+id/passwordLoginInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autofillHints="password"
                     android:hint="@string/password"
+                    android:importantForAutofill="yes"
                     android:inputType="textPassword"
                     android:text="@={loginViewModel.password}" />
             </com.google.android.material.textfield.TextInputLayout>
