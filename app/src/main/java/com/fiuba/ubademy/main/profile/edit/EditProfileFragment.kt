@@ -55,7 +55,7 @@ class EditProfileFragment : Fragment() {
         binding.editProfileViewModel?.saveChanges()
         busy.dismiss()
 
-        Toast.makeText(context, R.string.changes_have_been_saved, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, R.string.changes_have_been_saved, Toast.LENGTH_LONG).show()
 
         view.findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToHomeFragment())
     }
