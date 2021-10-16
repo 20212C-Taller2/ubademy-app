@@ -19,9 +19,26 @@ android {
     }
 
     buildTypes {
+        debug {
+            debuggable true
+            signingConfig signingConfigs.debug
+            buildConfigField 'String', 'BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+        }
+        develop {
+            debuggable true
+            signingConfig signingConfigs.debug
+            buildConfigField 'String', 'BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+        }
+        main {
+            debuggable true
+            signingConfig signingConfigs.debug
+            buildConfigField 'String', 'BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+        }
         release {
-            minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+            buildConfigField 'String', 'BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
         }
     }
 
@@ -50,6 +67,6 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
-    implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
+    implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
 }

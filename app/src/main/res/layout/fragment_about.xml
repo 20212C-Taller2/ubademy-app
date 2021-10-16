@@ -78,6 +78,23 @@
             android:layout_height="wrap_content"
             android:text="@string/group"
             android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/applicationIdLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_l"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            tools:text=":application_id:" />
+
+        <TextView
+            android:id="@+id/buildTypeLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            tools:text=":build_type:" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
