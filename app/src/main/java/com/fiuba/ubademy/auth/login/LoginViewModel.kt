@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.fiuba.ubademy.network.UbademyApiService
 import com.fiuba.ubademy.network.model.LoginRequest
 import com.fiuba.ubademy.utils.SharedPreferencesData
 import com.fiuba.ubademy.utils.addSharedPreferencesData
+import com.fiuba.ubademy.utils.api
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -22,7 +22,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
         val job = viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = UbademyApiService.UbademyApi.retrofitService.login(
+                val response = api().login(
                     LoginRequest(
                         email = email.value.toString(),
                         password = password.value.toString()

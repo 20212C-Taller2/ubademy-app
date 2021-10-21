@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.fiuba.ubademy.network.UbademyApiService
 import com.fiuba.ubademy.network.model.CreateAccountRequest
+import com.fiuba.ubademy.utils.api
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -22,7 +22,7 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
 
         val job = viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = UbademyApiService.UbademyApi.retrofitService.createAccount(
+                val response = api().createAccount(
                     CreateAccountRequest(
                         firstName = firstName.value.toString(),
                         lastName = lastName.value.toString(),
