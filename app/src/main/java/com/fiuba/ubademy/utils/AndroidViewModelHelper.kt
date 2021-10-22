@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 
 const val name = "ubademy_shared_preferences"
 
@@ -74,12 +75,16 @@ private val moshi = Moshi.Builder()
 fun AndroidViewModel.api() : UbademyApiService {
     val sharedPreferencesData = getSharedPreferencesData()
 
-    val client = OkHttpClient.Builder().addInterceptor { chain ->
-        val newRequest: Request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer ${sharedPreferencesData.token}")
-            .build()
-        chain.proceed(newRequest)
-    }.build()
+    val client = OkHttpClient.Builder()
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .addInterceptor { chain ->
+            val newRequest: Request = chain.request().newBuilder()
+                .addHeader("Authorization", "Bearer ${sharedPreferencesData.token}")
+                .build()
+            chain.proceed(newRequest)
+        }.build()
 
     val retrofit = Retrofit.Builder()
         .client(client)
