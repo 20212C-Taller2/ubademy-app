@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fiuba.ubademy.network.model.LoginRequest
 import com.fiuba.ubademy.utils.SharedPreferencesData
-import com.fiuba.ubademy.utils.addSharedPreferencesData
+import com.fiuba.ubademy.utils.setSharedPreferencesData
 import com.fiuba.ubademy.utils.api
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,11 +30,13 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 )
                 if (response.isSuccessful) {
                     loginStatus = LoginStatus.SUCCESS
-                    addSharedPreferencesData(SharedPreferencesData(
+                    setSharedPreferencesData(SharedPreferencesData(
                         id = response.body()!!.user.id,
                         firstName = response.body()!!.user.firstName,
                         lastName = response.body()!!.user.lastName,
                         email = response.body()!!.user.email,
+                        placeId = "",
+                        placeName = "",
                         token = response.body()!!.token
                     ))
                 } else {

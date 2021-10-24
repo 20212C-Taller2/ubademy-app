@@ -14,6 +14,8 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
 
     var firstName = MutableLiveData<String>()
     var lastName = MutableLiveData<String>()
+    var placeId = MutableLiveData<String>()
+    var placeName = MutableLiveData<String>()
     var email = MutableLiveData<String>()
 
     private val userId : String
@@ -22,6 +24,8 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
         val sharedPreferencesData = getSharedPreferencesData()
         firstName.value = sharedPreferencesData.firstName
         lastName.value = sharedPreferencesData.lastName
+        placeId.value = sharedPreferencesData.placeId
+        placeName.value = sharedPreferencesData.placeName
         email.value = sharedPreferencesData.email
         userId = sharedPreferencesData.id
     }
@@ -36,14 +40,22 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
                     EditProfileRequest(
                         firstName = firstName.value.toString(),
                         lastName = lastName.value.toString(),
+                        placeId = placeId.value.toString(),
                         email = email.value.toString()
                     )
                 )
                 if (response.isSuccessful) {
                     editProfileStatus = EditProfileStatus.SUCCESS
-                    updateSharedPreferencesFirstName(firstName.value.toString())
-                    updateSharedPreferencesLastName(lastName.value.toString())
-                    updateSharedPreferencesEmail(email.value.toString())
+                    val sharedPreferencesData = getSharedPreferencesData()
+                    setSharedPreferencesData(SharedPreferencesData(
+                        id = sharedPreferencesData.id,
+                        firstName = firstName.value.toString(),
+                        lastName = lastName.value.toString(),
+                        placeId = placeId.value.toString(),
+                        placeName = placeName.value.toString(),
+                        email = email.value.toString(),
+                        token = sharedPreferencesData.token
+                    ))
                 } else {
                     editProfileStatus = EditProfileStatus.EMAIL_ALREADY_USED
                 }

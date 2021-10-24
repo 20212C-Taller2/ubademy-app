@@ -14,6 +14,8 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
 
     var firstName = MutableLiveData<String>()
     var lastName = MutableLiveData<String>()
+    var placeId = MutableLiveData<String>()
+    var placeName = MutableLiveData<String>()
     var email = MutableLiveData<String>()
     var password = MutableLiveData<String>()
 
@@ -26,6 +28,7 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
                     CreateAccountRequest(
                         firstName = firstName.value.toString(),
                         lastName = lastName.value.toString(),
+                        placeId = placeId.value.toString(),
                         email = email.value.toString(),
                         password = password.value.toString()
                     )

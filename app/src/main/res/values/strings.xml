@@ -6,6 +6,7 @@
     <string name="create_account">Crear cuenta</string>
     <string name="first_name">Nombre</string>
     <string name="last_name">Apellido</string>
+    <string name="place">Ubicación (ciudad y país)</string>
     <string name="request_failed">No se pudo realizar la petición al servidor, intente mas tarde</string>
     <string name="invalid_credentials">Credenciales invalidas</string>
     <string name="email_already_used">El email indicado ya se encuentra registrado</string>
@@ -24,4 +25,6 @@
     <string name="should_have_value">Este campo es obligatorio</string>
     <string name="should_be_valid_email">Debe ser un email válido</string>
     <string name="should_be_valid_password">La contraseña debe tener por lo menos %1$d caracteres</string>
+
+    <string name="google_api_key">AIzaSyBp1S-H4zaRdUlNEyjNK9_hQCsrTkeNi98</string>
 </resources>
