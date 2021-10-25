@@ -3,11 +3,10 @@ package com.fiuba.ubademy.main.profile.edit
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.fiuba.ubademy.network.model.EditProfileRequest
 import com.fiuba.ubademy.utils.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class EditProfileViewModel(application: Application) : AndroidViewModel(application) {
@@ -33,7 +32,7 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
     suspend fun editProfile() : EditProfileStatus {
         var editProfileStatus = EditProfileStatus.FAIL
 
-        val job = viewModelScope.launch(Dispatchers.IO) {
+        withContext(Dispatchers.IO) {
             try {
                 val response = api().editProfile(
                     userId,
@@ -63,7 +62,6 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
                 Timber.e(e)
             }
         }
-        job.join()
 
         return editProfileStatus
     }

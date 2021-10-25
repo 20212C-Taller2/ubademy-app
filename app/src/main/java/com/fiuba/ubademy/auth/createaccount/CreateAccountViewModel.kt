@@ -3,11 +3,10 @@ package com.fiuba.ubademy.auth.createaccount
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.fiuba.ubademy.network.model.CreateAccountRequest
 import com.fiuba.ubademy.utils.api
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class CreateAccountViewModel(application: Application) : AndroidViewModel(application) {
@@ -22,7 +21,7 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
     suspend fun createAccount() : CreateAccountStatus {
         var createAccountStatus = CreateAccountStatus.FAIL
 
-        val job = viewModelScope.launch(Dispatchers.IO) {
+        withContext(Dispatchers.IO) {
             try {
                 val response = api().createAccount(
                     CreateAccountRequest(
@@ -42,7 +41,6 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
                 Timber.e(e)
             }
         }
-        job.join()
 
         return createAccountStatus
     }
