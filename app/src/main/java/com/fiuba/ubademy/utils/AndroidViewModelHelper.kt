@@ -5,12 +5,17 @@ import androidx.lifecycle.AndroidViewModel
 import com.fiuba.ubademy.BuildConfig
 import com.fiuba.ubademy.UbademyApplication
 import com.fiuba.ubademy.network.UbademyApiService
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.tasks.await
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 const val name = "ubademy_shared_preferences"
@@ -75,4 +80,18 @@ fun AndroidViewModel.api() : UbademyApiService {
         .build()
 
     return retrofit.create(UbademyApiService::class.java)
+}
+
+suspend fun AndroidViewModel.getPlaceById(placeId: String) : Place? {
+    val placeFields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS)
+    val request = FetchPlaceRequest.newInstance(placeId, placeFields)
+    val placesClient = Places.createClient(getApplication())
+
+    return try {
+        val fetchPlaceResponse = placesClient.fetchPlace(request).await()
+        fetchPlaceResponse.place
+    } catch (exception: Exception) {
+        Timber.e(exception)
+        null
+    }
 }

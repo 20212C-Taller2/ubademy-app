@@ -6,10 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fiuba.ubademy.network.model.LoginRequest
 import com.fiuba.ubademy.utils.SharedPreferencesData
-import com.fiuba.ubademy.utils.setSharedPreferencesData
 import com.fiuba.ubademy.utils.api
+import com.fiuba.ubademy.utils.getPlaceById
+import com.fiuba.ubademy.utils.setSharedPreferencesData
+import com.google.android.libraries.places.api.model.Place
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
@@ -30,13 +33,19 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 )
                 if (response.isSuccessful) {
                     loginStatus = LoginStatus.SUCCESS
+
+                    var place: Place?
+                    withContext(Dispatchers.IO) {
+                        place = getPlaceById("ChIJgTwKgJcpQg0RaSKMYcHeNsQ")
+                    }
+
                     setSharedPreferencesData(SharedPreferencesData(
                         id = response.body()!!.user.id,
                         firstName = response.body()!!.user.firstName,
                         lastName = response.body()!!.user.lastName,
                         email = response.body()!!.user.email,
-                        placeId = "",
-                        placeName = "",
+                        placeId = place?.id ?: "",
+                        placeName = place?.address ?: "",
                         token = response.body()!!.token
                     ))
                 } else {
