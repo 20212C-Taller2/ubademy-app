@@ -10,7 +10,7 @@ import retrofit2.http.Path
 interface UbademyApiService {
     @POST("register")
     suspend fun createAccount(@Body createAccountRequest: CreateAccountRequest)
-        : Response<CreateAccountResponse>
+        : Response<Void>
 
     @POST("login")
     suspend fun login(@Body loginRequest: LoginRequest)
