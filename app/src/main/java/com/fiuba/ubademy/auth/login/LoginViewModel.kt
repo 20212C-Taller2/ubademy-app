@@ -3,13 +3,13 @@ package com.fiuba.ubademy.auth.login
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.fiuba.ubademy.network.UbademyApiService
 import com.fiuba.ubademy.network.model.LoginRequest
 import com.fiuba.ubademy.utils.SharedPreferencesData
-import com.fiuba.ubademy.utils.addSharedPreferencesData
+import com.fiuba.ubademy.utils.api
+import com.fiuba.ubademy.utils.getPlaceById
+import com.fiuba.ubademy.utils.setSharedPreferencesData
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
@@ -20,9 +20,9 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     suspend fun login() : LoginStatus {
         var loginStatus = LoginStatus.FAIL
 
-        val job = viewModelScope.launch(Dispatchers.IO) {
+        withContext(Dispatchers.IO) {
             try {
-                val response = UbademyApiService.UbademyApi.retrofitService.login(
+                val response = api().login(
                     LoginRequest(
                         email = email.value.toString(),
                         password = password.value.toString()
@@ -30,11 +30,14 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 )
                 if (response.isSuccessful) {
                     loginStatus = LoginStatus.SUCCESS
-                    addSharedPreferencesData(SharedPreferencesData(
+                    val place = getPlaceById(response.body()!!.user.placeId)
+                    setSharedPreferencesData(SharedPreferencesData(
                         id = response.body()!!.user.id,
                         firstName = response.body()!!.user.firstName,
                         lastName = response.body()!!.user.lastName,
                         email = response.body()!!.user.email,
+                        placeId = response.body()!!.user.placeId,
+                        placeName = place?.address ?: "-",
                         token = response.body()!!.token
                     ))
                 } else {
@@ -44,7 +47,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 Timber.e(e)
             }
         }
-        job.join()
 
         return loginStatus
     }

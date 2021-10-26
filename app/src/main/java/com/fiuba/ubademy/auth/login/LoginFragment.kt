@@ -64,12 +64,12 @@ class LoginFragment : Fragment() {
 
     private fun setupValidators() {
         emailEditTextLayout = binding.root.findViewById(R.id.emailLoginLayout)
-        binding.loginViewModel!!.email.observe(viewLifecycleOwner, { newValue ->
+        viewModel.email.observe(viewLifecycleOwner, { newValue ->
             emailValid = checkEmail(newValue)
         })
 
         passwordEditTextLayout = binding.root.findViewById(R.id.passwordLoginLayout)
-        binding.loginViewModel!!.password.observe(viewLifecycleOwner, { newValue ->
+        viewModel.password.observe(viewLifecycleOwner, { newValue ->
             passwordValid = checkPassword(newValue)
         })
     }
@@ -89,8 +89,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun checkForm() : Boolean {
-        val emailOk = emailValid || checkEmail(binding.loginViewModel!!.email.value)
-        val passwordOk = passwordValid || checkPassword(binding.loginViewModel!!.password.value)
+        val emailOk = emailValid || checkEmail(viewModel.email.value)
+        val passwordOk = passwordValid || checkPassword(viewModel.password.value)
         return emailOk && passwordOk
     }
 
@@ -101,14 +101,13 @@ class LoginFragment : Fragment() {
             return
 
         val busy = BusyFragment.show(this.parentFragmentManager)
-        val loginStatus : LoginStatus = binding.loginViewModel!!.login()
+        val loginStatus : LoginStatus = viewModel.login()
         busy.dismiss()
 
         when (loginStatus) {
             LoginStatus.SUCCESS -> {
                 val mainIntent = Intent(this.context, MainActivity::class.java)
                 startActivity(mainIntent)
-                //activity?.finish()
             }
             LoginStatus.INVALID_CREDENTIALS -> Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_LONG).show()
             LoginStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
