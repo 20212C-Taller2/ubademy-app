@@ -3,29 +3,31 @@ package com.fiuba.ubademy.auth.createaccount
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.fiuba.ubademy.network.UbademyApiService
 import com.fiuba.ubademy.network.model.CreateAccountRequest
+import com.fiuba.ubademy.utils.api
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class CreateAccountViewModel(application: Application) : AndroidViewModel(application) {
 
     var firstName = MutableLiveData<String>()
     var lastName = MutableLiveData<String>()
+    var placeId = MutableLiveData<String>()
+    var placeName = MutableLiveData<String>()
     var email = MutableLiveData<String>()
     var password = MutableLiveData<String>()
 
     suspend fun createAccount() : CreateAccountStatus {
         var createAccountStatus = CreateAccountStatus.FAIL
 
-        val job = viewModelScope.launch(Dispatchers.IO) {
+        withContext(Dispatchers.IO) {
             try {
-                val response = UbademyApiService.UbademyApi.retrofitService.createAccount(
+                val response = api().createAccount(
                     CreateAccountRequest(
                         firstName = firstName.value.toString(),
                         lastName = lastName.value.toString(),
+                        placeId = placeId.value.toString(),
                         email = email.value.toString(),
                         password = password.value.toString()
                     )
@@ -39,7 +41,6 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
                 Timber.e(e)
             }
         }
-        job.join()
 
         return createAccountStatus
     }
