@@ -17,7 +17,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentEditProfileBinding
 import com.fiuba.ubademy.utils.BusyFragment
@@ -81,9 +80,13 @@ class EditProfileFragment : Fragment() {
             false
         )
 
+        binding.editProfileButton.setOnClickListener { view ->
+            editProfile(view)
+        }
+
         binding.submitEditProfileFormButton.setOnClickListener { view ->
             lifecycleScope.launch {
-                editProfile(view)
+                saveEditProfile(view)
             }
         }
 
@@ -104,8 +107,36 @@ class EditProfileFragment : Fragment() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(view.context)
 
+        if (viewModel.editInProgress.value!!)
+            enableForm()
+        else
+            disableForm()
+    }
+
+    private fun editProfile(view: View) {
+        enableForm()
         if (ActivityCompat.checkSelfPermission(view.context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
             locationPermissionsActivityResultLauncher.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
+    }
+
+    private fun enableForm() {
+        viewModel.editInProgress.value = true
+        binding.editProfileButton.visibility = View.GONE
+        binding.submitEditProfileFormButton.visibility = View.VISIBLE
+        firstNameEditTextLayout.isEnabled = true
+        lastNameEditTextLayout.isEnabled = true
+        placeEditTextLayout.isEnabled = true
+        emailEditTextLayout.isEnabled = true
+    }
+
+    private fun disableForm() {
+        viewModel.editInProgress.value = false
+        binding.editProfileButton.visibility = View.VISIBLE
+        binding.submitEditProfileFormButton.visibility = View.GONE
+        firstNameEditTextLayout.isEnabled = false
+        lastNameEditTextLayout.isEnabled = false
+        placeEditTextLayout.isEnabled = false
+        emailEditTextLayout.isEnabled = false
     }
 
     private fun setupValidators() {
@@ -169,7 +200,7 @@ class EditProfileFragment : Fragment() {
         return firstNameOk && lastNameOk && placeOk && emailOk
     }
 
-    private suspend fun editProfile(view: View) {
+    private suspend fun saveEditProfile(view: View) {
         view.hideKeyboard()
 
         if (!checkForm())
@@ -182,7 +213,7 @@ class EditProfileFragment : Fragment() {
         when (editProfileStatus) {
             EditProfileStatus.SUCCESS -> {
                 Toast.makeText(context, R.string.changes_have_been_saved, Toast.LENGTH_LONG).show()
-                view.findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToHomeFragment())
+                disableForm()
             }
             EditProfileStatus.EMAIL_ALREADY_USED -> Toast.makeText(context, R.string.email_already_used, Toast.LENGTH_LONG).show()
             EditProfileStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()

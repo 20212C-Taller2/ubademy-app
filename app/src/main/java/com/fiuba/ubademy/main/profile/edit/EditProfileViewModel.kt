@@ -11,6 +11,8 @@ import timber.log.Timber
 
 class EditProfileViewModel(application: Application) : AndroidViewModel(application) {
 
+    var editInProgress = MutableLiveData<Boolean>()
+
     var firstName = MutableLiveData<String>()
     var lastName = MutableLiveData<String>()
     var placeId = MutableLiveData<String>()
@@ -20,6 +22,8 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
     private val userId : String
 
     init {
+        editInProgress.value = false
+
         val sharedPreferencesData = getSharedPreferencesData()
         firstName.value = sharedPreferencesData.firstName
         lastName.value = sharedPreferencesData.lastName
