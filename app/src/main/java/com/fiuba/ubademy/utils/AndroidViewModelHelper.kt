@@ -43,7 +43,11 @@ fun AndroidViewModel.setSharedPreferencesData(sharedPreferencesData: SharedPrefe
 }
 
 fun AndroidViewModel.getSharedPreferencesData() : SharedPreferencesData {
-    val sharedPreferences = getApplication<UbademyApplication>().getSharedPreferences(name, Context.MODE_PRIVATE)
+    return getApplication<UbademyApplication>().applicationContext.getSharedPreferencesData()
+}
+
+fun Context.getSharedPreferencesData() : SharedPreferencesData {
+    val sharedPreferences = getSharedPreferences(name, Context.MODE_PRIVATE)
     return SharedPreferencesData(
         id = sharedPreferences.getString(pref_id_key, "")!!,
         firstName = sharedPreferences.getString(pref_first_name_key, "")!!,

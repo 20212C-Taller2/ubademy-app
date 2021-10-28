@@ -4,10 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.LoginRequest
-import com.fiuba.ubademy.utils.SharedPreferencesData
-import com.fiuba.ubademy.utils.api
-import com.fiuba.ubademy.utils.getPlaceById
-import com.fiuba.ubademy.utils.setSharedPreferencesData
+import com.fiuba.ubademy.utils.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
