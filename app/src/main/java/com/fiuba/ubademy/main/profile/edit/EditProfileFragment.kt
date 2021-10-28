@@ -32,18 +32,12 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
 
 class EditProfileFragment : Fragment() {
 
     private lateinit var viewModel: EditProfileViewModel
     private lateinit var binding: FragmentEditProfileBinding
-
-    private lateinit var firstNameEditTextLayout: TextInputLayout
-    private lateinit var lastNameEditTextLayout: TextInputLayout
-    private lateinit var placeEditTextLayout: TextInputLayout
-    private lateinit var emailEditTextLayout: TextInputLayout
 
     private var firstNameValid = false
     private var lastNameValid = false
@@ -123,39 +117,35 @@ class EditProfileFragment : Fragment() {
         viewModel.editInProgress.value = true
         binding.editProfileButton.visibility = View.GONE
         binding.submitEditProfileFormButton.visibility = View.VISIBLE
-        firstNameEditTextLayout.isEnabled = true
-        lastNameEditTextLayout.isEnabled = true
-        placeEditTextLayout.isEnabled = true
-        emailEditTextLayout.isEnabled = true
+        binding.firstNameEditProfileLayout.isEnabled = true
+        binding.lastNameEditProfileLayout.isEnabled = true
+        binding.placeEditProfileLayout.isEnabled = true
+        binding.emailEditProfileLayout.isEnabled = true
     }
 
     private fun disableForm() {
         viewModel.editInProgress.value = false
         binding.editProfileButton.visibility = View.VISIBLE
         binding.submitEditProfileFormButton.visibility = View.GONE
-        firstNameEditTextLayout.isEnabled = false
-        lastNameEditTextLayout.isEnabled = false
-        placeEditTextLayout.isEnabled = false
-        emailEditTextLayout.isEnabled = false
+        binding.firstNameEditProfileLayout.isEnabled = false
+        binding.lastNameEditProfileLayout.isEnabled = false
+        binding.placeEditProfileLayout.isEnabled = false
+        binding.emailEditProfileLayout.isEnabled = false
     }
 
     private fun setupValidators() {
-        firstNameEditTextLayout = binding.root.findViewById(R.id.firstNameEditProfileLayout)
         viewModel.firstName.observe(viewLifecycleOwner, { newValue ->
             firstNameValid = checkFirstName(newValue)
         })
 
-        lastNameEditTextLayout = binding.root.findViewById(R.id.lastNameEditProfileLayout)
         viewModel.lastName.observe(viewLifecycleOwner, { newValue ->
             lastNameValid = checkLastName(newValue)
         })
 
-        placeEditTextLayout = binding.root.findViewById(R.id.placeEditProfileLayout)
         viewModel.placeName.observe(viewLifecycleOwner, { newValue ->
             placeValid = checkPlace(newValue)
         })
 
-        emailEditTextLayout = binding.root.findViewById(R.id.emailEditProfileLayout)
         viewModel.email.observe(viewLifecycleOwner, { newValue ->
             emailValid = checkEmail(newValue)
         })
@@ -163,33 +153,33 @@ class EditProfileFragment : Fragment() {
 
     private fun checkFirstName(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
-            return firstNameEditTextLayout.showError(getString(R.string.should_have_value))
+            return binding.firstNameEditProfileLayout.showError(getString(R.string.should_have_value))
 
-        return firstNameEditTextLayout.hideError()
+        return binding.firstNameEditProfileLayout.hideError()
     }
 
     private fun checkLastName(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
-            return lastNameEditTextLayout.showError(getString(R.string.should_have_value))
+            return binding.lastNameEditProfileLayout.showError(getString(R.string.should_have_value))
 
-        return lastNameEditTextLayout.hideError()
+        return binding.lastNameEditProfileLayout.hideError()
     }
 
     private fun checkPlace(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
-            return placeEditTextLayout.showError(getString(R.string.should_have_value))
+            return binding.placeEditProfileLayout.showError(getString(R.string.should_have_value))
 
-        return placeEditTextLayout.hideError()
+        return binding.placeEditProfileLayout.hideError()
     }
 
     private fun checkEmail(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
-            return emailEditTextLayout.showError(getString(R.string.should_have_value))
+            return binding.emailEditProfileLayout.showError(getString(R.string.should_have_value))
 
         if (!Patterns.EMAIL_ADDRESS.matcher(newValue).matches())
-            return emailEditTextLayout.showError(getString(R.string.should_be_valid_email))
+            return binding.emailEditProfileLayout.showError(getString(R.string.should_be_valid_email))
 
-        return emailEditTextLayout.hideError()
+        return binding.emailEditProfileLayout.hideError()
     }
 
     private fun checkForm() : Boolean {

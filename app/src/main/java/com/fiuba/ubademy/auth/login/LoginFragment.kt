@@ -18,16 +18,12 @@ import com.fiuba.ubademy.utils.BusyFragment
 import com.fiuba.ubademy.utils.hideError
 import com.fiuba.ubademy.utils.hideKeyboard
 import com.fiuba.ubademy.utils.showError
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
 
     private lateinit var viewModel: LoginViewModel
     private lateinit var binding: FragmentLoginBinding
-
-    private lateinit var emailEditTextLayout: TextInputLayout
-    private lateinit var passwordEditTextLayout: TextInputLayout
 
     private var emailValid = false
     private var passwordValid = false
@@ -63,12 +59,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupValidators() {
-        emailEditTextLayout = binding.root.findViewById(R.id.emailLoginLayout)
         viewModel.email.observe(viewLifecycleOwner, { newValue ->
             emailValid = checkEmail(newValue)
         })
 
-        passwordEditTextLayout = binding.root.findViewById(R.id.passwordLoginLayout)
         viewModel.password.observe(viewLifecycleOwner, { newValue ->
             passwordValid = checkPassword(newValue)
         })
@@ -76,16 +70,16 @@ class LoginFragment : Fragment() {
 
     private fun checkEmail(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
-            return emailEditTextLayout.showError(getString(R.string.should_have_value))
+            return binding.emailLoginLayout.showError(getString(R.string.should_have_value))
 
-        return emailEditTextLayout.hideError()
+        return binding.emailLoginLayout.hideError()
     }
 
     private fun checkPassword(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
-            return passwordEditTextLayout.showError(getString(R.string.should_have_value))
+            return binding.passwordLoginLayout.showError(getString(R.string.should_have_value))
 
-        return passwordEditTextLayout.hideError()
+        return binding.passwordLoginLayout.hideError()
     }
 
     private fun checkForm() : Boolean {

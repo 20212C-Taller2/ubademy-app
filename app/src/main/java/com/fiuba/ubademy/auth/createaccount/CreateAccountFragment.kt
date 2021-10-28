@@ -33,19 +33,12 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
 
 class CreateAccountFragment : Fragment() {
 
     private lateinit var viewModel: CreateAccountViewModel
     private lateinit var binding: FragmentCreateAccountBinding
-
-    private lateinit var firstNameEditTextLayout: TextInputLayout
-    private lateinit var lastNameEditTextLayout: TextInputLayout
-    private lateinit var placeEditTextLayout: TextInputLayout
-    private lateinit var emailEditTextLayout: TextInputLayout
-    private lateinit var passwordEditTextLayout: TextInputLayout
 
     private var firstNameValid = false
     private var lastNameValid = false
@@ -111,27 +104,22 @@ class CreateAccountFragment : Fragment() {
     }
 
     private fun setupValidators() {
-        firstNameEditTextLayout = binding.root.findViewById(R.id.firstNameCreateAccountLayout)
         viewModel.firstName.observe(viewLifecycleOwner, { newValue ->
             firstNameValid = checkFirstName(newValue)
         })
 
-        lastNameEditTextLayout = binding.root.findViewById(R.id.lastNameCreateAccountLayout)
         viewModel.lastName.observe(viewLifecycleOwner, { newValue ->
             lastNameValid = checkLastName(newValue)
         })
 
-        placeEditTextLayout = binding.root.findViewById(R.id.placeCreateAccountLayout)
         viewModel.placeName.observe(viewLifecycleOwner, { newValue ->
             placeValid = checkPlace(newValue)
         })
 
-        emailEditTextLayout = binding.root.findViewById(R.id.emailCreateAccountLayout)
         viewModel.email.observe(viewLifecycleOwner, { newValue ->
             emailValid = checkEmail(newValue)
         })
 
-        passwordEditTextLayout = binding.root.findViewById(R.id.passwordCreateAccountLayout)
         viewModel.password.observe(viewLifecycleOwner, { newValue ->
             passwordValid = checkPassword(newValue)
         })
@@ -139,45 +127,45 @@ class CreateAccountFragment : Fragment() {
 
     private fun checkFirstName(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
-            return firstNameEditTextLayout.showError(getString(R.string.should_have_value))
+            return binding.firstNameCreateAccountLayout.showError(getString(R.string.should_have_value))
 
-        return firstNameEditTextLayout.hideError()
+        return binding.firstNameCreateAccountLayout.hideError()
     }
 
     private fun checkLastName(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
-            return lastNameEditTextLayout.showError(getString(R.string.should_have_value))
+            return binding.lastNameCreateAccountLayout.showError(getString(R.string.should_have_value))
 
-        return lastNameEditTextLayout.hideError()
+        return binding.lastNameCreateAccountLayout.hideError()
     }
 
     private fun checkPlace(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
-            return placeEditTextLayout.showError(getString(R.string.should_have_value))
+            return binding.placeCreateAccountLayout.showError(getString(R.string.should_have_value))
 
-        return placeEditTextLayout.hideError()
+        return binding.placeCreateAccountLayout.hideError()
     }
 
     private fun checkEmail(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
-            return emailEditTextLayout.showError(getString(R.string.should_have_value))
+            return binding.emailCreateAccountLayout.showError(getString(R.string.should_have_value))
 
         if (!Patterns.EMAIL_ADDRESS.matcher(newValue).matches())
-            return emailEditTextLayout.showError(getString(R.string.should_be_valid_email))
+            return binding.emailCreateAccountLayout.showError(getString(R.string.should_be_valid_email))
 
-        return emailEditTextLayout.hideError()
+        return binding.emailCreateAccountLayout.hideError()
     }
 
     private fun checkPassword(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
-            return passwordEditTextLayout.showError(getString(R.string.should_have_value))
+            return binding.passwordCreateAccountLayout.showError(getString(R.string.should_have_value))
 
         val passwordMinimumLength = 6
         if (newValue.length < passwordMinimumLength) {
-            return passwordEditTextLayout.showError(getString(R.string.should_be_valid_password, passwordMinimumLength))
+            return binding.passwordCreateAccountLayout.showError(getString(R.string.should_be_valid_password, passwordMinimumLength))
         }
 
-        return passwordEditTextLayout.hideError()
+        return binding.passwordCreateAccountLayout.hideError()
     }
 
     private fun checkForm() : Boolean {
