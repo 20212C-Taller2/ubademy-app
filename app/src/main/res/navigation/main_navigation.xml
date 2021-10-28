@@ -19,11 +19,5 @@
         android:id="@+id/editProfileFragment"
         android:name="com.fiuba.ubademy.main.profile.edit.EditProfileFragment"
         android:label="@string/edit_profile"
-        tools:layout="@layout/fragment_edit_profile" >
-        <action
-            android:id="@+id/action_editProfileFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>
