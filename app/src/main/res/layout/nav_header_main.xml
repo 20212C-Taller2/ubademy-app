@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <data>
+        <variable
+            name="mainDrawerViewModel"
+            type="com.fiuba.ubademy.main.MainDrawerListener.MainDrawerViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_m">
+
+        <TextView
+            android:id="@+id/nameDrawerLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/name_format(mainDrawerViewModel.firstName, mainDrawerViewModel.lastName)}"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="FirstName LastName" />
+
+        <TextView
+            android:id="@+id/emailDrawerLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{mainDrawerViewModel.email}"
+            android:textAlignment="textStart"
+            tools:text="email@gmail.com" />
+
+        <TextView
+            android:id="@+id/placeDrawerLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_s"
+            android:text="@{mainDrawerViewModel.placeName}"
+            android:textAlignment="textStart"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            tools:text="City, Country" />
+    </LinearLayout>
+</layout>
