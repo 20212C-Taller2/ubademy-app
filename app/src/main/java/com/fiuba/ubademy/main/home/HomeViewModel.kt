@@ -12,6 +12,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var placeName = MutableLiveData<String>()
 
     init {
+        refreshFromSharedPreferences()
+    }
+
+    fun refreshFromSharedPreferences() {
         val sharedPreferencesData = getSharedPreferencesData()
         firstName.value = sharedPreferencesData.firstName
         lastName.value = sharedPreferencesData.lastName
