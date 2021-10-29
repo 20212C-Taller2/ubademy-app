@@ -26,6 +26,4 @@
     <string name="should_have_value">Este campo es obligatorio</string>
     <string name="should_be_valid_email">Debe ser un email válido</string>
     <string name="should_be_valid_password">La contraseña debe tener por lo menos %1$d caracteres</string>
-
-    <string name="google_api_key">AIzaSyBp1S-H4zaRdUlNEyjNK9_hQCsrTkeNi98</string>
 </resources>
