@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_l"
-                android:backgroundTint="@color/ubademy_1_teal_dark"
+                android:backgroundTint="?attr/colorSecondary"
                 android:text="@string/create_account" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
