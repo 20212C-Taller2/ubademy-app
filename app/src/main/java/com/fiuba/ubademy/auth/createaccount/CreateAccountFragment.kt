@@ -183,9 +183,9 @@ class CreateAccountFragment : Fragment() {
         if (!checkForm())
             return
 
-        val busy = BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(this.parentFragmentManager)
         val createAccountStatus : CreateAccountStatus = viewModel.createAccount()
-        busy.dismiss()
+        BusyFragment.hide()
 
         when (createAccountStatus) {
             CreateAccountStatus.SUCCESS -> {

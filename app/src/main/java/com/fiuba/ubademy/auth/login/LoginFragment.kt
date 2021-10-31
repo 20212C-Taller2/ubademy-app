@@ -94,9 +94,9 @@ class LoginFragment : Fragment() {
         if (!checkForm())
             return
 
-        val busy = BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(this.parentFragmentManager)
         val loginStatus : LoginStatus = viewModel.login()
-        busy.dismiss()
+        BusyFragment.hide()
 
         when (loginStatus) {
             LoginStatus.SUCCESS -> {

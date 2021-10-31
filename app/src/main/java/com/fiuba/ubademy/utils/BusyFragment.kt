@@ -13,13 +13,16 @@ import com.fiuba.ubademy.R
 class BusyFragment: DialogFragment() {
     companion object {
         private const val FRAGMENT_TAG = "Busy"
+        private val dialog = BusyFragment()
 
-        fun show(supportFragmentManager: FragmentManager) : BusyFragment {
-            val dialog = BusyFragment()
+        fun show(supportFragmentManager: FragmentManager) {
             // prevent dismiss by user click
             dialog.isCancelable = false
             dialog.show(supportFragmentManager, FRAGMENT_TAG)
-            return dialog
+        }
+
+        fun hide() {
+            dialog.dismiss()
         }
     }
 

@@ -196,9 +196,9 @@ class EditProfileFragment : Fragment() {
         if (!checkForm())
             return
 
-        val busy = BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(this.parentFragmentManager)
         val editProfileStatus : EditProfileStatus = viewModel.editProfile()
-        busy.dismiss()
+        BusyFragment.hide()
 
         when (editProfileStatus) {
             EditProfileStatus.SUCCESS -> {
