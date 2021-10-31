@@ -26,4 +26,7 @@
     <string name="should_have_value">Este campo es obligatorio</string>
     <string name="should_be_valid_email">Debe ser un email válido</string>
     <string name="should_be_valid_password">La contraseña debe tener por lo menos %1$d caracteres</string>
+
+    <string name="ubademy_api_key">AIzaSyBp1S-H4zaRdUlNEyjNK9_hQCsrTkeNi98</string>
+    <string name="web_client_id">775464829223-gojcd45nncphn7p8tut58i5i9tntrm06.apps.googleusercontent.com</string>
 </resources>

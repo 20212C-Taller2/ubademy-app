@@ -74,18 +74,18 @@ class EditProfileFragment : Fragment() {
             false
         )
 
-        binding.editProfileButton.setOnClickListener { view ->
-            editProfile(view)
+        binding.editProfileButton.setOnClickListener {
+            editProfile(it)
         }
 
-        binding.submitEditProfileFormButton.setOnClickListener { view ->
+        binding.submitEditProfileFormButton.setOnClickListener {
             lifecycleScope.launch {
-                saveEditProfile(view)
+                saveEditProfile(it)
             }
         }
 
-        binding.placeEditProfileInput.setOnClickListener { view ->
-            getPlace(view)
+        binding.placeEditProfileInput.setOnClickListener {
+            getPlace(it)
         }
 
         binding.editProfileViewModel = viewModel
@@ -134,20 +134,20 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun setupValidators() {
-        viewModel.firstName.observe(viewLifecycleOwner, { newValue ->
-            firstNameValid = checkFirstName(newValue)
+        viewModel.firstName.observe(viewLifecycleOwner, {
+            firstNameValid = checkFirstName(it)
         })
 
-        viewModel.lastName.observe(viewLifecycleOwner, { newValue ->
-            lastNameValid = checkLastName(newValue)
+        viewModel.lastName.observe(viewLifecycleOwner, {
+            lastNameValid = checkLastName(it)
         })
 
-        viewModel.placeName.observe(viewLifecycleOwner, { newValue ->
-            placeValid = checkPlace(newValue)
+        viewModel.placeName.observe(viewLifecycleOwner, {
+            placeValid = checkPlace(it)
         })
 
-        viewModel.email.observe(viewLifecycleOwner, { newValue ->
-            emailValid = checkEmail(newValue)
+        viewModel.email.observe(viewLifecycleOwner, {
+            emailValid = checkEmail(it)
         })
     }
 
@@ -214,11 +214,11 @@ class EditProfileFragment : Fragment() {
         val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS)
 
         if (ActivityCompat.checkSelfPermission(view.context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-            fusedLocationClient.lastLocation.addOnSuccessListener { location : Location? ->
-                if (location != null) {
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                if (it != null) {
                     val bounds = RectangularBounds.newInstance(
-                        LatLng(location.latitude - 1, location.longitude - 1),
-                        LatLng(location.latitude + 1, location.latitude + 1)
+                        LatLng(it.latitude - 1, it.longitude - 1),
+                        LatLng(it.latitude + 1, it.latitude + 1)
                     )
                     val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
                         .setTypeFilter(TypeFilter.CITIES)

@@ -24,8 +24,8 @@ class AccountCreatedFragment : Fragment() {
             false
         )
 
-        binding.returnToLoginButton.setOnClickListener { view ->
-            returnToLogin(view)
+        binding.returnToLoginButton.setOnClickListener {
+            returnToLogin(it)
         }
 
         binding.lifecycleOwner = viewLifecycleOwner

@@ -76,14 +76,14 @@ class CreateAccountFragment : Fragment() {
             false
         )
 
-        binding.submitCreateAccountFormButton.setOnClickListener { view ->
+        binding.submitCreateAccountFormButton.setOnClickListener {
             lifecycleScope.launch {
-                createAccount(view)
+                createAccount(it)
             }
         }
 
-        binding.placeCreateAccountInput.setOnClickListener { view ->
-            getPlace(view)
+        binding.placeCreateAccountInput.setOnClickListener {
+            getPlace(it)
         }
 
         binding.createAccountViewModel = viewModel
@@ -104,24 +104,24 @@ class CreateAccountFragment : Fragment() {
     }
 
     private fun setupValidators() {
-        viewModel.firstName.observe(viewLifecycleOwner, { newValue ->
-            firstNameValid = checkFirstName(newValue)
+        viewModel.firstName.observe(viewLifecycleOwner, {
+            firstNameValid = checkFirstName(it)
         })
 
-        viewModel.lastName.observe(viewLifecycleOwner, { newValue ->
-            lastNameValid = checkLastName(newValue)
+        viewModel.lastName.observe(viewLifecycleOwner, {
+            lastNameValid = checkLastName(it)
         })
 
-        viewModel.placeName.observe(viewLifecycleOwner, { newValue ->
-            placeValid = checkPlace(newValue)
+        viewModel.placeName.observe(viewLifecycleOwner, {
+            placeValid = checkPlace(it)
         })
 
-        viewModel.email.observe(viewLifecycleOwner, { newValue ->
-            emailValid = checkEmail(newValue)
+        viewModel.email.observe(viewLifecycleOwner, {
+            emailValid = checkEmail(it)
         })
 
-        viewModel.password.observe(viewLifecycleOwner, { newValue ->
-            passwordValid = checkPassword(newValue)
+        viewModel.password.observe(viewLifecycleOwner, {
+            passwordValid = checkPassword(it)
         })
     }
 
@@ -200,11 +200,11 @@ class CreateAccountFragment : Fragment() {
         val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS)
 
         if (ActivityCompat.checkSelfPermission(view.context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-            fusedLocationClient.lastLocation.addOnSuccessListener { location : Location? ->
-                if (location != null) {
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                if (it != null) {
                     val bounds = RectangularBounds.newInstance(
-                        LatLng(location.latitude - 1, location.longitude - 1),
-                        LatLng(location.latitude + 1, location.latitude + 1)
+                        LatLng(it.latitude - 1, it.longitude - 1),
+                        LatLng(it.latitude + 1, it.latitude + 1)
                     )
                     val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
                         .setTypeFilter(TypeFilter.CITIES)

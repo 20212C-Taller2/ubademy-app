@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -18,15 +19,37 @@ import com.fiuba.ubademy.utils.BusyFragment
 import com.fiuba.ubademy.utils.hideError
 import com.fiuba.ubademy.utils.hideKeyboard
 import com.fiuba.ubademy.utils.showError
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import kotlinx.coroutines.launch
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import timber.log.Timber
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class LoginFragment : Fragment() {
 
     private lateinit var viewModel: LoginViewModel
     private lateinit var binding: FragmentLoginBinding
 
+    private lateinit var googleSignInClient : GoogleSignInClient
+
     private var emailValid = false
     private var passwordValid = false
+
+    private var signInWithGoogleActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        // the task returned from this call is always completed
+        val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+        try {
+            val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
+            firebaseAuthWithGoogle(account.idToken!!)
+        } catch (e: ApiException) {
+            Timber.e(e)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -40,20 +63,35 @@ class LoginFragment : Fragment() {
             false
         )
 
-        binding.loginButton.setOnClickListener { view ->
+        binding.loginButton.setOnClickListener {
             lifecycleScope.launch {
-                login(view)
+                login(it)
             }
         }
 
-        binding.createAccountButton.setOnClickListener { view ->
-            view.findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCreateAccountFragment())
+        binding.createAccountButton.setOnClickListener {
+            it.findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCreateAccountFragment())
+        }
+
+        binding.googleSignInButton.setOnClickListener {
+            signInWithGoogle(it)
         }
 
         binding.loginViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         setupValidators()
+
+        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
+
+        // TODO: remove this
+        googleSignInClient.signOut()
+        Firebase.auth.signOut()
 
         return binding.root
     }
@@ -100,11 +138,39 @@ class LoginFragment : Fragment() {
 
         when (loginStatus) {
             LoginStatus.SUCCESS -> {
-                val mainIntent = Intent(this.context, MainActivity::class.java)
-                startActivity(mainIntent)
+                goToMain()
             }
             LoginStatus.INVALID_CREDENTIALS -> Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_LONG).show()
             LoginStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun signInWithGoogle(view: View) {
+        view.hideKeyboard()
+        signInWithGoogleActivityResultLauncher.launch(googleSignInClient.signInIntent)
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        BusyFragment.show(this.parentFragmentManager)
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        Firebase.auth.signInWithCredential(credential)
+            .addOnCompleteListener(requireActivity()) {
+                if (it.isSuccessful) {
+                    val user = Firebase.auth.currentUser
+                    // TODO: request to back-end
+                    // TODO: update shared preferences
+                    BusyFragment.hide()
+                    goToMain()
+                } else {
+                    // if sign in fails, display a message to the user.
+                    Timber.e(it.exception)
+                    BusyFragment.hide()
+                }
+            }
+    }
+
+    private fun goToMain() {
+        val mainIntent = Intent(this.context, MainActivity::class.java)
+        startActivity(mainIntent)
     }
 }
