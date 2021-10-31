@@ -3,30 +3,30 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-  <group android:scaleX="1.62"
-      android:scaleY="1.62"
-      android:translateX="21.6"
-      android:translateY="21.6">
-    <path
-        android:pathData="m19.9989,4.9995 l-12.9901,7.5004 2.5968,4.499 18.1868,10.5003h5.1967v-14.9993z"
-        android:strokeLineJoin="round"
-        android:strokeWidth="4.50007105"
-        android:fillColor="#c3e1f0"
-        android:strokeColor="#00000000"
-        android:strokeLineCap="round"/>
-    <path
-        android:pathData="M7.0083,12.4996L7.0083,27.5004L12.205,27.5004L17.4017,24.5005 20,20Z"
-        android:strokeLineJoin="round"
-        android:strokeWidth="4.50007105"
-        android:fillColor="#82c3e6"
-        android:strokeColor="#00000000"
-        android:strokeLineCap="round"/>
-    <path
-        android:pathData="m7.0083,27.4998 l12.9906,-7.5001 12.9906,7.5001 -12.9906,7.5001z"
-        android:strokeLineJoin="miter"
-        android:strokeWidth="0.79376245"
-        android:fillColor="#199bd2"
-        android:strokeColor="#00000000"
-        android:strokeLineCap="butt"/>
-  </group>
+    <group android:scaleX="1.62"
+        android:scaleY="1.62"
+        android:translateX="21.6"
+        android:translateY="21.6">
+        <path
+            android:pathData="m19.9989,4.9995 l-12.9901,7.5004 2.5968,4.499 18.1868,10.5003h5.1967v-14.9993z"
+            android:strokeLineJoin="round"
+            android:strokeWidth="4.50007105"
+            android:fillColor="#c3e1f0"
+            android:strokeColor="#00000000"
+            android:strokeLineCap="round"/>
+        <path
+            android:pathData="M7.0083,12.4996L7.0083,27.5004L12.205,27.5004L17.4017,24.5005 20,20Z"
+            android:strokeLineJoin="round"
+            android:strokeWidth="4.50007105"
+            android:fillColor="#82c3e6"
+            android:strokeColor="#00000000"
+            android:strokeLineCap="round"/>
+        <path
+            android:pathData="m7.0083,27.4998 l12.9906,-7.5001 12.9906,7.5001 -12.9906,7.5001z"
+            android:strokeLineJoin="miter"
+            android:strokeWidth="0.79376245"
+            android:fillColor="#199bd2"
+            android:strokeColor="#00000000"
+            android:strokeLineCap="butt"/>
+    </group>
 </vector>
