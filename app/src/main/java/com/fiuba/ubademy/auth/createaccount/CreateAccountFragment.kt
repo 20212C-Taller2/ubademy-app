@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -42,7 +41,6 @@ class CreateAccountFragment : Fragment() {
 
     private var firstNameValid = false
     private var lastNameValid = false
-    private var placeValid = false
     private var emailValid = false
     private var passwordValid = false
 
@@ -112,10 +110,6 @@ class CreateAccountFragment : Fragment() {
             lastNameValid = checkLastName(it)
         })
 
-        viewModel.placeName.observe(viewLifecycleOwner, {
-            placeValid = checkPlace(it)
-        })
-
         viewModel.email.observe(viewLifecycleOwner, {
             emailValid = checkEmail(it)
         })
@@ -137,13 +131,6 @@ class CreateAccountFragment : Fragment() {
             return binding.lastNameCreateAccountLayout.showError(getString(R.string.should_have_value))
 
         return binding.lastNameCreateAccountLayout.hideError()
-    }
-
-    private fun checkPlace(newValue : String?) : Boolean {
-        if (newValue.isNullOrBlank())
-            return binding.placeCreateAccountLayout.showError(getString(R.string.should_have_value))
-
-        return binding.placeCreateAccountLayout.hideError()
     }
 
     private fun checkEmail(newValue : String?) : Boolean {
@@ -171,10 +158,9 @@ class CreateAccountFragment : Fragment() {
     private fun checkForm() : Boolean {
         val firstNameOk = firstNameValid || checkFirstName(viewModel.firstName.value)
         val lastNameOk = lastNameValid || checkLastName(viewModel.lastName.value)
-        val placeOk = placeValid || checkPlace(viewModel.placeName.value)
         val emailOk = emailValid || checkEmail(viewModel.email.value)
         val passwordOk = passwordValid || checkPassword(viewModel.password.value)
-        return firstNameOk && lastNameOk && placeOk && emailOk && passwordOk
+        return firstNameOk && lastNameOk && emailOk && passwordOk
     }
 
     private suspend fun createAccount(view: View) {

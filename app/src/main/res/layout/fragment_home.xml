@@ -21,13 +21,6 @@
             android:text="@{@string/greetings_format(homeViewModel.firstName, homeViewModel.lastName)}"
             android:textAlignment="center" />
 
-        <TextView
-            android:id="@+id/userPlaceLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@={homeViewModel.placeName}"
-            android:textAlignment="center" />
-
     </LinearLayout>
 
 </layout>

@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.pm.PackageManager
-import android.location.Location
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Patterns
@@ -41,7 +40,6 @@ class EditProfileFragment : Fragment() {
 
     private var firstNameValid = false
     private var lastNameValid = false
-    private var placeValid = false
     private var emailValid = false
 
     private var getPlaceActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -142,10 +140,6 @@ class EditProfileFragment : Fragment() {
             lastNameValid = checkLastName(it)
         })
 
-        viewModel.placeName.observe(viewLifecycleOwner, {
-            placeValid = checkPlace(it)
-        })
-
         viewModel.email.observe(viewLifecycleOwner, {
             emailValid = checkEmail(it)
         })
@@ -165,13 +159,6 @@ class EditProfileFragment : Fragment() {
         return binding.lastNameEditProfileLayout.hideError()
     }
 
-    private fun checkPlace(newValue : String?) : Boolean {
-        if (newValue.isNullOrBlank())
-            return binding.placeEditProfileLayout.showError(getString(R.string.should_have_value))
-
-        return binding.placeEditProfileLayout.hideError()
-    }
-
     private fun checkEmail(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
             return binding.emailEditProfileLayout.showError(getString(R.string.should_have_value))
@@ -185,9 +172,8 @@ class EditProfileFragment : Fragment() {
     private fun checkForm() : Boolean {
         val firstNameOk = firstNameValid || checkFirstName(viewModel.firstName.value)
         val lastNameOk = lastNameValid || checkLastName(viewModel.lastName.value)
-        val placeOk = placeValid || checkPlace(viewModel.placeName.value)
         val emailOk = emailValid || checkEmail(viewModel.email.value)
-        return firstNameOk && lastNameOk && placeOk && emailOk
+        return firstNameOk && lastNameOk && emailOk
     }
 
     private suspend fun saveEditProfile(view: View) {
