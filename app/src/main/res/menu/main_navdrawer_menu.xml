@@ -12,12 +12,15 @@
         <item android:title="@string/my_courses">
             <menu>
                 <item
+                    android:id="@+id/teacherCoursesFragment"
                     android:icon="@drawable/ic_baseline_cast_for_education_24"
                     android:title="@string/teacher" />
                 <item
+                    android:id="@+id/collaboratorCoursesFragment"
                     android:icon="@drawable/ic_baseline_co_present_24"
                     android:title="@string/collaborator" />
                 <item
+                    android:id="@+id/studentCoursesFragment"
                     android:icon="@drawable/ic_baseline_ondemand_video_24"
                     android:title="@string/student" />
             </menu>
