@@ -154,11 +154,22 @@ class LoginFragment : Fragment() {
         BusyFragment.show(this.parentFragmentManager)
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         Firebase.auth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) {
+            .addOnCompleteListener(requireActivity()) { it ->
                 if (it.isSuccessful) {
                     val user = Firebase.auth.currentUser
+                    val uid = user!!.uid
                     // TODO: request to back-end
                     // TODO: update shared preferences
+                    user.getIdToken(false).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            val idToken: String? = it.result.token
+                            val a = idToken.toString()
+                            // Send token to your backend via HTTPS
+                            // ...
+                        } else {
+                            // Handle error -> task.getException();
+                        }
+                    }
                     BusyFragment.hide()
                     goToMain()
                 } else {
