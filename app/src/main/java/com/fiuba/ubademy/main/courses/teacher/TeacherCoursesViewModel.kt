@@ -7,7 +7,7 @@ import com.fiuba.ubademy.main.courses.Course
 
 class TeacherCoursesViewModel(application: Application) : AndroidViewModel(application) {
 
-    var courses = MutableLiveData<MutableList<Course>>()
+    var courses = MutableLiveData<List<Course>>()
 
     init {
         val list = mutableListOf<Course>()

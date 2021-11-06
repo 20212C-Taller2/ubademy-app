@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentTeacherCoursesBinding
+import com.fiuba.ubademy.main.courses.Course
 import com.fiuba.ubademy.main.courses.CourseAdapter
 
 class TeacherCoursesFragment : Fragment() {
@@ -30,9 +30,13 @@ class TeacherCoursesFragment : Fragment() {
             false
         )
 
+        binding.addCourseButton.setOnClickListener {
+            addCourse()
+        }
+
         val adapter = CourseAdapter()
 
-        viewModel.courses.observe(viewLifecycleOwner, Observer {
+        viewModel.courses.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it)
             }
@@ -41,5 +45,9 @@ class TeacherCoursesFragment : Fragment() {
         binding.teacherCoursesList.adapter = adapter
 
         return binding.root
+    }
+
+    private fun addCourse() {
+        viewModel.courses.value = viewModel.courses.value?.plus(Course("100", "Test 100", "Test 100"))
     }
 }

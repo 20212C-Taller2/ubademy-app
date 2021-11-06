@@ -112,10 +112,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_l"
             android:clickable="true"
+            android:src="@drawable/ic_baseline_edit_24"
             android:contentDescription="@string/edit_profile"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_baseline_edit_24" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
