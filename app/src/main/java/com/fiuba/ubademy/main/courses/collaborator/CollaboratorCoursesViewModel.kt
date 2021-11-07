@@ -3,7 +3,7 @@ package com.fiuba.ubademy.main.courses.collaborator
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.fiuba.ubademy.main.courses.Course
+import com.fiuba.ubademy.network.model.Course
 
 class CollaboratorCoursesViewModel(application: Application) : AndroidViewModel(application) {
 

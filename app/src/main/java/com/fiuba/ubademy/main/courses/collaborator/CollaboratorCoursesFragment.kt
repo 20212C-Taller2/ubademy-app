@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentCollaboratorCoursesBinding
-import com.fiuba.ubademy.main.courses.Course
+import com.fiuba.ubademy.network.model.Course
 import com.fiuba.ubademy.main.courses.CourseAdapter
 
 class CollaboratorCoursesFragment : Fragment() {

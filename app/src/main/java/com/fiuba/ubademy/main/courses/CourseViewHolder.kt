@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.ubademy.databinding.ItemCourseBinding
+import com.fiuba.ubademy.network.model.Course
 
 class CourseViewHolder private constructor(val binding: ItemCourseBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Course) {

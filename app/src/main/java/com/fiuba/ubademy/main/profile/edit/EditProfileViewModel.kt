@@ -38,7 +38,7 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
 
         withContext(Dispatchers.IO) {
             try {
-                val response = api().editProfile(
+                val response = usersApi().editProfile(
                     userId,
                     EditProfileRequest(
                         firstName = firstName.value.toString(),

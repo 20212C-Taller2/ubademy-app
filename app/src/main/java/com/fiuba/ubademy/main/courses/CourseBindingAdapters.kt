@@ -2,6 +2,7 @@ package com.fiuba.ubademy.main.courses
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.fiuba.ubademy.network.model.Course
 
 @BindingAdapter("title")
 fun TextView.setTitle(item: Course) {

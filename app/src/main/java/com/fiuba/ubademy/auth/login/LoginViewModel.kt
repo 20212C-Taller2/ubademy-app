@@ -19,7 +19,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
         withContext(Dispatchers.IO) {
             try {
-                val response = api().login(
+                val response = usersApi().login(
                     LoginRequest(
                         email = email.value.toString(),
                         password = password.value.toString()

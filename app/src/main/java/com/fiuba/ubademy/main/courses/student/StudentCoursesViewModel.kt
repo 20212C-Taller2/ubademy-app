@@ -3,7 +3,7 @@ package com.fiuba.ubademy.main.courses.student
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.fiuba.ubademy.main.courses.Course
+import com.fiuba.ubademy.network.model.Course
 
 class StudentCoursesViewModel(application: Application) : AndroidViewModel(application) {
 

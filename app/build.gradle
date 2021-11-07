@@ -22,23 +22,27 @@ android {
         debug {
             debuggable true
             signingConfig signingConfigs.debug
-            buildConfigField 'String', 'BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'USERS_BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'COURSES_BASE_URL', '"https://ubademy-courses-api.herokuapp.com/"'
         }
         develop {
             debuggable true
             signingConfig signingConfigs.debug
-            buildConfigField 'String', 'BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'USERS_BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'COURSES_BASE_URL', '"https://ubademy-courses-api.herokuapp.com/"'
         }
         main {
             debuggable true
             signingConfig signingConfigs.debug
-            buildConfigField 'String', 'BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'USERS_BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'COURSES_BASE_URL', '"https://ubademy-courses-api.herokuapp.com/"'
         }
         release {
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
-            buildConfigField 'String', 'BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'USERS_BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'COURSES_BASE_URL', '"https://ubademy-courses-api.herokuapp.com/"'
         }
     }
 
