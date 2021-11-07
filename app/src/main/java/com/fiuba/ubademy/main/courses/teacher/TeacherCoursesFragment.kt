@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.ubademy.R
@@ -39,7 +40,7 @@ class TeacherCoursesFragment : Fragment() {
         )
 
         binding.addCourseButton.setOnClickListener {
-            addCourse()
+            it.findNavController().navigate(TeacherCoursesFragmentDirections.actionTeacherCoursesFragmentToAddCourseFragment())
         }
 
         progressBar = binding.root.findViewById(R.id.teacherCoursesProgressBar)
@@ -84,10 +85,5 @@ class TeacherCoursesFragment : Fragment() {
         })
 
         return binding.root
-    }
-
-    private fun addCourse() {
-        val lastItem = viewModel.courses.value!!.last()
-        viewModel.courses.value = viewModel.courses.value?.plus(Course(lastItem.id + 1, "Test ${lastItem.id + 1}", "Test ${lastItem.id + 1}"))
     }
 }

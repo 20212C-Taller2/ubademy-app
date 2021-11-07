@@ -35,6 +35,9 @@
     <string name="my_student_courses">Mis cursos (estudiante)</string>
     <string name="add_course">Crear curso</string>
     <string name="search_course">Buscar curso</string>
+    <string name="title">Titulo</string>
+    <string name="description">Descripción</string>
+    <string name="course_added">El curso se creó con éxito</string>
 
     <string name="ubademy_api_key" tools:ignore="Typos">AIzaSyBp1S-H4zaRdUlNEyjNK9_hQCsrTkeNi98</string>
     <string name="web_client_id">775464829223-gojcd45nncphn7p8tut58i5i9tntrm06.apps.googleusercontent.com</string>
