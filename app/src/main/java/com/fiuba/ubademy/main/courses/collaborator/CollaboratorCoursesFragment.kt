@@ -48,6 +48,9 @@ class CollaboratorCoursesFragment : Fragment() {
             }
         })
 
+        binding.collaboratorCoursesViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         binding.collaboratorCoursesList.adapter = adapter
 
         val recyclerView = binding.root.findViewById<RecyclerView>(R.id.collaboratorCoursesList)

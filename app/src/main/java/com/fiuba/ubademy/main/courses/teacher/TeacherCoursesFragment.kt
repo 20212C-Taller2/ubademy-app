@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,8 @@ import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentTeacherCoursesBinding
 import com.fiuba.ubademy.network.model.Course
 import com.fiuba.ubademy.main.courses.CourseAdapter
+import com.fiuba.ubademy.utils.BusyFragment
+import kotlinx.coroutines.launch
 
 class TeacherCoursesFragment : Fragment() {
 
@@ -53,6 +57,9 @@ class TeacherCoursesFragment : Fragment() {
             }
         })
 
+        binding.teacherCoursesViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         binding.teacherCoursesList.adapter = adapter
 
         val recyclerView = binding.root.findViewById<RecyclerView>(R.id.teacherCoursesList)
@@ -85,5 +92,16 @@ class TeacherCoursesFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        BusyFragment.show(this.parentFragmentManager)
+        lifecycleScope.launch {
+            val getCoursesStatus : GetCoursesStatus = viewModel.getCourses()
+            if (getCoursesStatus == GetCoursesStatus.FAIL)
+                Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+            BusyFragment.hide()
+        }
     }
 }

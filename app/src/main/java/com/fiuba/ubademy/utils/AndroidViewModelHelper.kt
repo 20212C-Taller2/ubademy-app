@@ -65,21 +65,8 @@ private val moshi = Moshi.Builder()
     .build()
 
 fun AndroidViewModel.usersApi() : UbademyUsersApiService {
-    val sharedPreferencesData = getSharedPreferencesData()
-
-    val client = OkHttpClient.Builder()
-        .connectTimeout(45, TimeUnit.SECONDS)
-        .writeTimeout(45, TimeUnit.SECONDS)
-        .readTimeout(45, TimeUnit.SECONDS)
-        .addInterceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer ${sharedPreferencesData.token}")
-                .build()
-            chain.proceed(newRequest)
-        }.build()
-
     val retrofit = Retrofit.Builder()
-        .client(client)
+        .client(getDefaultClient())
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .baseUrl(BuildConfig.USERS_BASE_URL)
         .build()
@@ -88,9 +75,19 @@ fun AndroidViewModel.usersApi() : UbademyUsersApiService {
 }
 
 fun AndroidViewModel.coursesApi() : UbademyCoursesApiService {
+    val retrofit = Retrofit.Builder()
+        .client(getDefaultClient())
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .baseUrl(BuildConfig.COURSES_BASE_URL)
+        .build()
+
+    return retrofit.create(UbademyCoursesApiService::class.java)
+}
+
+private fun AndroidViewModel.getDefaultClient() : OkHttpClient {
     val sharedPreferencesData = getSharedPreferencesData()
 
-    val client = OkHttpClient.Builder()
+    return OkHttpClient.Builder()
         .connectTimeout(45, TimeUnit.SECONDS)
         .writeTimeout(45, TimeUnit.SECONDS)
         .readTimeout(45, TimeUnit.SECONDS)
@@ -100,14 +97,6 @@ fun AndroidViewModel.coursesApi() : UbademyCoursesApiService {
                 .build()
             chain.proceed(newRequest)
         }.build()
-
-    val retrofit = Retrofit.Builder()
-        .client(client)
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .baseUrl(BuildConfig.COURSES_BASE_URL)
-        .build()
-
-    return retrofit.create(UbademyCoursesApiService::class.java)
 }
 
 suspend fun AndroidViewModel.getPlaceById(placeId: String) : Place? {

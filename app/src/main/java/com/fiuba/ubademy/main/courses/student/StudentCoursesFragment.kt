@@ -52,6 +52,9 @@ class StudentCoursesFragment : Fragment() {
             }
         })
 
+        binding.studentCoursesViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         binding.studentCoursesList.adapter = adapter
 
         val recyclerView = binding.root.findViewById<RecyclerView>(R.id.studentCoursesList)
