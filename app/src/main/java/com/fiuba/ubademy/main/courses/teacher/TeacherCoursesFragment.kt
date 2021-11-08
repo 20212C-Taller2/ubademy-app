@@ -66,27 +66,20 @@ class TeacherCoursesFragment : Fragment() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
-                val llm = recyclerView.layoutManager as LinearLayoutManager
-                if (llm.findLastVisibleItemPosition() > viewModel.courses.value!!.size - 5 && !loading) {
-                    progressBar.visibility = View.VISIBLE
-                    loading = true
-                    val lastItem = viewModel.courses.value!!.last()
-                    val list = mutableListOf<Course>()
-                    list.add(Course(lastItem.id + 1, "Test ${lastItem.id + 1}", "Test ${lastItem.id + 1}"))
-                    list.add(Course(lastItem.id + 2, "Test ${lastItem.id + 2}", "Test ${lastItem.id + 2}"))
-                    list.add(Course(lastItem.id + 3, "Test ${lastItem.id + 3}", "Test ${lastItem.id + 3}"))
-                    list.add(Course(lastItem.id + 4, "Test ${lastItem.id + 4}", "Test ${lastItem.id + 4}"))
-                    list.add(Course(lastItem.id + 5, "Test ${lastItem.id + 5}", "Test ${lastItem.id + 5}"))
-                    list.add(Course(lastItem.id + 6, "Test ${lastItem.id + 6}", "Test ${lastItem.id + 6}"))
-                    list.add(Course(lastItem.id + 7, "Test ${lastItem.id + 7}", "Test ${lastItem.id + 7}"))
-                    list.add(Course(lastItem.id + 8, "Test ${lastItem.id + 8}", "Test ${lastItem.id + 8}"))
-                    list.add(Course(lastItem.id + 9, "Test ${lastItem.id + 9}", "Test ${lastItem.id + 9}"))
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        progressBar.visibility = View.INVISIBLE
-                        loading = false
-                        viewModel.courses.value = viewModel.courses.value?.plus(list)
-                    }, 1000)
+                if (dy > 0) {
+                    val llm = recyclerView.layoutManager as LinearLayoutManager
+                    val size = viewModel.courses.value!!.size
+                    if (llm.findLastVisibleItemPosition() > size - 5 && !loading) {
+                        progressBar.visibility = View.VISIBLE
+                        loading = true
+                        lifecycleScope.launch {
+                            val getCoursesStatus : GetCoursesStatus = viewModel.getCourses(size, 10)
+                            if (getCoursesStatus == GetCoursesStatus.FAIL)
+                                Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+                            progressBar.visibility = View.INVISIBLE
+                            loading = false
+                        }
+                    }
                 }
             }
         })
