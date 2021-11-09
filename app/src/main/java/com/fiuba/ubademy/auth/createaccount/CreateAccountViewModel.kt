@@ -13,8 +13,8 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
 
     var firstName = MutableLiveData<String>()
     var lastName = MutableLiveData<String>()
-    var placeId = MutableLiveData<String>()
-    var placeName = MutableLiveData<String>()
+    var placeId = MutableLiveData<String?>()
+    var placeName = MutableLiveData<String?>()
     var email = MutableLiveData<String>()
     var password = MutableLiveData<String>()
 
@@ -25,18 +25,17 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
             try {
                 val response = usersApi().createAccount(
                     CreateAccountRequest(
-                        firstName = firstName.value.toString(),
-                        lastName = lastName.value.toString(),
-                        placeId = placeId.value.toString(),
-                        email = email.value.toString(),
-                        password = password.value.toString()
+                        firstName = firstName.value!!,
+                        lastName = lastName.value!!,
+                        placeId = placeId.value,
+                        email = email.value!!,
+                        password = password.value!!
                     )
                 )
-                createAccountStatus = if (response.isSuccessful) {
-                    CreateAccountStatus.SUCCESS
-                } else {
-                    CreateAccountStatus.EMAIL_ALREADY_USED
-                }
+                if (response.isSuccessful)
+                    createAccountStatus = CreateAccountStatus.SUCCESS
+                else if (response.code() == 409)
+                    createAccountStatus = CreateAccountStatus.EMAIL_ALREADY_USED
             } catch (e: Exception) {
                 Timber.e(e)
             }

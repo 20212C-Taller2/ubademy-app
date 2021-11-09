@@ -53,8 +53,8 @@ fun Context.getSharedPreferencesData() : SharedPreferencesData {
         id = sharedPreferences.getString(pref_id_key, "")!!,
         firstName = sharedPreferences.getString(pref_first_name_key, "")!!,
         lastName = sharedPreferences.getString(pref_last_name_key, "")!!,
-        placeId = sharedPreferences.getString(pref_place_id_key, "")!!,
-        placeName = sharedPreferences.getString(pref_place_name_key, "")!!,
+        placeId = sharedPreferences.getString(pref_place_id_key, null),
+        placeName = sharedPreferences.getString(pref_place_name_key, null),
         email = sharedPreferences.getString(pref_email_key, "")!!,
         token = sharedPreferences.getString(pref_token_key, "")!!
     )

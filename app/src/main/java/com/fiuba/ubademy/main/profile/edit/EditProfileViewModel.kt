@@ -15,8 +15,8 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
 
     var firstName = MutableLiveData<String>()
     var lastName = MutableLiveData<String>()
-    var placeId = MutableLiveData<String>()
-    var placeName = MutableLiveData<String>()
+    var placeId = MutableLiveData<String?>()
+    var placeName = MutableLiveData<String?>()
     var email = MutableLiveData<String>()
 
     private val userId : String
@@ -41,10 +41,10 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
                 val response = usersApi().editProfile(
                     userId,
                     EditProfileRequest(
-                        firstName = firstName.value.toString(),
-                        lastName = lastName.value.toString(),
-                        placeId = placeId.value.toString(),
-                        email = email.value.toString()
+                        firstName = firstName.value!!,
+                        lastName = lastName.value!!,
+                        placeId = placeId.value,
+                        email = email.value!!
                     )
                 )
                 if (response.isSuccessful) {
@@ -52,14 +52,14 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
                     val sharedPreferencesData = getSharedPreferencesData()
                     setSharedPreferencesData(SharedPreferencesData(
                         id = sharedPreferencesData.id,
-                        firstName = firstName.value.toString(),
-                        lastName = lastName.value.toString(),
-                        placeId = placeId.value.toString(),
-                        placeName = placeName.value.toString(),
-                        email = email.value.toString(),
+                        firstName = firstName.value!!,
+                        lastName = lastName.value!!,
+                        placeId = placeId.value,
+                        placeName = placeName.value,
+                        email = email.value!!,
                         token = sharedPreferencesData.token
                     ))
-                } else {
+                } else if (response.code() == 409) {
                     editProfileStatus = EditProfileStatus.EMAIL_ALREADY_USED
                 }
             } catch (e: Exception) {

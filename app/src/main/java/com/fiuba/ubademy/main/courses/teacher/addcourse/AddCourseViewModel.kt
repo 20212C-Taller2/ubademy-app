@@ -23,8 +23,8 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
             try {
                 val response = coursesApi().addCourse(
                     AddCourseRequest(
-                        title = title.value.toString(),
-                        description = description.value.toString()
+                        title = title.value!!,
+                        description = description.value!!
                     )
                 )
                 if (response.isSuccessful) {

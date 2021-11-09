@@ -14,7 +14,7 @@ class MainDrawerListener : DrawerLayout.DrawerListener {
         val sharedPreferencesData = drawerView.context.getSharedPreferencesData()
         firstName.value = sharedPreferencesData.firstName
         lastName.value = sharedPreferencesData.lastName
-        placeName.value = sharedPreferencesData.placeName
+        placeName.value = if (sharedPreferencesData.placeName.isNullOrBlank()) "-" else sharedPreferencesData.placeName
         email.value = sharedPreferencesData.email
     }
     override fun onDrawerOpened(drawerView: View) { }
