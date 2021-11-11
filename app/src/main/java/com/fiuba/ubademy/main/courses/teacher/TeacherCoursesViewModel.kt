@@ -17,12 +17,30 @@ class TeacherCoursesViewModel(application: Application) : AndroidViewModel(appli
         courses.value = listOf()
     }
 
-    suspend fun getCourses(skip: Int = 0, limit: Int = 20) : GetCoursesStatus {
+    suspend fun getCourses() : GetCoursesStatus {
         var getCoursesStatus = GetCoursesStatus.FAIL
 
         withContext(Dispatchers.IO) {
             try {
-                val response = coursesApi().getCourses(skip, limit)
+                val response = coursesApi().getCourses(0, 20)
+                if (response.isSuccessful) {
+                    courses.postValue(response.body()!!)
+                    getCoursesStatus = GetCoursesStatus.SUCCESS
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
+        }
+
+        return getCoursesStatus
+    }
+
+    suspend fun addCourses(skip: Int) : GetCoursesStatus {
+        var getCoursesStatus = GetCoursesStatus.FAIL
+
+        withContext(Dispatchers.IO) {
+            try {
+                val response = coursesApi().getCourses(skip, 10)
                 if (response.isSuccessful) {
                     courses.postValue(courses.value!!.plus(response.body()!!))
                     getCoursesStatus = GetCoursesStatus.SUCCESS

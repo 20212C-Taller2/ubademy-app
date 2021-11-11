@@ -73,7 +73,7 @@ class TeacherCoursesFragment : Fragment() {
                         progressBar.visibility = View.VISIBLE
                         loading = true
                         lifecycleScope.launch {
-                            val getCoursesStatus : GetCoursesStatus = viewModel.getCourses(size, 10)
+                            val getCoursesStatus : GetCoursesStatus = viewModel.addCourses(size)
                             if (getCoursesStatus == GetCoursesStatus.FAIL)
                                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
                             progressBar.visibility = View.INVISIBLE
