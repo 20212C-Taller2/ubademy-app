@@ -22,23 +22,27 @@ android {
         debug {
             debuggable true
             signingConfig signingConfigs.debug
-            buildConfigField 'String', 'BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'USERS_BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'COURSES_BASE_URL', '"https://ubademy-courses-api.herokuapp.com/"'
         }
         develop {
             debuggable true
             signingConfig signingConfigs.debug
-            buildConfigField 'String', 'BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'USERS_BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'COURSES_BASE_URL', '"https://ubademy-courses-api.herokuapp.com/"'
         }
         main {
             debuggable true
             signingConfig signingConfigs.debug
-            buildConfigField 'String', 'BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'USERS_BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'COURSES_BASE_URL', '"https://ubademy-courses-api.herokuapp.com/"'
         }
         release {
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
-            buildConfigField 'String', 'BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'USERS_BASE_URL', '"https://ubademy-users-api.herokuapp.com/"'
+            buildConfigField 'String', 'COURSES_BASE_URL', '"https://ubademy-courses-api.herokuapp.com/"'
         }
     }
 
@@ -72,5 +76,7 @@ dependencies {
     implementation 'com.google.android.libraries.places:places:2.5.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.2-native-mt'
-    implementation platform('com.google.firebase:firebase-bom:28.4.2')
+    implementation platform('com.google.firebase:firebase-bom:29.0.0')
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
 }

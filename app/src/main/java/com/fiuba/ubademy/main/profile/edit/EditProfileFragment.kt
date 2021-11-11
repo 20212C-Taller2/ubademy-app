@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.pm.PackageManager
-import android.location.Location
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Patterns
@@ -19,10 +18,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentEditProfileBinding
-import com.fiuba.ubademy.utils.BusyFragment
-import com.fiuba.ubademy.utils.hideError
-import com.fiuba.ubademy.utils.hideKeyboard
-import com.fiuba.ubademy.utils.showError
+import com.fiuba.ubademy.utils.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
@@ -38,10 +34,10 @@ class EditProfileFragment : Fragment() {
 
     private lateinit var viewModel: EditProfileViewModel
     private lateinit var binding: FragmentEditProfileBinding
+    private lateinit var sharedPreferencesData: SharedPreferencesData
 
     private var firstNameValid = false
     private var lastNameValid = false
-    private var placeValid = false
     private var emailValid = false
 
     private var getPlaceActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -74,22 +70,24 @@ class EditProfileFragment : Fragment() {
             false
         )
 
-        binding.editProfileButton.setOnClickListener { view ->
-            editProfile(view)
+        binding.editProfileButton.setOnClickListener {
+            editProfile(it)
         }
 
-        binding.submitEditProfileFormButton.setOnClickListener { view ->
+        binding.submitEditProfileFormButton.setOnClickListener {
             lifecycleScope.launch {
-                saveEditProfile(view)
+                saveEditProfile(it)
             }
         }
 
-        binding.placeEditProfileInput.setOnClickListener { view ->
-            getPlace(view)
+        binding.placeEditProfileInput.setOnClickListener {
+            getPlace(it)
         }
 
         binding.editProfileViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        sharedPreferencesData = requireContext().getSharedPreferencesData()
 
         setupValidators()
 
@@ -100,6 +98,20 @@ class EditProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(view.context)
+
+        if (sharedPreferencesData.loggedInWithGoogle) {
+            binding.firstNameEditProfileLayout.visibility = View.GONE
+            binding.lastNameEditProfileLayout.visibility = View.GONE
+            binding.displayNameEditProfileLayout.visibility = View.VISIBLE
+            binding.placeEditProfileLayout.visibility = View.VISIBLE
+            binding.emailEditProfileLayout.visibility = View.VISIBLE
+        } else {
+            binding.firstNameEditProfileLayout.visibility = View.VISIBLE
+            binding.lastNameEditProfileLayout.visibility = View.VISIBLE
+            binding.displayNameEditProfileLayout.visibility = View.GONE
+            binding.placeEditProfileLayout.visibility = View.VISIBLE
+            binding.emailEditProfileLayout.visibility = View.VISIBLE
+        }
 
         if (viewModel.editInProgress.value!!)
             enableForm()
@@ -117,38 +129,48 @@ class EditProfileFragment : Fragment() {
         viewModel.editInProgress.value = true
         binding.editProfileButton.visibility = View.GONE
         binding.submitEditProfileFormButton.visibility = View.VISIBLE
-        binding.firstNameEditProfileLayout.isEnabled = true
-        binding.lastNameEditProfileLayout.isEnabled = true
-        binding.placeEditProfileLayout.isEnabled = true
-        binding.emailEditProfileLayout.isEnabled = true
+
+        if (sharedPreferencesData.loggedInWithGoogle) {
+            binding.firstNameEditProfileLayout.isEnabled = false
+            binding.lastNameEditProfileLayout.isEnabled = false
+            binding.displayNameEditProfileLayout.isEnabled = false
+            binding.placeEditProfileLayout.isEnabled = true
+            binding.emailEditProfileLayout.isEnabled = false
+        } else {
+            binding.firstNameEditProfileLayout.isEnabled = true
+            binding.lastNameEditProfileLayout.isEnabled = true
+            binding.displayNameEditProfileLayout.isEnabled = false
+            binding.placeEditProfileLayout.isEnabled = true
+            binding.emailEditProfileLayout.isEnabled = true
+        }
     }
 
     private fun disableForm() {
         viewModel.editInProgress.value = false
         binding.editProfileButton.visibility = View.VISIBLE
         binding.submitEditProfileFormButton.visibility = View.GONE
+
         binding.firstNameEditProfileLayout.isEnabled = false
         binding.lastNameEditProfileLayout.isEnabled = false
+        binding.displayNameEditProfileLayout.isEnabled = false
         binding.placeEditProfileLayout.isEnabled = false
         binding.emailEditProfileLayout.isEnabled = false
     }
 
     private fun setupValidators() {
-        viewModel.firstName.observe(viewLifecycleOwner, { newValue ->
-            firstNameValid = checkFirstName(newValue)
-        })
+        if (!sharedPreferencesData.loggedInWithGoogle) {
+            viewModel.firstName.observe(viewLifecycleOwner, {
+                firstNameValid = checkFirstName(it)
+            })
 
-        viewModel.lastName.observe(viewLifecycleOwner, { newValue ->
-            lastNameValid = checkLastName(newValue)
-        })
+            viewModel.lastName.observe(viewLifecycleOwner, {
+                lastNameValid = checkLastName(it)
+            })
 
-        viewModel.placeName.observe(viewLifecycleOwner, { newValue ->
-            placeValid = checkPlace(newValue)
-        })
-
-        viewModel.email.observe(viewLifecycleOwner, { newValue ->
-            emailValid = checkEmail(newValue)
-        })
+            viewModel.email.observe(viewLifecycleOwner, {
+                emailValid = checkEmail(it)
+            })
+        }
     }
 
     private fun checkFirstName(newValue : String?) : Boolean {
@@ -165,13 +187,6 @@ class EditProfileFragment : Fragment() {
         return binding.lastNameEditProfileLayout.hideError()
     }
 
-    private fun checkPlace(newValue : String?) : Boolean {
-        if (newValue.isNullOrBlank())
-            return binding.placeEditProfileLayout.showError(getString(R.string.should_have_value))
-
-        return binding.placeEditProfileLayout.hideError()
-    }
-
     private fun checkEmail(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
             return binding.emailEditProfileLayout.showError(getString(R.string.should_have_value))
@@ -183,11 +198,13 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun checkForm() : Boolean {
+        if (sharedPreferencesData.loggedInWithGoogle)
+            return true
+
         val firstNameOk = firstNameValid || checkFirstName(viewModel.firstName.value)
         val lastNameOk = lastNameValid || checkLastName(viewModel.lastName.value)
-        val placeOk = placeValid || checkPlace(viewModel.placeName.value)
         val emailOk = emailValid || checkEmail(viewModel.email.value)
-        return firstNameOk && lastNameOk && placeOk && emailOk
+        return firstNameOk && lastNameOk && emailOk
     }
 
     private suspend fun saveEditProfile(view: View) {
@@ -196,9 +213,14 @@ class EditProfileFragment : Fragment() {
         if (!checkForm())
             return
 
-        val busy = BusyFragment.show(this.parentFragmentManager)
+        if (sharedPreferencesData.loggedInWithGoogle && viewModel.placeId.value.isNullOrBlank()) {
+            disableForm()
+            return
+        }
+
+        BusyFragment.show(this.parentFragmentManager)
         val editProfileStatus : EditProfileStatus = viewModel.editProfile()
-        busy.dismiss()
+        BusyFragment.hide()
 
         when (editProfileStatus) {
             EditProfileStatus.SUCCESS -> {
@@ -214,11 +236,11 @@ class EditProfileFragment : Fragment() {
         val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS)
 
         if (ActivityCompat.checkSelfPermission(view.context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-            fusedLocationClient.lastLocation.addOnSuccessListener { location : Location? ->
-                if (location != null) {
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                if (it != null) {
                     val bounds = RectangularBounds.newInstance(
-                        LatLng(location.latitude - 1, location.longitude - 1),
-                        LatLng(location.latitude + 1, location.latitude + 1)
+                        LatLng(it.latitude - 1, it.longitude - 1),
+                        LatLng(it.latitude + 1, it.latitude + 1)
                     )
                     val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
                         .setTypeFilter(TypeFilter.CITIES)

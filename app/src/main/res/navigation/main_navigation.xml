@@ -20,4 +20,34 @@
         android:name="com.fiuba.ubademy.main.profile.edit.EditProfileFragment"
         android:label="@string/edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/teacherCoursesFragment"
+        android:name="com.fiuba.ubademy.main.courses.teacher.TeacherCoursesFragment"
+        android:label="@string/my_teacher_courses"
+        tools:layout="@layout/fragment_teacher_courses" >
+        <action
+            android:id="@+id/action_teacherCoursesFragment_to_addCourseFragment"
+            app:destination="@id/addCourseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/collaboratorCoursesFragment"
+        android:name="com.fiuba.ubademy.main.courses.collaborator.CollaboratorCoursesFragment"
+        android:label="@string/my_collaborator_courses"
+        tools:layout="@layout/fragment_collaborator_courses" />
+    <fragment
+        android:id="@+id/studentCoursesFragment"
+        android:name="com.fiuba.ubademy.main.courses.student.StudentCoursesFragment"
+        android:label="@string/my_student_courses"
+        tools:layout="@layout/fragment_student_courses" />
+    <fragment
+        android:id="@+id/addCourseFragment"
+        android:name="com.fiuba.ubademy.main.courses.teacher.addcourse.AddCourseFragment"
+        android:label="@string/add_course"
+        tools:layout="@layout/fragment_add_course" >
+        <action
+            android:id="@+id/action_addCourseFragment_to_teacherCoursesFragment"
+            app:destination="@id/teacherCoursesFragment"
+            app:popUpTo="@id/teacherCoursesFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
