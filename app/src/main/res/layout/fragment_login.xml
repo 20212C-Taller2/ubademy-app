@@ -70,8 +70,24 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_l"
-                android:backgroundTint="@color/ubademy_1_teal_dark"
+                android:backgroundTint="?attr/colorSecondary"
                 android:text="@string/create_account" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/margin_l"
+                android:background="?android:attr/listDivider" />
+
+            <Button
+                android:id="@+id/googleSignInButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_l"
+                android:text="@string/login"
+                app:icon="@drawable/ic_google_logo" />
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

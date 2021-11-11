@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.LoginRequest
+import com.fiuba.ubademy.network.model.LoginWithGoogleRequest
 import com.fiuba.ubademy.utils.*
+import com.google.android.libraries.places.api.model.Place
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -19,23 +21,27 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
         withContext(Dispatchers.IO) {
             try {
-                val response = api().login(
+                val response = usersApi().login(
                     LoginRequest(
-                        email = email.value.toString(),
-                        password = password.value.toString()
+                        email = email.value!!,
+                        password = password.value!!
                     )
                 )
                 if (response.isSuccessful) {
                     loginStatus = LoginStatus.SUCCESS
-                    val place = getPlaceById(response.body()!!.user.placeId)
+                    var place : Place? = null
+                    if (!response.body()!!.user.placeId.isNullOrBlank())
+                        place = getPlaceById(response.body()!!.user.placeId!!)
                     setSharedPreferencesData(SharedPreferencesData(
                         id = response.body()!!.user.id,
                         firstName = response.body()!!.user.firstName,
                         lastName = response.body()!!.user.lastName,
                         email = response.body()!!.user.email,
-                        placeId = response.body()!!.user.placeId,
-                        placeName = place?.address ?: "-",
-                        token = response.body()!!.token
+                        placeId = place?.id,
+                        placeName = place?.address,
+                        token = response.body()!!.token,
+                        loggedInWithGoogle = false,
+                        displayName = null
                     ))
                 } else {
                     loginStatus = LoginStatus.INVALID_CREDENTIALS
@@ -46,5 +52,29 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         return loginStatus
+    }
+
+    suspend fun loginWithGoogle(idToken: String) {
+        val response = usersApi().loginWithGoogle(
+            LoginWithGoogleRequest(
+                googleToken = idToken
+            )
+        )
+        if (response.isSuccessful) {
+            var place : Place? = null
+            if (!response.body()!!.user.placeId.isNullOrBlank())
+                place = getPlaceById(response.body()!!.user.placeId!!)
+            setSharedPreferencesData(SharedPreferencesData(
+                id = response.body()!!.user.id,
+                firstName = null,
+                lastName = null,
+                email = response.body()!!.user.email,
+                placeId = place?.id,
+                placeName = place?.address,
+                token = response.body()!!.token,
+                loggedInWithGoogle = true,
+                displayName = response.body()!!.googleData!!.displayName
+            ))
+        }
     }
 }

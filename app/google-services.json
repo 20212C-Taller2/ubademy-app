@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "775464829223",
+    "project_id": "tp7552-ubademy",
+    "storage_bucket": "tp7552-ubademy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775464829223:android:c29f66be4bc6cb1f68a902",
+        "android_client_info": {
+          "package_name": "com.fiuba.ubademy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775464829223-l7ljfjcn5qkaogo01hqblg0drnvntssj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fiuba.ubademy",
+            "certificate_hash": "df8ccdc52f6027990ebafc1b3b858ef81e48c393"
+          }
+        },
+        {
+          "client_id": "775464829223-gojcd45nncphn7p8tut58i5i9tntrm06.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp1S-H4zaRdUlNEyjNK9_hQCsrTkeNi98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775464829223-gojcd45nncphn7p8tut58i5i9tntrm06.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

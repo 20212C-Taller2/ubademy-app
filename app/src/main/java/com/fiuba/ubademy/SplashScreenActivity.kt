@@ -7,6 +7,9 @@ import android.os.Handler
 import android.os.Looper
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +23,19 @@ class SplashScreenActivity : AppCompatActivity() {
 
         val authIntent = Intent(this, AuthActivity::class.java)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(authIntent)
-            finish()
-        }, 2000)
+        val currentUser = Firebase.auth.currentUser
+        val account = GoogleSignIn.getLastSignedInAccount(applicationContext)
+        // TODO: also check normal email/password
 
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (currentUser != null) {
+                // TODO: go to main
+                startActivity(authIntent)
+                finish()
+            } else {
+                startActivity(authIntent)
+                finish()
+            }
+        }, 2000)
     }
 }

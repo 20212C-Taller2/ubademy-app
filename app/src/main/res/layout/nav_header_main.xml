@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" >
 
     <data>
@@ -19,7 +20,7 @@
             android:id="@+id/nameDrawerLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{@string/name_format(mainDrawerViewModel.firstName, mainDrawerViewModel.lastName)}"
+            android:text="@{mainDrawerViewModel.displayName}"
             android:textAlignment="textStart"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -33,15 +34,34 @@
             android:textAlignment="textStart"
             tools:text="email@gmail.com" />
 
-        <TextView
-            android:id="@+id/placeDrawerLabel"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_s"
-            android:text="@{mainDrawerViewModel.placeName}"
-            android:textAlignment="textStart"
-            android:textSize="12sp"
-            android:textStyle="italic"
-            tools:text="City, Country" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_s">
+
+            <ImageView
+                android:id="@+id/placeDrawerIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_place_24" />
+
+            <TextView
+                android:id="@+id/placeDrawerLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{mainDrawerViewModel.placeName}"
+                android:textAlignment="textStart"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/placeDrawerIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="City, Country" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 </layout>

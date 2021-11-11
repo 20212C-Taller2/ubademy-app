@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -42,7 +41,6 @@ class CreateAccountFragment : Fragment() {
 
     private var firstNameValid = false
     private var lastNameValid = false
-    private var placeValid = false
     private var emailValid = false
     private var passwordValid = false
 
@@ -76,14 +74,14 @@ class CreateAccountFragment : Fragment() {
             false
         )
 
-        binding.submitCreateAccountFormButton.setOnClickListener { view ->
+        binding.submitCreateAccountFormButton.setOnClickListener {
             lifecycleScope.launch {
-                createAccount(view)
+                createAccount(it)
             }
         }
 
-        binding.placeCreateAccountInput.setOnClickListener { view ->
-            getPlace(view)
+        binding.placeCreateAccountInput.setOnClickListener {
+            getPlace(it)
         }
 
         binding.createAccountViewModel = viewModel
@@ -104,24 +102,20 @@ class CreateAccountFragment : Fragment() {
     }
 
     private fun setupValidators() {
-        viewModel.firstName.observe(viewLifecycleOwner, { newValue ->
-            firstNameValid = checkFirstName(newValue)
+        viewModel.firstName.observe(viewLifecycleOwner, {
+            firstNameValid = checkFirstName(it)
         })
 
-        viewModel.lastName.observe(viewLifecycleOwner, { newValue ->
-            lastNameValid = checkLastName(newValue)
+        viewModel.lastName.observe(viewLifecycleOwner, {
+            lastNameValid = checkLastName(it)
         })
 
-        viewModel.placeName.observe(viewLifecycleOwner, { newValue ->
-            placeValid = checkPlace(newValue)
+        viewModel.email.observe(viewLifecycleOwner, {
+            emailValid = checkEmail(it)
         })
 
-        viewModel.email.observe(viewLifecycleOwner, { newValue ->
-            emailValid = checkEmail(newValue)
-        })
-
-        viewModel.password.observe(viewLifecycleOwner, { newValue ->
-            passwordValid = checkPassword(newValue)
+        viewModel.password.observe(viewLifecycleOwner, {
+            passwordValid = checkPassword(it)
         })
     }
 
@@ -137,13 +131,6 @@ class CreateAccountFragment : Fragment() {
             return binding.lastNameCreateAccountLayout.showError(getString(R.string.should_have_value))
 
         return binding.lastNameCreateAccountLayout.hideError()
-    }
-
-    private fun checkPlace(newValue : String?) : Boolean {
-        if (newValue.isNullOrBlank())
-            return binding.placeCreateAccountLayout.showError(getString(R.string.should_have_value))
-
-        return binding.placeCreateAccountLayout.hideError()
     }
 
     private fun checkEmail(newValue : String?) : Boolean {
@@ -171,10 +158,9 @@ class CreateAccountFragment : Fragment() {
     private fun checkForm() : Boolean {
         val firstNameOk = firstNameValid || checkFirstName(viewModel.firstName.value)
         val lastNameOk = lastNameValid || checkLastName(viewModel.lastName.value)
-        val placeOk = placeValid || checkPlace(viewModel.placeName.value)
         val emailOk = emailValid || checkEmail(viewModel.email.value)
         val passwordOk = passwordValid || checkPassword(viewModel.password.value)
-        return firstNameOk && lastNameOk && placeOk && emailOk && passwordOk
+        return firstNameOk && lastNameOk && emailOk && passwordOk
     }
 
     private suspend fun createAccount(view: View) {
@@ -183,9 +169,9 @@ class CreateAccountFragment : Fragment() {
         if (!checkForm())
             return
 
-        val busy = BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(this.parentFragmentManager)
         val createAccountStatus : CreateAccountStatus = viewModel.createAccount()
-        busy.dismiss()
+        BusyFragment.hide()
 
         when (createAccountStatus) {
             CreateAccountStatus.SUCCESS -> {
@@ -200,11 +186,11 @@ class CreateAccountFragment : Fragment() {
         val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS)
 
         if (ActivityCompat.checkSelfPermission(view.context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-            fusedLocationClient.lastLocation.addOnSuccessListener { location : Location? ->
-                if (location != null) {
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                if (it != null) {
                     val bounds = RectangularBounds.newInstance(
-                        LatLng(location.latitude - 1, location.longitude - 1),
-                        LatLng(location.latitude + 1, location.latitude + 1)
+                        LatLng(it.latitude - 1, it.longitude - 1),
+                        LatLng(it.latitude + 1, it.latitude + 1)
                     )
                     val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
                         .setTypeFilter(TypeFilter.CITIES)

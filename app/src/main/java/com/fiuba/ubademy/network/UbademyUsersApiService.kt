@@ -7,13 +7,17 @@ import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface UbademyApiService {
+interface UbademyUsersApiService {
     @POST("register")
     suspend fun createAccount(@Body createAccountRequest: CreateAccountRequest)
         : Response<Void>
 
     @POST("login")
     suspend fun login(@Body loginRequest: LoginRequest)
+        : Response<LoginResponse>
+
+    @POST("login/google")
+    suspend fun loginWithGoogle(@Body loginWithGoogleRequest: LoginWithGoogleRequest)
         : Response<LoginResponse>
 
     @PATCH("users/{userId}")

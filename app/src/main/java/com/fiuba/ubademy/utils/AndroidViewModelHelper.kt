@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import com.fiuba.ubademy.BuildConfig
 import com.fiuba.ubademy.UbademyApplication
-import com.fiuba.ubademy.network.UbademyApiService
+import com.fiuba.ubademy.network.UbademyCoursesApiService
+import com.fiuba.ubademy.network.UbademyUsersApiService
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
@@ -18,16 +19,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-const val name = "ubademy_shared_preferences"
-
-const val pref_id_key = "PREFERENCE_USER_ID"
-const val pref_first_name_key = "PREFERENCE_USER_FIRST_NAME"
-const val pref_last_name_key = "PREFERENCE_USER_LAST_NAME"
-const val pref_place_id_key = "PREFERENCE_USER_PLACE_ID_EMAIL"
-const val pref_place_name_key = "PREFERENCE_USER_PLACE_NAME_EMAIL"
-const val pref_email_key = "PREFERENCE_USER_EMAIL"
-const val pref_token_key = "PREFERENCE_USER_TOKEN"
-
 fun AndroidViewModel.setSharedPreferencesData(sharedPreferencesData: SharedPreferencesData) {
     val sharedPreferences = getApplication<UbademyApplication>().getSharedPreferences(name, Context.MODE_PRIVATE)
     with (sharedPreferences.edit()) {
@@ -38,6 +29,8 @@ fun AndroidViewModel.setSharedPreferencesData(sharedPreferencesData: SharedPrefe
         putString(pref_place_name_key, sharedPreferencesData.placeName)
         putString(pref_email_key, sharedPreferencesData.email)
         putString(pref_token_key, sharedPreferencesData.token)
+        putBoolean(pref_logged_in_with_google_key, sharedPreferencesData.loggedInWithGoogle)
+        putString(pref_display_name_key, sharedPreferencesData.displayName)
         apply()
     }
 }
@@ -46,44 +39,43 @@ fun AndroidViewModel.getSharedPreferencesData() : SharedPreferencesData {
     return getApplication<UbademyApplication>().applicationContext.getSharedPreferencesData()
 }
 
-fun Context.getSharedPreferencesData() : SharedPreferencesData {
-    val sharedPreferences = getSharedPreferences(name, Context.MODE_PRIVATE)
-    return SharedPreferencesData(
-        id = sharedPreferences.getString(pref_id_key, "")!!,
-        firstName = sharedPreferences.getString(pref_first_name_key, "")!!,
-        lastName = sharedPreferences.getString(pref_last_name_key, "")!!,
-        placeId = sharedPreferences.getString(pref_place_id_key, "")!!,
-        placeName = sharedPreferences.getString(pref_place_name_key, "")!!,
-        email = sharedPreferences.getString(pref_email_key, "")!!,
-        token = sharedPreferences.getString(pref_token_key, "")!!
-    )
-}
-
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
-fun AndroidViewModel.api() : UbademyApiService {
+fun AndroidViewModel.usersApi() : UbademyUsersApiService {
+    val retrofit = Retrofit.Builder()
+        .client(getDefaultClient())
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .baseUrl(BuildConfig.USERS_BASE_URL)
+        .build()
+
+    return retrofit.create(UbademyUsersApiService::class.java)
+}
+
+fun AndroidViewModel.coursesApi() : UbademyCoursesApiService {
+    val retrofit = Retrofit.Builder()
+        .client(getDefaultClient())
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .baseUrl(BuildConfig.COURSES_BASE_URL)
+        .build()
+
+    return retrofit.create(UbademyCoursesApiService::class.java)
+}
+
+private fun AndroidViewModel.getDefaultClient() : OkHttpClient {
     val sharedPreferencesData = getSharedPreferencesData()
 
-    val client = OkHttpClient.Builder()
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
+    return OkHttpClient.Builder()
+        .connectTimeout(45, TimeUnit.SECONDS)
+        .writeTimeout(45, TimeUnit.SECONDS)
+        .readTimeout(45, TimeUnit.SECONDS)
         .addInterceptor { chain ->
             val newRequest: Request = chain.request().newBuilder()
                 .addHeader("Authorization", "Bearer ${sharedPreferencesData.token}")
                 .build()
             chain.proceed(newRequest)
         }.build()
-
-    val retrofit = Retrofit.Builder()
-        .client(client)
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .baseUrl(BuildConfig.BASE_URL)
-        .build()
-
-    return retrofit.create(UbademyApiService::class.java)
 }
 
 suspend fun AndroidViewModel.getPlaceById(placeId: String) : Place? {
