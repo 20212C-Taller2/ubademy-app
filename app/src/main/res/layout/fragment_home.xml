@@ -18,7 +18,7 @@
             android:id="@+id/userNameLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{@string/greetings_format(homeViewModel.firstName, homeViewModel.lastName)}"
+            android:text="@{@string/greetings_format(homeViewModel.displayName)}"
             android:textAlignment="center" />
 
     </LinearLayout>

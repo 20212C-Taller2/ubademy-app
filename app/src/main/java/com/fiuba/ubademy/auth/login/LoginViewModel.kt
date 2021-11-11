@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.LoginRequest
+import com.fiuba.ubademy.network.model.LoginWithGoogleRequest
 import com.fiuba.ubademy.utils.*
 import com.google.android.libraries.places.api.model.Place
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +39,9 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                         email = response.body()!!.user.email,
                         placeId = place?.id,
                         placeName = place?.address,
-                        token = response.body()!!.token
+                        token = response.body()!!.token,
+                        loggedInWithGoogle = false,
+                        displayName = null
                     ))
                 } else {
                     loginStatus = LoginStatus.INVALID_CREDENTIALS
@@ -49,5 +52,29 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         return loginStatus
+    }
+
+    suspend fun loginWithGoogle(idToken: String) {
+        val response = usersApi().loginWithGoogle(
+            LoginWithGoogleRequest(
+                googleToken = idToken
+            )
+        )
+        if (response.isSuccessful) {
+            var place : Place? = null
+            if (!response.body()!!.user.placeId.isNullOrBlank())
+                place = getPlaceById(response.body()!!.user.placeId!!)
+            setSharedPreferencesData(SharedPreferencesData(
+                id = response.body()!!.user.id,
+                firstName = null,
+                lastName = null,
+                email = response.body()!!.user.email,
+                placeId = place?.id,
+                placeName = place?.address,
+                token = response.body()!!.token,
+                loggedInWithGoogle = true,
+                displayName = response.body()!!.googleData!!.displayName
+            ))
+        }
     }
 }

@@ -29,6 +29,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
+import java.lang.Exception
 
 class LoginFragment : Fragment() {
 
@@ -89,10 +91,6 @@ class LoginFragment : Fragment() {
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
 
-        // TODO: remove this
-        googleSignInClient.signOut()
-        Firebase.auth.signOut()
-
         return binding.root
     }
 
@@ -133,7 +131,7 @@ class LoginFragment : Fragment() {
             return
 
         BusyFragment.show(this.parentFragmentManager)
-        val loginStatus : LoginStatus = viewModel.login()
+        val loginStatus = viewModel.login()
         BusyFragment.hide()
 
         when (loginStatus) {
@@ -147,37 +145,30 @@ class LoginFragment : Fragment() {
 
     private fun signInWithGoogle(view: View) {
         view.hideKeyboard()
+
+        // TODO: remove this
+        googleSignInClient.signOut()
+        Firebase.auth.signOut()
+
         signInWithGoogleActivityResultLauncher.launch(googleSignInClient.signInIntent)
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         BusyFragment.show(this.parentFragmentManager)
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        Firebase.auth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) { it ->
-                if (it.isSuccessful) {
-                    val user = Firebase.auth.currentUser
-                    val uid = user!!.uid
-                    // TODO: request to back-end
-                    // TODO: update shared preferences
-                    user.getIdToken(false).addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            val idToken: String? = it.result.token
-                            val a = idToken.toString()
-                            // Send token to your backend via HTTPS
-                            // ...
-                        } else {
-                            // Handle error -> task.getException();
-                        }
-                    }
-                    BusyFragment.hide()
-                    goToMain()
-                } else {
-                    // if sign in fails, display a message to the user.
-                    Timber.e(it.exception)
-                    BusyFragment.hide()
-                }
+
+        lifecycleScope.launch {
+            try {
+                val credential = GoogleAuthProvider.getCredential(idToken, null)
+                val authResult = Firebase.auth.signInWithCredential(credential).await()
+                val getTokenResult = authResult.user!!.getIdToken(false).await()
+                viewModel.loginWithGoogle(getTokenResult.token!!)
+                goToMain()
+            } catch (e: Exception) {
+                Timber.e(e)
+                Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
             }
+            BusyFragment.hide()
+        }
     }
 
     private fun goToMain() {

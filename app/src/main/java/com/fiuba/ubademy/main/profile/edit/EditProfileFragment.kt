@@ -18,10 +18,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentEditProfileBinding
-import com.fiuba.ubademy.utils.BusyFragment
-import com.fiuba.ubademy.utils.hideError
-import com.fiuba.ubademy.utils.hideKeyboard
-import com.fiuba.ubademy.utils.showError
+import com.fiuba.ubademy.utils.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
@@ -37,6 +34,7 @@ class EditProfileFragment : Fragment() {
 
     private lateinit var viewModel: EditProfileViewModel
     private lateinit var binding: FragmentEditProfileBinding
+    private lateinit var sharedPreferencesData: SharedPreferencesData
 
     private var firstNameValid = false
     private var lastNameValid = false
@@ -89,6 +87,8 @@ class EditProfileFragment : Fragment() {
         binding.editProfileViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        sharedPreferencesData = requireContext().getSharedPreferencesData()
+
         setupValidators()
 
         return binding.root
@@ -98,6 +98,20 @@ class EditProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(view.context)
+
+        if (sharedPreferencesData.loggedInWithGoogle) {
+            binding.firstNameEditProfileLayout.visibility = View.GONE
+            binding.lastNameEditProfileLayout.visibility = View.GONE
+            binding.displayNameEditProfileLayout.visibility = View.VISIBLE
+            binding.placeEditProfileLayout.visibility = View.VISIBLE
+            binding.emailEditProfileLayout.visibility = View.VISIBLE
+        } else {
+            binding.firstNameEditProfileLayout.visibility = View.VISIBLE
+            binding.lastNameEditProfileLayout.visibility = View.VISIBLE
+            binding.displayNameEditProfileLayout.visibility = View.GONE
+            binding.placeEditProfileLayout.visibility = View.VISIBLE
+            binding.emailEditProfileLayout.visibility = View.VISIBLE
+        }
 
         if (viewModel.editInProgress.value!!)
             enableForm()
@@ -115,34 +129,48 @@ class EditProfileFragment : Fragment() {
         viewModel.editInProgress.value = true
         binding.editProfileButton.visibility = View.GONE
         binding.submitEditProfileFormButton.visibility = View.VISIBLE
-        binding.firstNameEditProfileLayout.isEnabled = true
-        binding.lastNameEditProfileLayout.isEnabled = true
-        binding.placeEditProfileLayout.isEnabled = true
-        binding.emailEditProfileLayout.isEnabled = true
+
+        if (sharedPreferencesData.loggedInWithGoogle) {
+            binding.firstNameEditProfileLayout.isEnabled = false
+            binding.lastNameEditProfileLayout.isEnabled = false
+            binding.displayNameEditProfileLayout.isEnabled = false
+            binding.placeEditProfileLayout.isEnabled = true
+            binding.emailEditProfileLayout.isEnabled = false
+        } else {
+            binding.firstNameEditProfileLayout.isEnabled = true
+            binding.lastNameEditProfileLayout.isEnabled = true
+            binding.displayNameEditProfileLayout.isEnabled = false
+            binding.placeEditProfileLayout.isEnabled = true
+            binding.emailEditProfileLayout.isEnabled = true
+        }
     }
 
     private fun disableForm() {
         viewModel.editInProgress.value = false
         binding.editProfileButton.visibility = View.VISIBLE
         binding.submitEditProfileFormButton.visibility = View.GONE
+
         binding.firstNameEditProfileLayout.isEnabled = false
         binding.lastNameEditProfileLayout.isEnabled = false
+        binding.displayNameEditProfileLayout.isEnabled = false
         binding.placeEditProfileLayout.isEnabled = false
         binding.emailEditProfileLayout.isEnabled = false
     }
 
     private fun setupValidators() {
-        viewModel.firstName.observe(viewLifecycleOwner, {
-            firstNameValid = checkFirstName(it)
-        })
+        if (!sharedPreferencesData.loggedInWithGoogle) {
+            viewModel.firstName.observe(viewLifecycleOwner, {
+                firstNameValid = checkFirstName(it)
+            })
 
-        viewModel.lastName.observe(viewLifecycleOwner, {
-            lastNameValid = checkLastName(it)
-        })
+            viewModel.lastName.observe(viewLifecycleOwner, {
+                lastNameValid = checkLastName(it)
+            })
 
-        viewModel.email.observe(viewLifecycleOwner, {
-            emailValid = checkEmail(it)
-        })
+            viewModel.email.observe(viewLifecycleOwner, {
+                emailValid = checkEmail(it)
+            })
+        }
     }
 
     private fun checkFirstName(newValue : String?) : Boolean {
@@ -170,6 +198,9 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun checkForm() : Boolean {
+        if (sharedPreferencesData.loggedInWithGoogle)
+            return true
+
         val firstNameOk = firstNameValid || checkFirstName(viewModel.firstName.value)
         val lastNameOk = lastNameValid || checkLastName(viewModel.lastName.value)
         val emailOk = emailValid || checkEmail(viewModel.email.value)
@@ -181,6 +212,11 @@ class EditProfileFragment : Fragment() {
 
         if (!checkForm())
             return
+
+        if (sharedPreferencesData.loggedInWithGoogle && viewModel.placeId.value.isNullOrBlank()) {
+            disableForm()
+            return
+        }
 
         BusyFragment.show(this.parentFragmentManager)
         val editProfileStatus : EditProfileStatus = viewModel.editProfile()

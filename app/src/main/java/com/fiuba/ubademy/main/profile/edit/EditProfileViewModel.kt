@@ -13,20 +13,22 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
 
     var editInProgress = MutableLiveData<Boolean>()
 
-    var firstName = MutableLiveData<String>()
-    var lastName = MutableLiveData<String>()
+    var firstName = MutableLiveData<String?>()
+    var lastName = MutableLiveData<String?>()
+    var displayName = MutableLiveData<String?>()
     var placeId = MutableLiveData<String?>()
     var placeName = MutableLiveData<String?>()
     var email = MutableLiveData<String>()
 
+    private val sharedPreferencesData : SharedPreferencesData = getSharedPreferencesData()
     private val userId : String
 
     init {
         editInProgress.value = false
 
-        val sharedPreferencesData = getSharedPreferencesData()
         firstName.value = sharedPreferencesData.firstName
         lastName.value = sharedPreferencesData.lastName
+        displayName.value = sharedPreferencesData.displayName
         placeId.value = sharedPreferencesData.placeId
         placeName.value = sharedPreferencesData.placeName
         email.value = sharedPreferencesData.email
@@ -41,10 +43,10 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
                 val response = usersApi().editProfile(
                     userId,
                     EditProfileRequest(
-                        firstName = firstName.value!!,
-                        lastName = lastName.value!!,
+                        firstName = firstName.value,
+                        lastName = lastName.value,
                         placeId = placeId.value,
-                        email = email.value!!
+                        email = if (sharedPreferencesData.loggedInWithGoogle) null else email.value
                     )
                 )
                 if (response.isSuccessful) {
@@ -52,12 +54,14 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
                     val sharedPreferencesData = getSharedPreferencesData()
                     setSharedPreferencesData(SharedPreferencesData(
                         id = sharedPreferencesData.id,
-                        firstName = firstName.value!!,
-                        lastName = lastName.value!!,
+                        firstName = firstName.value,
+                        lastName = lastName.value,
                         placeId = placeId.value,
                         placeName = placeName.value,
                         email = email.value!!,
-                        token = sharedPreferencesData.token
+                        token = sharedPreferencesData.token,
+                        loggedInWithGoogle = sharedPreferencesData.loggedInWithGoogle,
+                        displayName = sharedPreferencesData.displayName
                     ))
                 } else if (response.code() == 409) {
                     editProfileStatus = EditProfileStatus.EMAIL_ALREADY_USED

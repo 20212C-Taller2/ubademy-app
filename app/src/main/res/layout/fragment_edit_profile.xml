@@ -64,6 +64,20 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/displayNameEditProfileLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_l">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/displayNameEditProfileInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/display_name"
+                        android:text="@={editProfileViewModel.displayName}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/placeEditProfileLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

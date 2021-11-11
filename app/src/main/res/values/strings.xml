@@ -6,6 +6,7 @@
     <string name="create_account">Crear cuenta</string>
     <string name="first_name">Nombre</string>
     <string name="last_name">Apellido</string>
+    <string name="display_name">Nombre y apellido</string>
     <string name="place">Ubicación (ciudad y país)</string>
     <string name="request_failed">No se pudo realizar la petición al servidor, intente mas tarde</string>
     <string name="invalid_credentials">Credenciales invalidas</string>
@@ -21,8 +22,7 @@
     <string name="edit_profile">Mi perfil</string>
     <string name="save_changes">Guardar cambios</string>
     <string name="changes_have_been_saved">Los cambios han sido guardados</string>
-    <string name="greetings_format">Hola, %1$s %2$s!</string>
-    <string name="name_format">%1$s %2$s</string>
+    <string name="greetings_format">¡Hola, %1$s!</string>
     <string name="should_have_value">Este campo es obligatorio</string>
     <string name="should_be_valid_email">Debe ser un email válido</string>
     <string name="should_be_valid_password">La contraseña debe tener por lo menos %1$d caracteres</string>
