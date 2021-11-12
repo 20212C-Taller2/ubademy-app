@@ -43,12 +43,12 @@ class LoginFragment : Fragment() {
     private var passwordValid = false
 
     private var signInWithGoogleActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        // the task returned from this call is always completed
-        val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
         try {
+            // the task returned from this call is always completed
+            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
             firebaseAuthWithGoogle(account.idToken!!)
-        } catch (e: ApiException) {
+        } catch (e: Exception) {
             Timber.e(e)
         }
     }
@@ -85,7 +85,7 @@ class LoginFragment : Fragment() {
         setupValidators()
 
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.web_client_id))
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
