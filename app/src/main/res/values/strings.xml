@@ -8,6 +8,9 @@
     <string name="last_name">Apellido</string>
     <string name="display_name">Nombre y apellido</string>
     <string name="place">Ubicación (ciudad y país)</string>
+    <string name="interests">Intereses</string>
+    <string name="select_interests">¿Qué te interesa aprender?</string>
+    <string name="ok">Listo</string>
     <string name="request_failed">No se pudo realizar la petición al servidor, intente mas tarde</string>
     <string name="invalid_credentials">Credenciales invalidas</string>
     <string name="email_already_used">El email indicado ya se encuentra registrado</string>
@@ -38,4 +41,11 @@
     <string name="title">Titulo</string>
     <string name="description">Descripción</string>
     <string name="course_added">El curso se creó con éxito</string>
+
+    <string name="WEB_DEVELOPMENT">Desarrollo web</string>
+    <string name="COOKING">Cocina</string>
+    <string name="WOODWORKING">Carpintería</string>
+    <string name="MATHEMATICS">Matemáticas</string>
+    <string name="YOGA">Yoga</string>
+    <string name="GRAPHIC_DESIGN">Diseño gráfico</string>
 </resources>
