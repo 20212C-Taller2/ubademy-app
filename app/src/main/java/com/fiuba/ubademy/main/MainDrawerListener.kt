@@ -15,6 +15,7 @@ class MainDrawerListener : DrawerLayout.DrawerListener {
         val sharedPreferencesData = drawerView.context.getSharedPreferencesData()
 
         displayName.value = sharedPreferencesData.getDisplayName()
+        picture.value = sharedPreferencesData.picture
         placeName.value = if (sharedPreferencesData.placeName.isNullOrBlank()) "-" else sharedPreferencesData.placeName
         email.value = sharedPreferencesData.email
     }
@@ -24,6 +25,7 @@ class MainDrawerListener : DrawerLayout.DrawerListener {
 
     companion object MainDrawerViewModel {
         var displayName = MutableLiveData<String>()
+        var picture = MutableLiveData<String?>()
         var placeName = MutableLiveData<String>()
         var email = MutableLiveData<String>()
     }

@@ -23,6 +23,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/display_name"
             android:scaleType="fitCenter"
+            app:imageUrl="@{mainDrawerViewModel.picture}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
