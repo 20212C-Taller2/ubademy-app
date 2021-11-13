@@ -10,39 +10,70 @@
             type="com.fiuba.ubademy.main.MainDrawerListener.MainDrawerViewModel"/>
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_m">
+        android:padding="@dimen/padding_s">
+
+        <ImageView
+            android:id="@+id/pictureDrawer"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/display_name"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
         <TextView
             android:id="@+id/nameDrawerLabel"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_s"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@{mainDrawerViewModel.displayName}"
             android:textAlignment="textStart"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/pictureDrawer"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="FirstName LastName" />
 
         <TextView
             android:id="@+id/emailDrawerLabel"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_s"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{mainDrawerViewModel.email}"
             android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/pictureDrawer"
+            app:layout_constraintTop_toBottomOf="@+id/nameDrawerLabel"
             tools:text="email@gmail.com" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_s">
+            android:id="@+id/placeDrawerLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_s"
+            android:layout_marginTop="@dimen/margin_s"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/pictureDrawer"
+            app:layout_constraintTop_toBottomOf="@+id/emailDrawerLabel">
 
             <ImageView
                 android:id="@+id/placeDrawerIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/place"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -50,18 +81,22 @@
 
             <TextView
                 android:id="@+id/placeDrawerLabel"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:paddingRight="@dimen/padding_l"
                 android:text="@{mainDrawerViewModel.placeName}"
                 android:textAlignment="textStart"
                 android:textSize="12sp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/placeDrawerIcon"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="City, Country" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
