@@ -64,6 +64,8 @@ class CreateAccountFragment : Fragment() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
+    private lateinit var courseTypesLabels : Array<String>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -106,6 +108,11 @@ class CreateAccountFragment : Fragment() {
             try {
                 if (viewModel.courseTypes.value?.any() != true)
                     viewModel.getCourseTypes()
+
+                courseTypesLabels = viewModel.courseTypes.value!!.map {
+                    item -> getString(resources.getIdentifier(item, "string", requireActivity().packageName))
+                }.toTypedArray()
+
                 binding.interestsCreateAccountInput.setOnClickListener {
                     openInterestsDialog()
                 }
@@ -203,12 +210,8 @@ class CreateAccountFragment : Fragment() {
 
         builder.setCancelable(true)
 
-        val labels : Array<String> = viewModel.courseTypes.value!!.map {
-            item -> getString(resources.getIdentifier(item, "string", requireActivity().packageName))
-        }.toTypedArray()
-
-        builder.setMultiChoiceItems(labels, viewModel.selectedCourseTypes.value) { _, _, _ ->
-            val selectedCourseTypes = labels.filterIndexed { index, _ -> viewModel.selectedCourseTypes.value!![index] }
+        builder.setMultiChoiceItems(courseTypesLabels, viewModel.selectedCourseTypes.value) { _, _, _ ->
+            val selectedCourseTypes = courseTypesLabels.filterIndexed { index, _ -> viewModel.selectedCourseTypes.value!![index] }
             viewModel.selectedCourseTypesText.postValue(selectedCourseTypes.joinToString(separator = ", ") { item -> item })
         }
 
