@@ -49,7 +49,8 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
                         lastName = lastName.value!!,
                         placeId = placeId.value,
                         email = email.value!!,
-                        password = password.value!!
+                        password = password.value!!,
+                        interests = courseTypes.value!!.filterIndexed { index, _ -> selectedCourseTypes.value!![index] }.toSet()
                     )
                 )
                 if (response.isSuccessful)

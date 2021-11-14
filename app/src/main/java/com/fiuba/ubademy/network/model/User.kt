@@ -5,5 +5,6 @@ data class User(
     val firstName: String?,
     val lastName: String?,
     val placeId: String?,
-    val email: String
+    val email: String,
+    val interests: Set<String>
 )

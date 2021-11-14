@@ -42,7 +42,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                         token = response.body()!!.token,
                         loggedInWithGoogle = false,
                         displayName = null,
-                        picture = null
+                        picture = null,
+                        interests = response.body()!!.user.interests
                     ))
                 } else {
                     loginStatus = LoginStatus.INVALID_CREDENTIALS
@@ -75,7 +76,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 token = response.body()!!.token,
                 loggedInWithGoogle = true,
                 displayName = response.body()!!.googleData!!.displayName,
-                picture = response.body()!!.googleData!!.picture
+                picture = response.body()!!.googleData!!.picture,
+                interests = response.body()!!.user.interests
             ))
         }
     }

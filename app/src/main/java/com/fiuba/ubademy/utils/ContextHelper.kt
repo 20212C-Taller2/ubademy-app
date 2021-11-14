@@ -14,6 +14,7 @@ fun Context.getSharedPreferencesData() : SharedPreferencesData {
         token = sharedPreferences.getString(pref_token_key, "")!!,
         loggedInWithGoogle = sharedPreferences.getBoolean(pref_logged_in_with_google_key, false),
         displayName = sharedPreferences.getString(pref_display_name_key, null),
-        picture = sharedPreferences.getString(pref_picture_key, null)
+        picture = sharedPreferences.getString(pref_picture_key, null),
+        interests = sharedPreferences.getStringSet(pref_interests_key, setOf())!!
     )
 }

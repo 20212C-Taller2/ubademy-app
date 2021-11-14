@@ -62,7 +62,8 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
                         token = sharedPreferencesData.token,
                         loggedInWithGoogle = sharedPreferencesData.loggedInWithGoogle,
                         displayName = sharedPreferencesData.displayName,
-                        picture = sharedPreferencesData.picture
+                        picture = sharedPreferencesData.picture,
+                        interests = sharedPreferencesData.interests // TODO
                     ))
                 } else if (response.code() == 409) {
                     editProfileStatus = EditProfileStatus.EMAIL_ALREADY_USED

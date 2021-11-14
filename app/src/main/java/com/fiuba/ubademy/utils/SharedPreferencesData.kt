@@ -12,6 +12,7 @@ const val pref_token_key = "P_TOKEN"
 const val pref_logged_in_with_google_key = "P_LOGGED_IN_WITH_GOOGLE"
 const val pref_display_name_key = "P_DISPLAY_NAME"
 const val pref_picture_key = "P_PICTURE"
+const val pref_interests_key = "P_INTERESTS"
 
 data class SharedPreferencesData(
     val id: String,
@@ -23,7 +24,8 @@ data class SharedPreferencesData(
     val token: String,
     val loggedInWithGoogle: Boolean,
     val displayName: String?,
-    val picture: String?
+    val picture: String?,
+    val interests: Set<String>
 )
 
 fun SharedPreferencesData.getDisplayName() : String {
