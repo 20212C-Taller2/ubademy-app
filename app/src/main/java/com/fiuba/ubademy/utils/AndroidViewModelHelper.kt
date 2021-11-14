@@ -31,6 +31,8 @@ fun AndroidViewModel.setSharedPreferencesData(sharedPreferencesData: SharedPrefe
         putString(pref_token_key, sharedPreferencesData.token)
         putBoolean(pref_logged_in_with_google_key, sharedPreferencesData.loggedInWithGoogle)
         putString(pref_display_name_key, sharedPreferencesData.displayName)
+        putString(pref_picture_key, sharedPreferencesData.picture)
+        putStringSet(pref_interests_key, sharedPreferencesData.interests)
         apply()
     }
 }

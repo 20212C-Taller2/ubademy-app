@@ -3,6 +3,7 @@ package com.fiuba.ubademy.auth.createaccount
 import android.Manifest
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Patterns
@@ -33,6 +34,7 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class CreateAccountFragment : Fragment() {
 
@@ -61,6 +63,8 @@ class CreateAccountFragment : Fragment() {
     private var locationPermissionsActivityResultLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { }
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private lateinit var courseTypesLabels : Array<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -99,6 +103,23 @@ class CreateAccountFragment : Fragment() {
 
         if (ActivityCompat.checkSelfPermission(view.context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
             locationPermissionsActivityResultLauncher.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
+
+        lifecycleScope.launch {
+            try {
+                if (viewModel.courseTypes.value?.any() != true)
+                    viewModel.getCourseTypes()
+
+                courseTypesLabels = viewModel.courseTypes.value!!.map {
+                    item -> getString(resources.getIdentifier(item, "string", requireActivity().packageName))
+                }.toTypedArray()
+
+                binding.interestsCreateAccountInput.setOnClickListener {
+                    openInterestsDialog()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun setupValidators() {
@@ -180,6 +201,24 @@ class CreateAccountFragment : Fragment() {
             CreateAccountStatus.EMAIL_ALREADY_USED -> Toast.makeText(context, R.string.email_already_used, Toast.LENGTH_LONG).show()
             CreateAccountStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun openInterestsDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+
+        builder.setTitle(getString(R.string.select_interests))
+
+        builder.setCancelable(true)
+
+        builder.setMultiChoiceItems(courseTypesLabels, viewModel.selectedCourseTypes.value) { _, _, _ ->
+            val selectedCourseTypes = courseTypesLabels.filterIndexed { index, _ -> viewModel.selectedCourseTypes.value!![index] }
+            viewModel.selectedCourseTypesText.postValue(selectedCourseTypes.joinToString(separator = ", ") { item -> item })
+        }
+
+        builder.setPositiveButton(R.string.ok) { _, _ ->
+        }
+
+        builder.show()
     }
 
     private fun getPlace(view: View) {

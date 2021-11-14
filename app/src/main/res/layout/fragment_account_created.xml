@@ -18,11 +18,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/accountCreatedText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/account_created_text"
-                android:textAlignment="center" />
+                android:gravity="center_horizontal"
+                android:text="@string/account_created_text" />
 
             <Button
                 android:id="@+id/returnToLoginButton"

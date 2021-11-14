@@ -6,6 +6,10 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface UbademyCoursesApiService {
+    @GET("courses/types")
+    suspend fun getCourseTypes()
+        : Response<List<String>>
+
     @GET("courses")
     suspend fun getCourses(@Query("skip") skip: Int, @Query("limit") limit: Int)
         : Response<List<Course>>

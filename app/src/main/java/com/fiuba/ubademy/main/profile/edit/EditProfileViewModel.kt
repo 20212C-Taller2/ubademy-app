@@ -20,6 +20,10 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
     var placeName = MutableLiveData<String?>()
     var email = MutableLiveData<String>()
 
+    var courseTypes = MutableLiveData<Array<String>>()
+    var selectedCourseTypes = MutableLiveData<BooleanArray>()
+    var selectedCourseTypesText = MutableLiveData<String>()
+
     private val sharedPreferencesData : SharedPreferencesData = getSharedPreferencesData()
     private val userId : String
 
@@ -33,6 +37,19 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
         placeName.value = sharedPreferencesData.placeName
         email.value = sharedPreferencesData.email
         userId = sharedPreferencesData.id
+
+        courseTypes.value = arrayOf()
+        selectedCourseTypes.value = booleanArrayOf()
+    }
+
+    suspend fun getCourseTypes() {
+        val response = coursesApi().getCourseTypes()
+        if (response.isSuccessful) {
+            courseTypes.value = response.body()!!.toTypedArray()
+            selectedCourseTypes.value = response.body()!!.map { item -> sharedPreferencesData.interests.contains(item) }.toBooleanArray()
+        } else {
+            throw Exception("Unable to fetch course types.")
+        }
     }
 
     suspend fun editProfile() : EditProfileStatus {
@@ -46,7 +63,8 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
                         firstName = firstName.value,
                         lastName = lastName.value,
                         placeId = placeId.value,
-                        email = if (sharedPreferencesData.loggedInWithGoogle) null else email.value
+                        email = if (sharedPreferencesData.loggedInWithGoogle) null else email.value,
+                        interests = courseTypes.value!!.filterIndexed { index, _ -> selectedCourseTypes.value!![index] }.toSet()
                     )
                 )
                 if (response.isSuccessful) {
@@ -61,7 +79,9 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
                         email = email.value!!,
                         token = sharedPreferencesData.token,
                         loggedInWithGoogle = sharedPreferencesData.loggedInWithGoogle,
-                        displayName = sharedPreferencesData.displayName
+                        displayName = sharedPreferencesData.displayName,
+                        picture = sharedPreferencesData.picture,
+                        interests = courseTypes.value!!.filterIndexed { index, _ -> selectedCourseTypes.value!![index] }.toSet()
                     ))
                 } else if (response.code() == 409) {
                     editProfileStatus = EditProfileStatus.EMAIL_ALREADY_USED

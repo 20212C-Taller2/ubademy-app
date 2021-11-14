@@ -5,5 +5,6 @@ data class CreateAccountRequest(
     val lastName: String,
     val placeId: String?,
     val email: String,
-    val password: String
+    val password: String,
+    val interests: Set<String>
 )

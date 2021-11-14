@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.CreateAccountRequest
+import com.fiuba.ubademy.utils.coursesApi
 import com.fiuba.ubademy.utils.usersApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -18,6 +19,25 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
     var email = MutableLiveData<String>()
     var password = MutableLiveData<String>()
 
+    var courseTypes = MutableLiveData<Array<String>>()
+    var selectedCourseTypes = MutableLiveData<BooleanArray>()
+    var selectedCourseTypesText = MutableLiveData<String>()
+
+    init {
+        courseTypes.value = arrayOf()
+        selectedCourseTypes.value = booleanArrayOf()
+    }
+
+    suspend fun getCourseTypes() {
+        val response = coursesApi().getCourseTypes()
+        if (response.isSuccessful) {
+            courseTypes.value = response.body()!!.toTypedArray()
+            selectedCourseTypes.value = response.body()!!.map { _ -> false }.toBooleanArray()
+        } else {
+            throw Exception("Unable to fetch course types.")
+        }
+    }
+
     suspend fun createAccount() : CreateAccountStatus {
         var createAccountStatus = CreateAccountStatus.FAIL
 
@@ -29,7 +49,8 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
                         lastName = lastName.value!!,
                         placeId = placeId.value,
                         email = email.value!!,
-                        password = password.value!!
+                        password = password.value!!,
+                        interests = courseTypes.value!!.filterIndexed { index, _ -> selectedCourseTypes.value!![index] }.toSet()
                     )
                 )
                 if (response.isSuccessful)
