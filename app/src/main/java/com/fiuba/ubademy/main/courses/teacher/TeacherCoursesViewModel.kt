@@ -3,6 +3,7 @@ package com.fiuba.ubademy.main.courses.teacher
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.fiuba.ubademy.main.courses.GetCoursesStatus
 import com.fiuba.ubademy.network.model.Course
 import com.fiuba.ubademy.utils.coursesApi
 import kotlinx.coroutines.Dispatchers

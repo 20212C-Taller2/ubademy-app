@@ -1,4 +1,4 @@
-package com.fiuba.ubademy.main.courses.teacher
+package com.fiuba.ubademy.main.courses
 
 enum class GetCoursesStatus {
     SUCCESS,
