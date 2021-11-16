@@ -40,6 +40,7 @@
     <string name="search_course">Buscar curso</string>
     <string name="title">Titulo</string>
     <string name="description">Descripción</string>
+    <string name="course_type">Tipo de curso</string>
     <string name="course_added">El curso se creó con éxito</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>

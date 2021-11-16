@@ -20,6 +20,27 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_s">
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/courseTypeCardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_xs"
+                app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                app:cardCornerRadius="@dimen/radius_s"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/courseTypeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_xs"
+                    android:textAlignment="viewStart"
+                    android:textColor="?attr/colorOnPrimary"
+                    app:type="@{course}"
+                    tools:text="Desarrollo web" />
+            </androidx.cardview.widget.CardView>
+
             <TextView
                 android:id="@+id/courseTitleText"
                 android:layout_width="wrap_content"
@@ -30,7 +51,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/courseTypeCardView"
                 app:title="@{course}"
                 tools:text="Lorem Ipsum" />
 

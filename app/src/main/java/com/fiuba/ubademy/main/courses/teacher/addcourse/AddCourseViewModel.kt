@@ -15,6 +15,18 @@ import timber.log.Timber
 class AddCourseViewModel(application: Application) : AndroidViewModel(application) {
     var title = MutableLiveData<String>()
     var description = MutableLiveData<String>()
+    var selectedCourseType = MutableLiveData<String>()
+
+    var courseTypes = MutableLiveData<Array<String>>()
+
+    suspend fun getCourseTypes() {
+        val response = coursesApi().getCourseTypes()
+        if (response.isSuccessful) {
+            courseTypes.value = response.body()!!.toTypedArray()
+        } else {
+            throw Exception("Unable to fetch course types.")
+        }
+    }
 
     suspend fun addCourse() : AddCourseStatus {
         var addCourseStatus = AddCourseStatus.FAIL
@@ -24,7 +36,8 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
                 val response = coursesApi().addCourse(
                     AddCourseRequest(
                         title = title.value!!,
-                        description = description.value!!
+                        description = description.value!!,
+                        type = selectedCourseType.value!!
                     )
                 )
                 if (response.isSuccessful) {
