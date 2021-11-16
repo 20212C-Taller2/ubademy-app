@@ -20,7 +20,7 @@ interface UbademyUsersApiService {
     suspend fun loginWithGoogle(@Body loginWithGoogleRequest: LoginWithGoogleRequest)
         : Response<LoginResponse>
 
-    @PATCH("users/{userId}")
+    @PATCH("{userId}")
     suspend fun editProfile(@Path("userId") userId : String, @Body editProfileRequest: EditProfileRequest)
         : Response<Void>
 }
