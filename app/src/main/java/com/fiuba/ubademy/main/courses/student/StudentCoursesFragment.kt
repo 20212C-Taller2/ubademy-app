@@ -1,8 +1,6 @@
 package com.fiuba.ubademy.main.courses.student
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +10,11 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentStudentCoursesBinding
-import com.fiuba.ubademy.network.model.Course
 import com.fiuba.ubademy.main.courses.CourseAdapter
 import com.fiuba.ubademy.main.courses.GetCoursesStatus
 import com.fiuba.ubademy.utils.BusyFragment
@@ -44,7 +42,7 @@ class StudentCoursesFragment : Fragment() {
         )
 
         binding.searchCourseButton.setOnClickListener {
-            // TODO: go to search screen
+            it.findNavController().navigate(StudentCoursesFragmentDirections.actionStudentCoursesFragmentToSearchCourseFragment())
         }
 
         progressBar = binding.root.findViewById(R.id.studentCoursesProgressBar)

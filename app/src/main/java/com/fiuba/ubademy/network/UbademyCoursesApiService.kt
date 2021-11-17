@@ -14,6 +14,10 @@ interface UbademyCoursesApiService {
     suspend fun getCourses(@Query("skip") skip: Int, @Query("limit") limit: Int)
         : Response<List<Course>>
 
+    @GET("courses")
+    suspend fun getCoursesFiltered(@Query("type") type: String, @Query("skip") skip: Int, @Query("limit") limit: Int)
+        : Response<List<Course>>
+
     @POST("courses")
     suspend fun addCourse(@Body addCourseRequest: AddCourseRequest)
         : Response<Void>
