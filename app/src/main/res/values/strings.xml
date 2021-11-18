@@ -22,6 +22,7 @@
     <string name="matter">75:52 - Taller de Programación II</string>
     <string name="semester">2do cuatrimestre 2021</string>
     <string name="group">Grupo 10</string>
+    <string name="home">Inicio</string>
     <string name="edit_profile">Mi perfil</string>
     <string name="save_changes">Guardar cambios</string>
     <string name="changes_have_been_saved">Los cambios han sido guardados</string>
