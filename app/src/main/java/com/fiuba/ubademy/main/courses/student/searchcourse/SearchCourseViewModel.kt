@@ -15,10 +15,14 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
     var selectedCourseType = MutableLiveData<String>()
     var courseTypes = MutableLiveData<Array<String>>()
 
+    var selectedSubscription = MutableLiveData<String>()
+    var subscriptions = MutableLiveData<Array<String>>()
+
     var courses = MutableLiveData<List<Course>>()
 
     init {
         selectedCourseType.value = ""
+        selectedSubscription.value = ""
         courses.value = listOf()
     }
 
@@ -31,12 +35,24 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    suspend fun getSubscriptions() {
+        /* TODO
+        val response = subscriptionsApi().getSubscriptions()
+        if (response.isSuccessful) {
+            subscriptions.value = arrayOf("") + response.body()!!.map { item -> item.name }.toTypedArray()
+        } else {
+            throw Exception("Unable to fetch subscriptions.")
+        }
+        */
+        subscriptions.value = arrayOf("", "FREE", "STARTER", "FULL")
+    }
+
     suspend fun getCoursesFiltered() : GetCoursesStatus {
         var getCoursesStatus = GetCoursesStatus.FAIL
 
         withContext(Dispatchers.IO) {
             try {
-                val response = coursesApi().getCoursesFiltered(selectedCourseType.value!!,0, 20)
+                val response = coursesApi().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!,0, 20)
                 if (response.isSuccessful) {
                     courses.postValue(response.body()!!)
                     getCoursesStatus = GetCoursesStatus.SUCCESS
@@ -54,7 +70,7 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
 
         withContext(Dispatchers.IO) {
             try {
-                val response = coursesApi().getCoursesFiltered(selectedCourseType.value!!, skip, 10)
+                val response = coursesApi().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!, skip, 10)
                 if (response.isSuccessful) {
                     courses.postValue(courses.value!!.plus(response.body()!!))
                     getCoursesStatus = GetCoursesStatus.SUCCESS

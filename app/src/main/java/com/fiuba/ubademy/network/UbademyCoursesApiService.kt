@@ -15,7 +15,7 @@ interface UbademyCoursesApiService {
         : Response<List<Course>>
 
     @GET("courses")
-    suspend fun getCoursesFiltered(@Query("type") type: String, @Query("skip") skip: Int, @Query("limit") limit: Int)
+    suspend fun getCoursesFiltered(@Query("type") type: String, @Query("subscription") subscription: String, @Query("skip") skip: Int, @Query("limit") limit: Int)
         : Response<List<Course>>
 
     @POST("courses")

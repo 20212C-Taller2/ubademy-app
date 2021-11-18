@@ -47,6 +47,10 @@ class SearchCourseFragment : Fragment() {
             getCoursesFiltered()
         })
 
+        viewModel.selectedSubscription.observe(viewLifecycleOwner, {
+            getCoursesFiltered()
+        })
+
         progressBar = binding.root.findViewById(R.id.searchCourseProgressBar)
 
         val adapter = CourseAdapter()
@@ -112,16 +116,43 @@ class SearchCourseFragment : Fragment() {
                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
             }
         }
+
+        lifecycleScope.launch {
+            try {
+                if (viewModel.subscriptions.value?.any() != true)
+                    viewModel.getSubscriptions()
+
+                val subscriptionsLabels = arrayOf(getString(R.string.all_f)) + viewModel.subscriptions.value!!.drop(1).map {
+                    item -> getString(resources.getIdentifier(item, "string", requireActivity().packageName))
+                }.toTypedArray()
+
+                val adapter = ArrayAdapter(view.context, R.layout.support_simple_spinner_dropdown_item, subscriptionsLabels)
+                binding.subscriptionSearchCourseInput.setAdapter(adapter)
+                binding.subscriptionSearchCourseInput.setOnItemClickListener { _, _, position, _ ->
+                    viewModel.selectedSubscription.postValue(viewModel.subscriptions.value!![position])
+                }
+                binding.subscriptionSearchCourseInput.threshold = 100
+                if (viewModel.selectedSubscription.value == "")
+                    binding.subscriptionSearchCourseInput.setText(getString(R.string.all_f), false)
+            } catch (e: Exception) {
+                Timber.e(e)
+                Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun getCoursesFiltered() {
-        BusyFragment.show(this.parentFragmentManager)
-        lifecycleScope.launch {
-            val getCoursesStatus : GetCoursesStatus = viewModel.getCoursesFiltered()
-            if (getCoursesStatus == GetCoursesStatus.FAIL)
-                Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
-            recyclerView.smoothScrollToPosition(0)
-            BusyFragment.hide()
+        if (!loading) {
+            loading = true
+            BusyFragment.show(this.parentFragmentManager)
+            lifecycleScope.launch {
+                val getCoursesStatus : GetCoursesStatus = viewModel.getCoursesFiltered()
+                if (getCoursesStatus == GetCoursesStatus.FAIL)
+                    Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+                recyclerView.smoothScrollToPosition(0)
+                BusyFragment.hide()
+                loading = false
+            }
         }
     }
 }

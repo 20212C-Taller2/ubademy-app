@@ -39,6 +39,21 @@
                     android:hint="@string/course_type"
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/subscriptionSearchCourseLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_l">
+
+                <AutoCompleteTextView
+                    android:id="@+id/subscriptionSearchCourseInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/subscription"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
