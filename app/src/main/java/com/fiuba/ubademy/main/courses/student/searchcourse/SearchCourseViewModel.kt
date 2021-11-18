@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.main.courses.GetCoursesStatus
 import com.fiuba.ubademy.network.model.Course
-import com.fiuba.ubademy.utils.coursesApi
+import com.fiuba.ubademy.utils.api
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -27,7 +27,7 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
     }
 
     suspend fun getCourseTypes() {
-        val response = coursesApi().getCourseTypes()
+        val response = api().getCourseTypes()
         if (response.isSuccessful) {
             courseTypes.value = arrayOf("") + response.body()!!.toTypedArray()
         } else {
@@ -52,7 +52,7 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
 
         withContext(Dispatchers.IO) {
             try {
-                val response = coursesApi().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!,0, 20)
+                val response = api().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!,0, 20)
                 if (response.isSuccessful) {
                     courses.postValue(response.body()!!)
                     getCoursesStatus = GetCoursesStatus.SUCCESS
@@ -70,7 +70,7 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
 
         withContext(Dispatchers.IO) {
             try {
-                val response = coursesApi().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!, skip, 10)
+                val response = api().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!, skip, 10)
                 if (response.isSuccessful) {
                     courses.postValue(courses.value!!.plus(response.body()!!))
                     getCoursesStatus = GetCoursesStatus.SUCCESS

@@ -21,7 +21,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
         withContext(Dispatchers.IO) {
             try {
-                val response = usersApi().login(
+                val response = api().login(
                     LoginRequest(
                         email = email.value!!,
                         password = password.value!!
@@ -57,7 +57,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     suspend fun loginWithGoogle(idToken: String) {
-        val response = usersApi().loginWithGoogle(
+        val response = api().loginWithGoogle(
             LoginWithGoogleRequest(
                 googleToken = idToken
             )

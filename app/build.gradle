@@ -22,31 +22,23 @@ android {
         debug {
             debuggable true
             signingConfig signingConfigs.debug
-            buildConfigField 'String', 'USERS_BASE_URL', '"https://ubademy-apigateway.herokuapp.com/users/"'
-            buildConfigField 'String', 'COURSES_BASE_URL', '"https://ubademy-courses-api.herokuapp.com/"'
-            buildConfigField 'String', 'SUBSCRIPTIONS_BASE_URL', '"https://ubademy-subscriptions-api.herokuapp.com/"'
+            buildConfigField 'String', 'BASE_URL', '"https://ubademy-apigateway.herokuapp.com/"'
         }
         develop {
             debuggable true
             signingConfig signingConfigs.debug
-            buildConfigField 'String', 'USERS_BASE_URL', '"https://ubademy-apigateway.herokuapp.com/users/"'
-            buildConfigField 'String', 'COURSES_BASE_URL', '"https://ubademy-courses-api.herokuapp.com/"'
-            buildConfigField 'String', 'SUBSCRIPTIONS_BASE_URL', '"https://ubademy-subscriptions-api.herokuapp.com/"'
+            buildConfigField 'String', 'BASE_URL', '"https://ubademy-apigateway.herokuapp.com/"'
         }
         main {
             debuggable true
             signingConfig signingConfigs.debug
-            buildConfigField 'String', 'USERS_BASE_URL', '"https://ubademy-apigateway.herokuapp.com/users/"'
-            buildConfigField 'String', 'COURSES_BASE_URL', '"https://ubademy-courses-api.herokuapp.com/"'
-            buildConfigField 'String', 'SUBSCRIPTIONS_BASE_URL', '"https://ubademy-subscriptions-api.herokuapp.com/"'
+            buildConfigField 'String', 'BASE_URL', '"https://ubademy-apigateway.herokuapp.com/"'
         }
         release {
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
-            buildConfigField 'String', 'USERS_BASE_URL', '"https://ubademy-apigateway.herokuapp.com/users/"'
-            buildConfigField 'String', 'COURSES_BASE_URL', '"https://ubademy-courses-api.herokuapp.com/"'
-            buildConfigField 'String', 'SUBSCRIPTIONS_BASE_URL', '"https://ubademy-subscriptions-api.herokuapp.com/"'
+            buildConfigField 'String', 'BASE_URL', '"https://ubademy-apigateway.herokuapp.com/"'
         }
     }
 

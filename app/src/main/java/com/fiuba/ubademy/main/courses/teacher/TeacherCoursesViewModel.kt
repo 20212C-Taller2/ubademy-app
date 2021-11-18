@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.main.courses.GetCoursesStatus
 import com.fiuba.ubademy.network.model.Course
-import com.fiuba.ubademy.utils.coursesApi
+import com.fiuba.ubademy.utils.api
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -23,7 +23,7 @@ class TeacherCoursesViewModel(application: Application) : AndroidViewModel(appli
 
         withContext(Dispatchers.IO) {
             try {
-                val response = coursesApi().getCourses(0, 20)
+                val response = api().getCourses(0, 20)
                 if (response.isSuccessful) {
                     courses.postValue(response.body()!!)
                     getCoursesStatus = GetCoursesStatus.SUCCESS
@@ -41,7 +41,7 @@ class TeacherCoursesViewModel(application: Application) : AndroidViewModel(appli
 
         withContext(Dispatchers.IO) {
             try {
-                val response = coursesApi().getCourses(skip, 10)
+                val response = api().getCourses(skip, 10)
                 if (response.isSuccessful) {
                     courses.postValue(courses.value!!.plus(response.body()!!))
                     getCoursesStatus = GetCoursesStatus.SUCCESS

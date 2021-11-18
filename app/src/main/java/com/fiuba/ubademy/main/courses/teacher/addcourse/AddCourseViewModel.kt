@@ -3,11 +3,8 @@ package com.fiuba.ubademy.main.courses.teacher.addcourse
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.fiuba.ubademy.auth.createaccount.CreateAccountStatus
 import com.fiuba.ubademy.network.model.AddCourseRequest
-import com.fiuba.ubademy.network.model.CreateAccountRequest
-import com.fiuba.ubademy.utils.coursesApi
-import com.fiuba.ubademy.utils.usersApi
+import com.fiuba.ubademy.utils.api
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -20,7 +17,7 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
     var courseTypes = MutableLiveData<Array<String>>()
 
     suspend fun getCourseTypes() {
-        val response = coursesApi().getCourseTypes()
+        val response = api().getCourseTypes()
         if (response.isSuccessful) {
             courseTypes.value = response.body()!!.toTypedArray()
         } else {
@@ -33,7 +30,7 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
 
         withContext(Dispatchers.IO) {
             try {
-                val response = coursesApi().addCourse(
+                val response = api().addCourse(
                     AddCourseRequest(
                         title = title.value!!,
                         description = description.value!!,
