@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import com.fiuba.ubademy.BuildConfig
 import com.fiuba.ubademy.UbademyApplication
-import com.fiuba.ubademy.network.UbademyCoursesApiService
-import com.fiuba.ubademy.network.UbademyUsersApiService
+import com.fiuba.ubademy.network.UbademyApiService
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
@@ -45,24 +44,18 @@ private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
-fun AndroidViewModel.usersApi() : UbademyUsersApiService {
-    val retrofit = Retrofit.Builder()
-        .client(getDefaultClient())
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .baseUrl(BuildConfig.USERS_BASE_URL)
+fun AndroidViewModel.api() : UbademyApiService {
+    val retrofit = getDefaultRetrofitBuilder()
+        .baseUrl(BuildConfig.BASE_URL)
         .build()
 
-    return retrofit.create(UbademyUsersApiService::class.java)
+    return retrofit.create(UbademyApiService::class.java)
 }
 
-fun AndroidViewModel.coursesApi() : UbademyCoursesApiService {
-    val retrofit = Retrofit.Builder()
+private fun AndroidViewModel.getDefaultRetrofitBuilder() : Retrofit.Builder {
+    return Retrofit.Builder()
         .client(getDefaultClient())
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .baseUrl(BuildConfig.COURSES_BASE_URL)
-        .build()
-
-    return retrofit.create(UbademyCoursesApiService::class.java)
+        .addConverterFactory(MoshiConverterFactory.create(moshi));
 }
 
 private fun AndroidViewModel.getDefaultClient() : OkHttpClient {

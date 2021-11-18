@@ -30,6 +30,7 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.lang.Exception
 
 class EditProfileFragment : Fragment() {
@@ -121,6 +122,7 @@ class EditProfileFragment : Fragment() {
                     openInterestsDialog()
                 }
             } catch (e: Exception) {
+                Timber.e(e)
                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
             }
         }

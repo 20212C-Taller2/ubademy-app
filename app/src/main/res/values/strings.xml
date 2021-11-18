@@ -40,7 +40,11 @@
     <string name="search_course">Buscar curso</string>
     <string name="title">Titulo</string>
     <string name="description">Descripción</string>
+    <string name="course_type">Tipo de curso</string>
+    <string name="subscription">Suscripción</string>
     <string name="course_added">El curso se creó con éxito</string>
+    <string name="all_f">Todas</string>
+    <string name="all_m">Todos</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>
@@ -48,4 +52,8 @@
     <string name="MATHEMATICS">Matemáticas</string>
     <string name="YOGA">Yoga</string>
     <string name="GRAPHIC_DESIGN">Diseño gráfico</string>
+
+    <string name="FREE">Free</string>
+    <string name="STARTER">Starter</string>
+    <string name="FULL">Full</string>
 </resources>

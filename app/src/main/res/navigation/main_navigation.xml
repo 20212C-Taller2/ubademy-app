@@ -38,7 +38,11 @@
         android:id="@+id/studentCoursesFragment"
         android:name="com.fiuba.ubademy.main.courses.student.StudentCoursesFragment"
         android:label="@string/my_student_courses"
-        tools:layout="@layout/fragment_student_courses" />
+        tools:layout="@layout/fragment_student_courses" >
+        <action
+            android:id="@+id/action_studentCoursesFragment_to_searchCourseFragment"
+            app:destination="@id/searchCourseFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addCourseFragment"
         android:name="com.fiuba.ubademy.main.courses.teacher.addcourse.AddCourseFragment"
@@ -50,4 +54,9 @@
             app:popUpTo="@id/teacherCoursesFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/searchCourseFragment"
+        android:name="com.fiuba.ubademy.main.courses.student.searchcourse.SearchCourseFragment"
+        android:label="@string/search_course"
+        tools:layout="@layout/fragment_search_course" />
 </navigation>

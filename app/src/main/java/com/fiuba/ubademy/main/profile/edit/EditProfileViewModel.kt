@@ -43,7 +43,7 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     suspend fun getCourseTypes() {
-        val response = coursesApi().getCourseTypes()
+        val response = api().getCourseTypes()
         if (response.isSuccessful) {
             courseTypes.value = response.body()!!.toTypedArray()
             selectedCourseTypes.value = response.body()!!.map { item -> sharedPreferencesData.interests.contains(item) }.toBooleanArray()
@@ -57,7 +57,7 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
 
         withContext(Dispatchers.IO) {
             try {
-                val response = usersApi().editProfile(
+                val response = api().editProfile(
                     userId,
                     EditProfileRequest(
                         firstName = firstName.value,
