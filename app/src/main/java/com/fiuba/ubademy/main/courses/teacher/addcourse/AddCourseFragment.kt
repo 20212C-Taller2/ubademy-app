@@ -185,8 +185,7 @@ class AddCourseFragment : Fragment() {
             viewModel.selectedImageUris.value!!.forEach {
                 val storageReference = FirebaseStorage.getInstance().getReference(it.lastPathSegment!! + ":" + UUID.randomUUID())
                 storageReference.putFile(it).await()
-                // TODO: store all storageReference.path as list<string> with other data
-                // use newReference = FirebaseStorage.getInstance().getReference(storageReference.path) to view data
+                viewModel.selectedImageFirebasePaths.value = viewModel.selectedImageFirebasePaths.value?.plus(storageReference.path)
             }
         } catch (e: Exception) {
             Timber.e(e)

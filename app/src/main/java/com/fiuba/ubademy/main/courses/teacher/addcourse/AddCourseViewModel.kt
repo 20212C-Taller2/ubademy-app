@@ -16,8 +16,13 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
     var selectedCourseType = MutableLiveData<String>()
 
     var selectedImageUris = MutableLiveData<List<Uri>>()
+    var selectedImageFirebasePaths = MutableLiveData<List<String>>()
 
     var courseTypes = MutableLiveData<Array<String>>()
+
+    init {
+        selectedImageFirebasePaths.value = listOf()
+    }
 
     suspend fun getCourseTypes() {
         val response = api().getCourseTypes()
@@ -37,7 +42,8 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
                     AddCourseRequest(
                         title = title.value!!,
                         description = description.value!!,
-                        type = selectedCourseType.value!!
+                        type = selectedCourseType.value!!,
+                        media = selectedImageFirebasePaths.value!!
                     )
                 )
                 if (response.isSuccessful) {
