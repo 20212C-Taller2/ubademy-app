@@ -46,6 +46,10 @@
     <string name="course_added">El curso se creó con éxito</string>
     <string name="all_f">Todas</string>
     <string name="all_m">Todos</string>
+    <string name="select_multimedia">Seleccionar imágenes</string>
+    <string name="multimedia_selected">Imágenes seleccionadas: %1$d</string>
+    <string name="should_select_multimedia">Hay que seleccionar imágenes</string>
+    <string name="unable_to_submit_multimedia">No se pudo subir los archivos multimedia</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>

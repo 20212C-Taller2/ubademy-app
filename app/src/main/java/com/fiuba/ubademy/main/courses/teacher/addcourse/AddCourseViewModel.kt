@@ -1,6 +1,7 @@
 package com.fiuba.ubademy.main.courses.teacher.addcourse
 
 import android.app.Application
+import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.AddCourseRequest
@@ -13,6 +14,8 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
     var title = MutableLiveData<String>()
     var description = MutableLiveData<String>()
     var selectedCourseType = MutableLiveData<String>()
+
+    var selectedImageUris = MutableLiveData<List<Uri>>()
 
     var courseTypes = MutableLiveData<Array<String>>()
 

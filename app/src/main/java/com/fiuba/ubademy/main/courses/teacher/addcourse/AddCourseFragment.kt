@@ -1,5 +1,8 @@
 package com.fiuba.ubademy.main.courses.teacher.addcourse
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -17,9 +21,12 @@ import com.fiuba.ubademy.utils.BusyFragment
 import com.fiuba.ubademy.utils.hideError
 import com.fiuba.ubademy.utils.hideKeyboard
 import com.fiuba.ubademy.utils.showError
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.lang.Exception
+import java.util.*
 
 class AddCourseFragment : Fragment() {
 
@@ -29,6 +36,23 @@ class AddCourseFragment : Fragment() {
     private var titleValid = false
     private var descriptionValid = false
     private var selectedCourseTypeValid = false
+    private var selectedImageUrisValid = false
+
+    private var arl = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            if (it.data!!.clipData != null) {
+                val count: Int = it.data!!.clipData!!.itemCount
+
+                val uris = (0 until count).map { i ->
+                    it.data!!.clipData!!.getItemAt(i).uri
+                }
+
+                viewModel.selectedImageUris.postValue(uris)
+
+                binding.selectImagesButton.text = getString(R.string.multimedia_selected, count)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -46,6 +70,10 @@ class AddCourseFragment : Fragment() {
             lifecycleScope.launch {
                 addCourse(it)
             }
+        }
+
+        binding.selectImagesButton.setOnClickListener {
+            selectImages()
         }
 
         binding.addCourseViewModel = viewModel
@@ -93,6 +121,10 @@ class AddCourseFragment : Fragment() {
         viewModel.selectedCourseType.observe(viewLifecycleOwner, {
             selectedCourseTypeValid = checkSelectedCourseType(it)
         })
+
+        viewModel.selectedImageUris.observe(viewLifecycleOwner, {
+            selectedImageUrisValid = checkSelectedImageUris(it)
+        })
     }
 
     private fun checkTitle(newValue : String?) : Boolean {
@@ -116,11 +148,29 @@ class AddCourseFragment : Fragment() {
         return binding.courseTypeAddCourseLayout.hideError()
     }
 
+    private fun checkSelectedImageUris(newValue: List<Uri>?) : Boolean {
+        if (newValue == null || newValue.isEmpty()) {
+            Toast.makeText(context, R.string.should_select_multimedia, Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        return true
+    }
+
     private fun checkForm() : Boolean {
         val titleOk = titleValid || checkTitle(viewModel.title.value)
         val descriptionOk = descriptionValid || checkDescription(viewModel.description.value)
         val selectedCourseTypeOk = selectedCourseTypeValid || checkSelectedCourseType(viewModel.selectedCourseType.value)
-        return titleOk && descriptionOk && selectedCourseTypeOk
+        val selectedImageUrisOk = selectedImageUrisValid || checkSelectedImageUris(viewModel.selectedImageUris.value)
+        return titleOk && descriptionOk && selectedCourseTypeOk && selectedImageUrisOk
+    }
+
+    private fun selectImages() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        arl.launch(intent)
     }
 
     private suspend fun addCourse(view: View) {
@@ -130,6 +180,21 @@ class AddCourseFragment : Fragment() {
             return
 
         BusyFragment.show(this.parentFragmentManager)
+
+        try {
+            viewModel.selectedImageUris.value!!.forEach {
+                val storageReference = FirebaseStorage.getInstance().getReference(it.lastPathSegment!! + ":" + UUID.randomUUID())
+                storageReference.putFile(it).await()
+                // TODO: store all storageReference.path as list<string> with other data
+                // use newReference = FirebaseStorage.getInstance().getReference(storageReference.path) to view data
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
+            Toast.makeText(context, R.string.unable_to_submit_multimedia, Toast.LENGTH_LONG).show()
+            BusyFragment.hide()
+            return
+        }
+
         val addCourseStatus : AddCourseStatus = viewModel.addCourse()
         BusyFragment.hide()
 
