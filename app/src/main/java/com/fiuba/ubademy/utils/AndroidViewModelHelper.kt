@@ -40,37 +40,8 @@ fun AndroidViewModel.getSharedPreferencesData() : SharedPreferencesData {
     return getApplication<UbademyApplication>().applicationContext.getSharedPreferencesData()
 }
 
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
-
 fun AndroidViewModel.api() : UbademyApiService {
-    val retrofit = getDefaultRetrofitBuilder()
-        .baseUrl(BuildConfig.BASE_URL)
-        .build()
-
-    return retrofit.create(UbademyApiService::class.java)
-}
-
-private fun AndroidViewModel.getDefaultRetrofitBuilder() : Retrofit.Builder {
-    return Retrofit.Builder()
-        .client(getDefaultClient())
-        .addConverterFactory(MoshiConverterFactory.create(moshi));
-}
-
-private fun AndroidViewModel.getDefaultClient() : OkHttpClient {
-    val sharedPreferencesData = getSharedPreferencesData()
-
-    return OkHttpClient.Builder()
-        .connectTimeout(45, TimeUnit.SECONDS)
-        .writeTimeout(45, TimeUnit.SECONDS)
-        .readTimeout(45, TimeUnit.SECONDS)
-        .addInterceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer ${sharedPreferencesData.token}")
-                .build()
-            chain.proceed(newRequest)
-        }.build()
+    return getApplication<UbademyApplication>().applicationContext.api()
 }
 
 suspend fun AndroidViewModel.getPlaceById(placeId: String) : Place? {

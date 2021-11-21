@@ -11,6 +11,7 @@
     <string name="interests">Intereses</string>
     <string name="select_interests">¿Qué te interesa aprender?</string>
     <string name="ok">Listo</string>
+    <string name="cancel">Cancelar</string>
     <string name="request_failed">No se pudo realizar la petición al servidor, intente mas tarde</string>
     <string name="invalid_credentials">Credenciales invalidas</string>
     <string name="email_already_used">El email indicado ya se encuentra registrado</string>
@@ -50,6 +51,8 @@
     <string name="multimedia_selected">Imágenes seleccionadas: %1$d</string>
     <string name="should_select_multimedia">Hay que seleccionar imágenes</string>
     <string name="unable_to_submit_multimedia">No se pudo subir los archivos multimedia</string>
+    <string name="confirm_enrolling">¿Desea inscribirse al curso "%1$s"?</string>
+    <string name="enroll_failed">No se pudo realizar la inscripción</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>

@@ -37,6 +37,10 @@ interface UbademyApiService {
     suspend fun addCourse(@Body addCourseRequest: AddCourseRequest)
         : Response<Void>
 
+    @POST("courses/enroll")
+    suspend fun enrollCourse(@Body enrollCourseRequest: EnrollCourseRequest)
+        : Response<Void>
+
     @GET("subscriptions")
     suspend fun getSubscriptions()
         : Response<List<Subscription>>
