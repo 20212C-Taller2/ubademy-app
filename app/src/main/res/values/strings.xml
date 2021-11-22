@@ -42,6 +42,7 @@
     <string name="my_student_courses">Mis cursos (estudiante)</string>
     <string name="add_course">Crear curso</string>
     <string name="search_course">Buscar curso</string>
+    <string name="course">Curso</string>
     <string name="title">Titulo</string>
     <string name="description">Descripción</string>
     <string name="course_type">Tipo de curso</string>
@@ -57,6 +58,9 @@
     <string name="enroll_failed">No se pudo realizar la inscripción</string>
     <string name="there_is_no_courses">No se han encontrado cursos</string>
     <string name="there_is_no_more_courses">No se han encontrado más cursos</string>
+    <string name="unenroll">Desinscribirse</string>
+    <string name="exams">Exámenes</string>
+    <string name="content">Contenido</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>

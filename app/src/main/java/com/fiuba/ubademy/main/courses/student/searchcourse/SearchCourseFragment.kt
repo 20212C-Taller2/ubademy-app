@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.ubademy.R
@@ -74,7 +75,7 @@ class SearchCourseFragment : Fragment() {
                     val enrollCourseStatus = viewModel.enrollCourse(it.id)
                     BusyFragment.hide()
                     if (enrollCourseStatus == EnrollCourseStatus.SUCCESS) {
-                        // TODO: navigate to course
+                        findNavController().navigate(SearchCourseFragmentDirections.actionSearchCourseFragmentToViewCourseFragment(it))
                     } else {
                         Toast.makeText(context, R.string.enroll_failed, Toast.LENGTH_LONG).show()
                     }

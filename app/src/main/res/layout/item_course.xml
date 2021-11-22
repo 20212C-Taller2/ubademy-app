@@ -38,7 +38,7 @@
                     android:textAlignment="viewStart"
                     android:textColor="?attr/colorOnPrimary"
                     app:type="@{course}"
-                    tools:text="Desarrollo web" />
+                    tools:text="@string/course_type" />
             </androidx.cardview.widget.CardView>
 
             <TextView
