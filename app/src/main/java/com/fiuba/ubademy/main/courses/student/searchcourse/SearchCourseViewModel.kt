@@ -52,10 +52,13 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
 
         try {
             // TODO: val response = api().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!,0, 20)
-            val response = api().getCourses(0, 20)
+            val response = api().getCoursesFiltered(if (selectedCourseType.value.isNullOrEmpty()) null else selectedCourseType.value!!,0, 20)
             if (response.isSuccessful) {
                 courses.postValue(response.body()!!)
                 getCoursesStatus = GetCoursesStatus.SUCCESS
+            } else if (response.code() == 404) {
+                courses.postValue(listOf())
+                getCoursesStatus = GetCoursesStatus.NOT_FOUND
             }
         } catch (e: Exception) {
             Timber.e(e)
@@ -69,10 +72,12 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
 
             try {
                 // TODO: val response = api().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!, skip, 10)
-                val response = api().getCourses(skip, 10)
+                val response = api().getCoursesFiltered(if (selectedCourseType.value.isNullOrEmpty()) null else selectedCourseType.value!!, skip, 10)
                 if (response.isSuccessful) {
                     courses.postValue(courses.value!!.plus(response.body()!!))
                     getCoursesStatus = GetCoursesStatus.SUCCESS
+                } else if (response.code() == 404) {
+                    getCoursesStatus = GetCoursesStatus.NOT_FOUND
                 }
             } catch (e: Exception) {
                 Timber.e(e)

@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.AddCourseRequest
 import com.fiuba.ubademy.utils.api
+import com.fiuba.ubademy.utils.getSharedPreferencesData
 import timber.log.Timber
 
 class AddCourseViewModel(application: Application) : AndroidViewModel(application) {
@@ -40,7 +41,8 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
                     title = title.value!!,
                     description = description.value!!,
                     type = selectedCourseType.value!!,
-                    media = selectedImageFirebasePaths.value!!
+                    media = selectedImageFirebasePaths.value!!,
+                    creator = getSharedPreferencesData().id
                 )
             )
             if (response.isSuccessful) {

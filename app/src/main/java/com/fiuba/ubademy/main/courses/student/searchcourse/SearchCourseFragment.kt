@@ -106,6 +106,8 @@ class SearchCourseFragment : Fragment() {
                             val getCoursesStatus : GetCoursesStatus = viewModel.addCoursesFiltered(size)
                             if (getCoursesStatus == GetCoursesStatus.FAIL)
                                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+                            if (getCoursesStatus == GetCoursesStatus.NOT_FOUND)
+                                Toast.makeText(context, R.string.there_is_no_more_courses, Toast.LENGTH_LONG).show()
                             progressBar.visibility = View.INVISIBLE
                             loading = false
                         }
@@ -175,6 +177,8 @@ class SearchCourseFragment : Fragment() {
                 val getCoursesStatus : GetCoursesStatus = viewModel.getCoursesFiltered()
                 if (getCoursesStatus == GetCoursesStatus.FAIL)
                     Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+                if (getCoursesStatus == GetCoursesStatus.NOT_FOUND)
+                    Toast.makeText(context, R.string.there_is_no_courses, Toast.LENGTH_LONG).show()
                 recyclerView.smoothScrollToPosition(0)
                 BusyFragment.hide()
                 loading = false

@@ -55,6 +55,8 @@
     <string name="unable_to_submit_multimedia">No se pudo subir los archivos multimedia</string>
     <string name="confirm_enrolling">¿Desea inscribirse al curso "%1$s"?</string>
     <string name="enroll_failed">No se pudo realizar la inscripción</string>
+    <string name="there_is_no_courses">No se han encontrado cursos</string>
+    <string name="there_is_no_more_courses">No se han encontrado más cursos</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>
