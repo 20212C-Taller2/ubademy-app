@@ -13,15 +13,16 @@ class ViewCourseViewModel(application: Application) : AndroidViewModel(applicati
     var title = MutableLiveData<String>()
     var description = MutableLiveData<String>()
     var courseType = MutableLiveData<String>()
+    var creator = MutableLiveData<String>()
 
     suspend fun unenrollCourse() : UnenrollCourseStatus {
         var unenrollCourseStatus = UnenrollCourseStatus.FAIL
         try {
             val response = api().unenrollCourse(
                 UnenrollCourseRequest(
-                userId = getSharedPreferencesData().id,
-                courseId = courseId.value!!
-            )
+                    userId = getSharedPreferencesData().id,
+                    courseId = courseId.value!!
+                )
             )
             if (response.isSuccessful)
                 unenrollCourseStatus = UnenrollCourseStatus.SUCCESS

@@ -38,6 +38,7 @@ class ViewCourseFragment : Fragment() {
         viewModel.title.value = course.title
         viewModel.description.value = course.description
         viewModel.courseType.value = getString(resources.getIdentifier(course.type, "string", binding.root.context.packageName))
+        viewModel.creator.value = course.creator
 
         binding.viewCourseViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
