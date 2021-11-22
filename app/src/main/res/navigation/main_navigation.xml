@@ -76,5 +76,10 @@
         <argument
             android:name="selectedCourse"
             app:argType="com.fiuba.ubademy.network.model.Course" />
+        <action
+            android:id="@+id/action_viewCourseFragment_to_studentCoursesFragment"
+            app:destination="@id/studentCoursesFragment"
+            app:popUpTo="@id/studentCoursesFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
