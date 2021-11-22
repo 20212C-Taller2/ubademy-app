@@ -1,22 +1,19 @@
 package com.fiuba.ubademy.main.courses.collaborator
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentCollaboratorCoursesBinding
-import com.fiuba.ubademy.network.model.Course
 import com.fiuba.ubademy.main.courses.CourseAdapter
 import com.fiuba.ubademy.main.courses.GetCoursesStatus
 import com.fiuba.ubademy.utils.BusyFragment

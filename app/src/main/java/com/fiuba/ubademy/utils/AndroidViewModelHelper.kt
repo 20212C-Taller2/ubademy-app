@@ -2,21 +2,13 @@ package com.fiuba.ubademy.utils
 
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
-import com.fiuba.ubademy.BuildConfig
 import com.fiuba.ubademy.UbademyApplication
 import com.fiuba.ubademy.network.UbademyApiService
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.tasks.await
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 fun AndroidViewModel.setSharedPreferencesData(sharedPreferencesData: SharedPreferencesData) {
     val sharedPreferences = getApplication<UbademyApplication>().getSharedPreferences(name, Context.MODE_PRIVATE)

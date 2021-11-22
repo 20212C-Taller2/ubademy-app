@@ -1,17 +1,16 @@
 package com.fiuba.ubademy
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.fiuba.ubademy.databinding.ActivityMainBinding
 import com.fiuba.ubademy.databinding.NavHeaderMainBinding
-import com.fiuba.ubademy.utils.hideKeyboard
 import com.fiuba.ubademy.main.MainDrawerListener
+import com.fiuba.ubademy.utils.hideKeyboard
 
 class MainActivity : AppCompatActivity() {
 

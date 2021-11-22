@@ -5,8 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.CreateAccountRequest
 import com.fiuba.ubademy.utils.api
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class CreateAccountViewModel(application: Application) : AndroidViewModel(application) {
@@ -40,25 +38,23 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
     suspend fun createAccount() : CreateAccountStatus {
         var createAccountStatus = CreateAccountStatus.FAIL
 
-        withContext(Dispatchers.IO) {
-            try {
-                val response = api().createAccount(
-                    CreateAccountRequest(
-                        firstName = firstName.value!!,
-                        lastName = lastName.value!!,
-                        placeId = placeId.value,
-                        email = email.value!!,
-                        password = password.value!!,
-                        interests = courseTypes.value!!.filterIndexed { index, _ -> selectedCourseTypes.value!![index] }.toSet()
-                    )
+        try {
+            val response = api().createAccount(
+                CreateAccountRequest(
+                    firstName = firstName.value!!,
+                    lastName = lastName.value!!,
+                    placeId = placeId.value,
+                    email = email.value!!,
+                    password = password.value!!,
+                    interests = courseTypes.value!!.filterIndexed { index, _ -> selectedCourseTypes.value!![index] }.toSet()
                 )
-                if (response.isSuccessful)
-                    createAccountStatus = CreateAccountStatus.SUCCESS
-                else if (response.code() == 409)
-                    createAccountStatus = CreateAccountStatus.EMAIL_ALREADY_USED
-            } catch (e: Exception) {
-                Timber.e(e)
-            }
+            )
+            if (response.isSuccessful)
+                createAccountStatus = CreateAccountStatus.SUCCESS
+            else if (response.code() == 409)
+                createAccountStatus = CreateAccountStatus.EMAIL_ALREADY_USED
+        } catch (e: Exception) {
+            Timber.e(e)
         }
 
         return createAccountStatus
