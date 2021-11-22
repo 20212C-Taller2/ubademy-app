@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentSearchCourseBinding
+import com.fiuba.ubademy.main.courses.CourseAdapter
 import com.fiuba.ubademy.main.courses.GetCoursesStatus
 import com.fiuba.ubademy.utils.BusyFragment
 import kotlinx.coroutines.launch
@@ -52,7 +53,7 @@ class SearchCourseFragment : Fragment() {
 
         progressBar = binding.root.findViewById(R.id.searchCourseProgressBar)
 
-        val adapter = SearchCourseAdapter()
+        val adapter = CourseAdapter()
 
         viewModel.courses.observe(viewLifecycleOwner, {
             it?.let {
@@ -67,7 +68,7 @@ class SearchCourseFragment : Fragment() {
 
             builder.setCancelable(true)
 
-            builder.setPositiveButton(R.string.ok) { _, _ ->
+            builder.setPositiveButton(R.string.yes) { _, _ ->
                 BusyFragment.show(this.parentFragmentManager)
                 lifecycleScope.launch {
                     val enrollCourseStatus = viewModel.enrollCourse(it.id)
@@ -80,7 +81,7 @@ class SearchCourseFragment : Fragment() {
                 }
             }
 
-            builder.setNegativeButton(R.string.cancel) { _, _ ->
+            builder.setNegativeButton(R.string.no) { _, _ ->
             }
 
             builder.show()

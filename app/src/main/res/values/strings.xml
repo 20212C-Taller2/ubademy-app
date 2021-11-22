@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Ubademy</string>
     <string name="email">Email</string>
     <string name="password">Contraseña</string>
@@ -12,6 +12,8 @@
     <string name="select_interests">¿Qué te interesa aprender?</string>
     <string name="ok">Listo</string>
     <string name="cancel">Cancelar</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
     <string name="request_failed">No se pudo realizar la petición al servidor, intente mas tarde</string>
     <string name="invalid_credentials">Credenciales invalidas</string>
     <string name="email_already_used">El email indicado ya se encuentra registrado</string>
