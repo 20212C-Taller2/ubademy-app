@@ -24,6 +24,9 @@ class CollaboratorCoursesViewModel(application: Application) : AndroidViewModel(
             if (response.isSuccessful) {
                 courses.postValue(response.body()!!)
                 getCoursesStatus = GetCoursesStatus.SUCCESS
+            } else if (response.code() == 404) {
+                courses.postValue(listOf())
+                getCoursesStatus = GetCoursesStatus.NOT_FOUND
             }
         } catch (e: Exception) {
             Timber.e(e)
@@ -40,6 +43,8 @@ class CollaboratorCoursesViewModel(application: Application) : AndroidViewModel(
             if (response.isSuccessful) {
                 courses.postValue(courses.value!!.plus(response.body()!!))
                 getCoursesStatus = GetCoursesStatus.SUCCESS
+            } else if (response.code() == 404) {
+                getCoursesStatus = GetCoursesStatus.NOT_FOUND
             }
         } catch (e: Exception) {
             Timber.e(e)

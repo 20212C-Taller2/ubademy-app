@@ -74,6 +74,8 @@ class StudentCoursesFragment : Fragment() {
                             val getCoursesStatus : GetCoursesStatus = viewModel.addCourses(size)
                             if (getCoursesStatus == GetCoursesStatus.FAIL)
                                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+                            if (getCoursesStatus == GetCoursesStatus.NOT_FOUND)
+                                Toast.makeText(context, R.string.there_is_no_more_courses, Toast.LENGTH_LONG).show()
                             progressBar.visibility = View.INVISIBLE
                             loading = false
                         }
@@ -92,6 +94,8 @@ class StudentCoursesFragment : Fragment() {
             val getCoursesStatus : GetCoursesStatus = viewModel.getCourses()
             if (getCoursesStatus == GetCoursesStatus.FAIL)
                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+            if (getCoursesStatus == GetCoursesStatus.NOT_FOUND)
+                Toast.makeText(context, R.string.there_is_no_courses, Toast.LENGTH_LONG).show()
             BusyFragment.hide()
         }
     }
