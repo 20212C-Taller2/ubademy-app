@@ -27,17 +27,16 @@
                 android:layout_marginTop="@dimen/margin_l"
                 android:text="@string/content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionViewCourseLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/teacherViewCourseChip" />
 
             <Button
                 android:id="@+id/examsViewCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_l"
-                android:layout_marginTop="@dimen/margin_l"
                 android:text="@string/exams"
-                app:layout_constraintStart_toEndOf="@+id/contentViewCourseButton"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionViewCourseLabel" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/contentViewCourseButton"
+                app:layout_constraintStart_toEndOf="@+id/contentViewCourseButton" />
 
             <Button
                 android:id="@+id/unenrollViewCourseButton"
@@ -91,6 +90,29 @@
                     android:textColor="?attr/colorOnPrimary"
                     tools:text="@string/course_type" />
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/teacherViewCourseLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/teacher"
+                android:textAlignment="viewStart"
+                android:textStyle="italic"
+                app:layout_constraintBaseline_toBaselineOf="@+id/teacherViewCourseChip"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/teacherViewCourseChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_m"
+                android:layout_marginTop="@dimen/margin_m"
+                android:enabled="false"
+                android:text="@{viewCourseViewModel.creatorDisplayName}"
+                app:layout_constraintStart_toEndOf="@+id/teacherViewCourseLabel"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionViewCourseLabel"
+                tools:text="@string/display_name" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 </layout>

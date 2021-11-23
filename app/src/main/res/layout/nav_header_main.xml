@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/display_name"
+            android:contentDescription="@string/user"
             android:scaleType="fitCenter"
             app:imageUrl="@{mainDrawerViewModel.picture}"
             app:layout_constraintBottom_toBottomOf="parent"

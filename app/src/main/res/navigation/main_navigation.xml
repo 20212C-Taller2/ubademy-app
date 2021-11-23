@@ -81,5 +81,17 @@
             app:destination="@id/studentCoursesFragment"
             app:popUpTo="@id/studentCoursesFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_viewCourseFragment_to_viewPublicProfileFragment"
+            app:destination="@id/viewPublicProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewPublicProfileFragment"
+        android:name="com.fiuba.ubademy.main.profile.viewpublic.ViewPublicProfileFragment"
+        android:label="@string/user"
+        tools:layout="@layout/fragment_view_public_profile">
+        <argument
+            android:name="getUserResponse"
+            app:argType="com.fiuba.ubademy.network.model.GetUserResponse" />
     </fragment>
 </navigation>

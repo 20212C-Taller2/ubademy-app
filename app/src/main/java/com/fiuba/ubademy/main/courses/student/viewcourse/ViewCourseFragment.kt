@@ -71,4 +71,21 @@ class ViewCourseFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        BusyFragment.show(this.parentFragmentManager)
+        lifecycleScope.launch {
+            val getCreatorStatus = viewModel.getCreator()
+            BusyFragment.hide()
+            if (getCreatorStatus == GetCreatorStatus.SUCCESS) {
+                binding.teacherViewCourseChip.isEnabled = true
+                binding.teacherViewCourseChip.setOnClickListener {
+                    findNavController().navigate(ViewCourseFragmentDirections.actionViewCourseFragmentToViewPublicProfileFragment(viewModel.getUserResponse.value!!))
+                }
+            } else {
+                Toast.makeText(context, R.string.unable_to_fetch_creator, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 }
