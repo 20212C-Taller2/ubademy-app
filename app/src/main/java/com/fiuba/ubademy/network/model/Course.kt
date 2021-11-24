@@ -9,5 +9,6 @@ data class Course(
     val title : String,
     val description : String,
     val type: String,
-    val creator: String
+    val creator: String,
+    val media: List<String>
 ) : Parcelable

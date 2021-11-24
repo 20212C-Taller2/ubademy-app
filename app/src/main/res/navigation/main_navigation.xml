@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_viewCourseFragment_to_viewPublicProfileFragment"
             app:destination="@id/viewPublicProfileFragment" />
+        <action
+            android:id="@+id/action_viewCourseFragment_to_viewCourseContentFragment"
+            app:destination="@id/viewCourseContentFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewPublicProfileFragment"
@@ -93,5 +96,14 @@
         <argument
             android:name="getUserResponse"
             app:argType="com.fiuba.ubademy.network.model.GetUserResponse" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewCourseContentFragment"
+        android:name="com.fiuba.ubademy.main.courses.viewcontent.ViewCourseContentFragment"
+        android:label="@string/content"
+        tools:layout="@layout/fragment_view_course_content">
+        <argument
+            android:name="selectedCourse"
+            app:argType="com.fiuba.ubademy.network.model.Course" />
     </fragment>
 </navigation>
