@@ -5,9 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.main.courses.GetCoursesStatus
 import com.fiuba.ubademy.network.model.Course
+import com.fiuba.ubademy.network.model.EnrollCourseRequest
 import com.fiuba.ubademy.utils.api
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.fiuba.ubademy.utils.getSharedPreferencesData
 import timber.log.Timber
 
 class SearchCourseViewModel(application: Application) : AndroidViewModel(application) {
@@ -50,16 +50,18 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
     suspend fun getCoursesFiltered() : GetCoursesStatus {
         var getCoursesStatus = GetCoursesStatus.FAIL
 
-        withContext(Dispatchers.IO) {
-            try {
-                val response = api().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!,0, 20)
-                if (response.isSuccessful) {
-                    courses.postValue(response.body()!!)
-                    getCoursesStatus = GetCoursesStatus.SUCCESS
-                }
-            } catch (e: Exception) {
-                Timber.e(e)
+        try {
+            // TODO: val response = api().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!,0, 20)
+            val response = api().getCoursesFiltered(if (selectedCourseType.value.isNullOrEmpty()) null else selectedCourseType.value!!,0, 20)
+            if (response.isSuccessful) {
+                courses.postValue(response.body()!!)
+                getCoursesStatus = GetCoursesStatus.SUCCESS
+            } else if (response.code() == 404) {
+                courses.postValue(listOf())
+                getCoursesStatus = GetCoursesStatus.NOT_FOUND
             }
+        } catch (e: Exception) {
+            Timber.e(e)
         }
 
         return getCoursesStatus
@@ -68,18 +70,34 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
     suspend fun addCoursesFiltered(skip: Int) : GetCoursesStatus {
         var getCoursesStatus = GetCoursesStatus.FAIL
 
-        withContext(Dispatchers.IO) {
             try {
-                val response = api().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!, skip, 10)
+                // TODO: val response = api().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!, skip, 10)
+                val response = api().getCoursesFiltered(if (selectedCourseType.value.isNullOrEmpty()) null else selectedCourseType.value!!, skip, 10)
                 if (response.isSuccessful) {
                     courses.postValue(courses.value!!.plus(response.body()!!))
                     getCoursesStatus = GetCoursesStatus.SUCCESS
+                } else if (response.code() == 404) {
+                    getCoursesStatus = GetCoursesStatus.NOT_FOUND
                 }
             } catch (e: Exception) {
                 Timber.e(e)
             }
-        }
 
         return getCoursesStatus
+    }
+
+    suspend fun enrollCourse(courseId: Int) : EnrollCourseStatus {
+        var enrollCourseStatus = EnrollCourseStatus.FAIL
+        try {
+            val response = api().enrollCourse(EnrollCourseRequest(
+                userId = getSharedPreferencesData().id,
+                courseId = courseId
+            ))
+            if (response.isSuccessful)
+                enrollCourseStatus = EnrollCourseStatus.SUCCESS
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+        return enrollCourseStatus
     }
 }

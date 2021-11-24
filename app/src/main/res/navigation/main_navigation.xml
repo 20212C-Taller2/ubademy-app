@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_studentCoursesFragment_to_searchCourseFragment"
             app:destination="@id/searchCourseFragment" />
+        <action
+            android:id="@+id/action_studentCoursesFragment_to_viewCourseFragment"
+            app:destination="@id/viewCourseFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCourseFragment"
@@ -58,5 +61,49 @@
         android:id="@+id/searchCourseFragment"
         android:name="com.fiuba.ubademy.main.courses.student.searchcourse.SearchCourseFragment"
         android:label="@string/search_course"
-        tools:layout="@layout/fragment_search_course" />
+        tools:layout="@layout/fragment_search_course" >
+        <action
+            android:id="@+id/action_searchCourseFragment_to_viewCourseFragment"
+            app:destination="@id/viewCourseFragment"
+            app:popUpTo="@id/studentCoursesFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewCourseFragment"
+        android:name="com.fiuba.ubademy.main.courses.student.viewcourse.ViewCourseFragment"
+        android:label="@string/course"
+        tools:layout="@layout/fragment_view_course">
+        <argument
+            android:name="selectedCourse"
+            app:argType="com.fiuba.ubademy.network.model.Course" />
+        <action
+            android:id="@+id/action_viewCourseFragment_to_studentCoursesFragment"
+            app:destination="@id/studentCoursesFragment"
+            app:popUpTo="@id/studentCoursesFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_viewCourseFragment_to_viewPublicProfileFragment"
+            app:destination="@id/viewPublicProfileFragment" />
+        <action
+            android:id="@+id/action_viewCourseFragment_to_viewCourseContentFragment"
+            app:destination="@id/viewCourseContentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewPublicProfileFragment"
+        android:name="com.fiuba.ubademy.main.profile.viewpublic.ViewPublicProfileFragment"
+        android:label="@string/user"
+        tools:layout="@layout/fragment_view_public_profile">
+        <argument
+            android:name="getUserResponse"
+            app:argType="com.fiuba.ubademy.network.model.GetUserResponse" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewCourseContentFragment"
+        android:name="com.fiuba.ubademy.main.courses.viewcontent.ViewCourseContentFragment"
+        android:label="@string/content"
+        tools:layout="@layout/fragment_view_course_content">
+        <argument
+            android:name="selectedCourse"
+            app:argType="com.fiuba.ubademy.network.model.Course" />
+    </fragment>
 </navigation>

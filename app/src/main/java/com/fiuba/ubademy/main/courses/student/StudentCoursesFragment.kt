@@ -1,16 +1,17 @@
 package com.fiuba.ubademy.main.courses.student
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.ubademy.R
@@ -49,6 +50,10 @@ class StudentCoursesFragment : Fragment() {
 
         val adapter = CourseAdapter()
 
+        adapter.onCourseItemClick = {
+            findNavController().navigate(StudentCoursesFragmentDirections.actionStudentCoursesFragmentToViewCourseFragment(it))
+        }
+
         viewModel.courses.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it)
@@ -74,6 +79,8 @@ class StudentCoursesFragment : Fragment() {
                             val getCoursesStatus : GetCoursesStatus = viewModel.addCourses(size)
                             if (getCoursesStatus == GetCoursesStatus.FAIL)
                                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+                            if (getCoursesStatus == GetCoursesStatus.NOT_FOUND)
+                                Toast.makeText(context, R.string.there_is_no_more_courses, Toast.LENGTH_LONG).show()
                             progressBar.visibility = View.INVISIBLE
                             loading = false
                         }
@@ -92,6 +99,8 @@ class StudentCoursesFragment : Fragment() {
             val getCoursesStatus : GetCoursesStatus = viewModel.getCourses()
             if (getCoursesStatus == GetCoursesStatus.FAIL)
                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+            if (getCoursesStatus == GetCoursesStatus.NOT_FOUND)
+                Toast.makeText(context, R.string.there_is_no_courses, Toast.LENGTH_LONG).show()
             BusyFragment.hide()
         }
     }

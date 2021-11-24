@@ -17,6 +17,10 @@ interface UbademyApiService {
     suspend fun loginWithGoogle(@Body loginWithGoogleRequest: LoginWithGoogleRequest)
         : Response<LoginResponse>
 
+    @GET("users/{userId}")
+    suspend fun getUser(@Path("userId") userId : String)
+        : Response<GetUserResponse>
+
     @PATCH("users/{userId}")
     suspend fun editProfile(@Path("userId") userId : String, @Body editProfileRequest: EditProfileRequest)
         : Response<Void>
@@ -30,11 +34,19 @@ interface UbademyApiService {
         : Response<List<Course>>
 
     @GET("courses")
-    suspend fun getCoursesFiltered(@Query("type") type: String, @Query("subscription") subscription: String, @Query("skip") skip: Int, @Query("limit") limit: Int)
+    suspend fun getCoursesFiltered(@Query("type") type: String?, @Query("skip") skip: Int, @Query("limit") limit: Int)
         : Response<List<Course>>
 
     @POST("courses")
     suspend fun addCourse(@Body addCourseRequest: AddCourseRequest)
+        : Response<Void>
+
+    @POST("courses/enroll")
+    suspend fun enrollCourse(@Body enrollCourseRequest: EnrollCourseRequest)
+        : Response<Void>
+
+    @POST("courses/unenroll")
+    suspend fun unenrollCourse(@Body unenrollCourseRequest: UnenrollCourseRequest)
         : Response<Void>
 
     @GET("subscriptions")

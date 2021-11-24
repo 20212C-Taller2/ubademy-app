@@ -16,4 +16,5 @@
     <dimen name="radius_l">24dp</dimen>
 
     <dimen name="input_width_m">240dp</dimen>
+    <dimen name="profile_image_size">120dp</dimen>
 </resources>

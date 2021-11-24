@@ -35,7 +35,6 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.lang.Exception
 
 class CreateAccountFragment : Fragment() {
 
