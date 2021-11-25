@@ -9,4 +9,5 @@ class ViewPublicProfileViewModel(application: Application) : AndroidViewModel(ap
     var id = MutableLiveData<String>()
     var displayName = MutableLiveData<String>()
     var picture = MutableLiveData<String?>()
+    var interests = MutableLiveData<String>()
 }

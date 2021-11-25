@@ -46,7 +46,7 @@ class ViewCourseViewModel(application: Application) : AndroidViewModel(applicati
                 user = User(
                     id = "618d8af045b7950011e71e2c",
                     email = "ndyatlov@sparkdigital.com",
-                    interests = setOf(),
+                    interests = setOf("YOGA", "WOODWORKING"),
                     firstName = null,
                     lastName = null,
                     placeId = null

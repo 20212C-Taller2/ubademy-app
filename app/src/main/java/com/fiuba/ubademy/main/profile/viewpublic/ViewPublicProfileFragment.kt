@@ -32,6 +32,9 @@ class ViewPublicProfileFragment : Fragment() {
         viewModel.displayName.value = getUserResponse.displayName
         viewModel.id.value = getUserResponse.user.id
         viewModel.picture.value = getUserResponse.googleData?.picture
+        viewModel.interests.value = getUserResponse.user.interests.joinToString(System.lineSeparator()) { item ->
+            getString(resources.getIdentifier(item, "string", binding.root.context.packageName))
+        }
 
         binding.viewPublicProfileViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
