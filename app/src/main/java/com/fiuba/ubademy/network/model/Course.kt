@@ -12,3 +12,7 @@ data class Course(
     val creator: String,
     val media: List<String>
 ) : Parcelable
+{
+    val mediaSorted
+        get() = media.sorted()
+}
