@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_teacherCoursesFragment_to_addCourseFragment"
             app:destination="@id/addCourseFragment" />
+        <action
+            android:id="@+id/action_teacherCoursesFragment_to_manageCourseFragment"
+            app:destination="@id/manageCourseFragment" />
     </fragment>
     <fragment
         android:id="@+id/collaboratorCoursesFragment"
@@ -105,5 +108,17 @@
         <argument
             android:name="selectedCourse"
             app:argType="com.fiuba.ubademy.network.model.Course" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageCourseFragment"
+        android:name="com.fiuba.ubademy.main.courses.teacher.managecourse.ManageCourseFragment"
+        android:label="@string/course"
+        tools:layout="@layout/fragment_manage_course">
+        <argument
+            android:name="selectedCourse"
+            app:argType="com.fiuba.ubademy.network.model.Course" />
+        <action
+            android:id="@+id/action_manageCourseFragment_to_viewCourseContentFragment"
+            app:destination="@id/viewCourseContentFragment" />
     </fragment>
 </navigation>

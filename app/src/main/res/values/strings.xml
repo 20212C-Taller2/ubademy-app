@@ -66,6 +66,7 @@
     <string name="unenroll">Desinscribirse</string>
     <string name="exams">Exámenes</string>
     <string name="content">Contenido</string>
+    <string name="students">Alumnos</string>
     <string name="unable_to_fetch_creator">No se pudo traer información acerca del creador del curso</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
