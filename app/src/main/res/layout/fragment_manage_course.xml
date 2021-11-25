@@ -47,6 +47,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/contentManageCourseButton" />
 
+            <Button
+                android:id="@+id/editManageCourseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_m"
+                android:text="@string/edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/studentsManageCourseButton" />
+
             <TextView
                 android:id="@+id/descriptionManageCourseLabel"
                 android:layout_width="wrap_content"
