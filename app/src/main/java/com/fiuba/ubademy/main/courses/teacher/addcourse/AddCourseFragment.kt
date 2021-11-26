@@ -193,13 +193,13 @@ class AddCourseFragment : Fragment() {
             return
         }
 
-        val addCourseStatus : AddCourseStatus = viewModel.addCourse()
+        val (addCourseStatus, course) = viewModel.addCourse()
         BusyFragment.hide()
 
         when (addCourseStatus) {
             AddCourseStatus.SUCCESS -> {
                 Toast.makeText(context, R.string.course_added, Toast.LENGTH_LONG).show()
-                view.findNavController().navigate(AddCourseFragmentDirections.actionAddCourseFragmentToTeacherCoursesFragment())
+                view.findNavController().navigate(AddCourseFragmentDirections.actionAddCourseFragmentToManageCourseFragment(course!!))
             }
             AddCourseStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
         }

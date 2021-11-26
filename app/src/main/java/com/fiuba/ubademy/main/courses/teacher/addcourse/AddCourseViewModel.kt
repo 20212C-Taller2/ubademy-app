@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.AddCourseRequest
+import com.fiuba.ubademy.network.model.Course
 import com.fiuba.ubademy.utils.api
 import com.fiuba.ubademy.utils.getSharedPreferencesData
 import timber.log.Timber
@@ -32,8 +33,9 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    suspend fun addCourse() : AddCourseStatus {
+    suspend fun addCourse() : Pair<AddCourseStatus, Course?> {
         var addCourseStatus = AddCourseStatus.FAIL
+        var course: Course? = null
 
         try {
             val response = api().addCourse(
@@ -47,11 +49,12 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
             )
             if (response.isSuccessful) {
                 addCourseStatus = AddCourseStatus.SUCCESS
+                course = response.body()
             }
         } catch (e: Exception) {
             Timber.e(e)
         }
 
-        return addCourseStatus
+        return Pair(addCourseStatus, course)
     }
 }

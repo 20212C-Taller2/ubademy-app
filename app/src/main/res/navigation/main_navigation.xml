@@ -55,10 +55,10 @@
         android:label="@string/add_course"
         tools:layout="@layout/fragment_add_course" >
         <action
-            android:id="@+id/action_addCourseFragment_to_teacherCoursesFragment"
-            app:destination="@id/teacherCoursesFragment"
+            android:id="@+id/action_addCourseFragment_to_manageCourseFragment"
+            app:destination="@id/manageCourseFragment"
             app:popUpTo="@id/teacherCoursesFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/searchCourseFragment"

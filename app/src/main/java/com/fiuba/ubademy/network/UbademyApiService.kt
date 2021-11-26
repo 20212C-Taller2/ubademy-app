@@ -39,7 +39,7 @@ interface UbademyApiService {
 
     @POST("courses")
     suspend fun addCourse(@Body addCourseRequest: AddCourseRequest)
-        : Response<Void>
+        : Response<Course>
 
     @POST("courses/enroll")
     suspend fun enrollCourse(@Body enrollCourseRequest: EnrollCourseRequest)
