@@ -15,6 +15,9 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
     var description = MutableLiveData<String>()
     var selectedCourseType = MutableLiveData<String>()
 
+    var placeId = MutableLiveData<String?>()
+    var placeName = MutableLiveData<String?>()
+
     var selectedImageUris = MutableLiveData<List<Uri>>()
     var selectedImageFirebasePaths = MutableLiveData<List<String>>()
 
@@ -44,7 +47,8 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
                     description = description.value!!,
                     type = selectedCourseType.value!!,
                     media = selectedImageFirebasePaths.value!!,
-                    creator = getSharedPreferencesData().id
+                    creator = getSharedPreferencesData().id,
+                    location = placeId.value
                 )
             )
             if (response.isSuccessful) {
