@@ -70,6 +70,8 @@
     <string name="students">Alumnos</string>
     <string name="unable_to_fetch_creator">No se pudo traer información acerca del creador del curso</string>
     <string name="chat">Mensajes</string>
+    <string name="message">Mensaje</string>
+    <string name="send">Enviar</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>
