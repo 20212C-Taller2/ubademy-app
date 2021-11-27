@@ -99,6 +99,9 @@
         <argument
             android:name="getUserResponse"
             app:argType="com.fiuba.ubademy.network.model.GetUserResponse" />
+        <action
+            android:id="@+id/action_viewPublicProfileFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewCourseContentFragment"
@@ -120,5 +123,14 @@
         <action
             android:id="@+id/action_manageCourseFragment_to_viewCourseContentFragment"
             app:destination="@id/viewCourseContentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.fiuba.ubademy.main.profile.chat.ChatFragment"
+        android:label="@string/chat"
+        tools:layout="@layout/fragment_chat">
+        <argument
+            android:name="getUserResponse"
+            app:argType="com.fiuba.ubademy.network.model.GetUserResponse" />
     </fragment>
 </navigation>

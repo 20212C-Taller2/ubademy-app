@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="kotlin.collections.CollectionsKt">
-        </import>
         <variable
             name="viewPublicProfileViewModel"
             type="com.fiuba.ubademy.main.profile.viewpublic.ViewPublicProfileViewModel" />
@@ -43,7 +41,7 @@
             tools:text="@string/display_name" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/profileInterestsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_l"
@@ -53,6 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/profileDisplayName" />
 
         <TextView
+            android:id="@+id/profileInterests"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_s"
@@ -63,7 +62,17 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/profileInterestsLabel"
             tools:text="@string/interests" />
+
+        <Button
+            android:id="@+id/profileChatButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_l"
+            android:text="@string/chat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileInterests" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

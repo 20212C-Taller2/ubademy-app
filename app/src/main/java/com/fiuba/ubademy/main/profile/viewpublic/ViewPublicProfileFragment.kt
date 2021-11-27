@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentViewPublicProfileBinding
 
@@ -34,6 +35,10 @@ class ViewPublicProfileFragment : Fragment() {
         viewModel.picture.value = getUserResponse.googleData?.picture
         viewModel.interests.value = getUserResponse.user.interests.joinToString(System.lineSeparator()) { item ->
             getString(resources.getIdentifier(item, "string", binding.root.context.packageName))
+        }
+
+        binding.profileChatButton.setOnClickListener {
+            findNavController().navigate(ViewPublicProfileFragmentDirections.actionViewPublicProfileFragmentToChatFragment(getUserResponse))
         }
 
         binding.viewPublicProfileViewModel = viewModel
