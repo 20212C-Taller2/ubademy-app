@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentViewCourseBinding
 import com.fiuba.ubademy.utils.BusyFragment
+import com.fiuba.ubademy.utils.getPlaceName
 import kotlinx.coroutines.launch
 
 class ViewCourseFragment : Fragment() {
@@ -39,6 +40,10 @@ class ViewCourseFragment : Fragment() {
         viewModel.description.value = course.description
         viewModel.courseType.value = getString(resources.getIdentifier(course.type, "string", binding.root.context.packageName))
         viewModel.creator.value = course.creator
+        viewModel.placeId.value = course.location
+        lifecycleScope.launch {
+            viewModel.placeName.value = viewModel.getPlaceName(course.location)
+        }
 
         binding.viewCourseViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

@@ -27,7 +27,7 @@
                 android:layout_marginTop="@dimen/margin_l"
                 android:text="@string/content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionManageCourseLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/placeManageCourseLayout" />
 
             <Button
                 android:id="@+id/examsManageCourseButton"
@@ -99,6 +99,44 @@
                     android:textColor="?attr/colorOnPrimary"
                     tools:text="@string/course_type" />
             </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/placeManageCourseLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_m"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionManageCourseLabel">
+
+                <ImageView
+                    android:id="@+id/placeManageCourseIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/place"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_place_24" />
+
+                <TextView
+                    android:id="@+id/placeManageCourseLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:paddingRight="@dimen/padding_l"
+                    android:text="@{manageCourseViewModel.placeName}"
+                    android:textAlignment="textStart"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/placeManageCourseIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="City, Country" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

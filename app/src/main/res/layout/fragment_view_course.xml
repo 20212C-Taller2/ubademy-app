@@ -27,7 +27,7 @@
                 android:layout_marginTop="@dimen/margin_l"
                 android:text="@string/content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/teacherViewCourseChip" />
+                app:layout_constraintTop_toBottomOf="@+id/placeViewCourseLayout" />
 
             <Button
                 android:id="@+id/examsViewCourseButton"
@@ -112,6 +112,44 @@
                 app:layout_constraintStart_toEndOf="@+id/teacherViewCourseLabel"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionViewCourseLabel"
                 tools:text="@string/display_name" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/placeViewCourseLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_m"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/teacherViewCourseChip">
+
+                <ImageView
+                    android:id="@+id/placeViewCourseIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/place"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_place_24" />
+
+                <TextView
+                    android:id="@+id/placeViewCourseLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:paddingRight="@dimen/padding_l"
+                    android:text="@{viewCourseViewModel.placeName}"
+                    android:textAlignment="textStart"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/placeViewCourseIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="City, Country" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

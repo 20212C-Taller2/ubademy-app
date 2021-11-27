@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentManageCourseBinding
+import com.fiuba.ubademy.utils.getPlaceName
+import kotlinx.coroutines.launch
 
 class ManageCourseFragment : Fragment() {
 
@@ -34,6 +37,10 @@ class ManageCourseFragment : Fragment() {
         viewModel.title.value = course.title
         viewModel.description.value = course.description
         viewModel.courseType.value = getString(resources.getIdentifier(course.type, "string", binding.root.context.packageName))
+        viewModel.placeId.value = course.location
+        lifecycleScope.launch {
+            viewModel.placeName.value = viewModel.getPlaceName(course.location)
+        }
 
         binding.contentManageCourseButton.setOnClickListener {
             findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToViewCourseContentFragment(course))

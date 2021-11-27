@@ -17,6 +17,8 @@ class ViewCourseViewModel(application: Application) : AndroidViewModel(applicati
     var description = MutableLiveData<String>()
     var courseType = MutableLiveData<String>()
     var creator = MutableLiveData<String>()
+    var placeId = MutableLiveData<String?>()
+    var placeName = MutableLiveData<String>()
 
     var getUserResponse = MutableLiveData<GetUserResponse>()
     var creatorDisplayName = MutableLiveData<String>()
