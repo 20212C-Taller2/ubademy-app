@@ -8,13 +8,21 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentChatBinding
+import com.fiuba.ubademy.utils.getSharedPreferencesData
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class ChatFragment : Fragment() {
 
     private lateinit var viewModel: ChatViewModel
     private lateinit var binding: FragmentChatBinding
+
+    private lateinit var db: FirebaseDatabase
+    private lateinit var adapter: MessageAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +49,26 @@ class ChatFragment : Fragment() {
         binding.chatViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        db = Firebase.database
+        val chatReference = db.reference.child("messages")
+
+        val options = FirebaseRecyclerOptions.Builder<Message>()
+            .setQuery(chatReference, Message::class.java)
+            .build()
+
+        adapter = MessageAdapter(options, binding.root.context.getSharedPreferencesData().id)
+        binding.chatRecyclerView.adapter = adapter
+
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        adapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        adapter.stopListening()
     }
 }
