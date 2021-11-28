@@ -37,28 +37,11 @@ class ViewCourseViewModel(application: Application) : AndroidViewModel(applicati
     suspend fun getCreator() : GetCreatorStatus {
         var getCreatorStatus = GetCreatorStatus.FAIL
         try {
-            getCreatorStatus = GetCreatorStatus.SUCCESS
-            getUserResponse.value = GetUserResponse(
-                user = User(
-                    id = "618d8af045b7950011e71e2c",
-                    email = "ndyatlov@sparkdigital.com",
-                    interests = setOf("YOGA", "WOODWORKING"),
-                    firstName = null,
-                    lastName = null,
-                    placeId = null
-                ),
-                googleData = GoogleData(
-                    displayName = "Nikita Dyatlov",
-                    picture = "https://lh3.googleusercontent.com/a-/AOh14GhVq6sHaKnlCjnliwcS6TxuRUwzUiZqy__rSybx=s96-c"
-                )
-            )
-            creatorDisplayName.value = getUserResponse.value!!.displayName
-            // TODO:
-//            val response = api().getUser(creator.value!!)
-//            if (response.isSuccessful) {
-//                getUserResponse.value = response.body()
-//                getCreatorStatus = GetCreatorStatus.SUCCESS
-//            }
+            val response = api().getUser(creator.value!!)
+            if (response.isSuccessful) {
+                getUserResponse.value = response.body()
+                getCreatorStatus = GetCreatorStatus.SUCCESS
+            }
         } catch (e: Exception) {
             Timber.e(e)
         }
