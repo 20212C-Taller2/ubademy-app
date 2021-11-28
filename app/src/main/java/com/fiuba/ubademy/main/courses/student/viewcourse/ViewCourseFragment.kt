@@ -58,9 +58,9 @@ class ViewCourseFragment : Fragment() {
             builder.setPositiveButton(R.string.yes) { _, _ ->
                 BusyFragment.show(this.parentFragmentManager)
                 lifecycleScope.launch {
-                    val unenrollCourseStatus = viewModel.unenrollCourse()
+                    val unenrollStudentStatus = viewModel.unenrollStudent()
                     BusyFragment.hide()
-                    if (unenrollCourseStatus == UnenrollCourseStatus.SUCCESS) {
+                    if (unenrollStudentStatus == UnenrollStudentStatus.SUCCESS) {
                         findNavController().navigate(ViewCourseFragmentDirections.actionViewCourseFragmentToStudentCoursesFragment())
                     } else {
                         Toast.makeText(context, R.string.unenroll_failed, Toast.LENGTH_LONG).show()

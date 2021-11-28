@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.GetUserResponse
 import com.fiuba.ubademy.network.model.GoogleData
-import com.fiuba.ubademy.network.model.UnenrollCourseRequest
 import com.fiuba.ubademy.network.model.User
 import com.fiuba.ubademy.utils.api
 import com.fiuba.ubademy.utils.getSharedPreferencesData
@@ -23,21 +22,16 @@ class ViewCourseViewModel(application: Application) : AndroidViewModel(applicati
     var getUserResponse = MutableLiveData<GetUserResponse>()
     var creatorDisplayName = MutableLiveData<String>()
 
-    suspend fun unenrollCourse() : UnenrollCourseStatus {
-        var unenrollCourseStatus = UnenrollCourseStatus.FAIL
+    suspend fun unenrollStudent() : UnenrollStudentStatus {
+        var unenrollStudentStatus = UnenrollStudentStatus.FAIL
         try {
-            val response = api().unenrollCourse(
-                UnenrollCourseRequest(
-                    userId = getSharedPreferencesData().id,
-                    courseId = courseId.value!!
-                )
-            )
+            val response = api().unenrollStudent(courseId.value!!, getSharedPreferencesData().id)
             if (response.isSuccessful)
-                unenrollCourseStatus = UnenrollCourseStatus.SUCCESS
+                unenrollStudentStatus = UnenrollStudentStatus.SUCCESS
         } catch (e: Exception) {
             Timber.e(e)
         }
-        return unenrollCourseStatus
+        return unenrollStudentStatus
     }
 
     suspend fun getCreator() : GetCreatorStatus {

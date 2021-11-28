@@ -80,7 +80,7 @@
     <string name="YOGA">Yoga</string>
     <string name="GRAPHIC_DESIGN">Diseño gráfico</string>
 
-    <string name="FREE">Free</string>
-    <string name="STARTER">Starter</string>
-    <string name="FULL">Full</string>
+    <string name="FREE">Gratuita</string>
+    <string name="BASIC">Básica</string>
+    <string name="FULL">Completa</string>
 </resources>
