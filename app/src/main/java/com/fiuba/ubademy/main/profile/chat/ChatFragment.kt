@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentChatBinding
@@ -23,6 +23,8 @@ class ChatFragment : Fragment() {
 
     private lateinit var db: FirebaseDatabase
     private lateinit var adapter: MessageAdapter
+
+    private lateinit var currentUserId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,10 +44,6 @@ class ChatFragment : Fragment() {
         viewModel.userDisplayName.value = getUserResponse.displayName
         viewModel.userId.value = getUserResponse.user.id
 
-        binding.chatSendButton.setOnClickListener {
-            Toast.makeText(context, viewModel.message.value ?: "-", Toast.LENGTH_LONG).show()
-        }
-
         binding.chatViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -56,8 +54,29 @@ class ChatFragment : Fragment() {
             .setQuery(chatReference, Message::class.java)
             .build()
 
-        adapter = MessageAdapter(options, binding.root.context.getSharedPreferencesData().id)
+        currentUserId = binding.root.context.getSharedPreferencesData().id
+
+        val manager = LinearLayoutManager(binding.root.context)
+        manager.stackFromEnd = true
+        binding.chatRecyclerView.layoutManager = manager
+
+        adapter = MessageAdapter(options, currentUserId)
         binding.chatRecyclerView.adapter = adapter
+        adapter.registerAdapterDataObserver(
+            ScrollToBottomObserver(binding.chatRecyclerView, adapter, manager)
+        )
+
+        binding.chatSendButton.setOnClickListener {
+            if (!viewModel.message.value.isNullOrBlank()) {
+                val message = Message(
+                    currentUserId,
+                    viewModel.message.value
+                )
+                db.reference.child("messages").push().setValue(message)
+                viewModel.message.postValue("")
+                binding.chatRecyclerView.scrollToPosition(adapter.itemCount - 1)
+            }
+        }
 
         return binding.root
     }

@@ -1,8 +1,13 @@
 package com.fiuba.ubademy.main.profile.chat
 
-import java.time.Instant
-
 class Message {
-    val userId: String? = null
-    val text: String? = null
+    var userId: String? = null
+    var text: String? = null
+
+    constructor()
+
+    constructor(userId: String?, text: String?) {
+        this.userId = userId
+        this.text = text
+    }
 }
