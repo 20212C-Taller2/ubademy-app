@@ -47,14 +47,20 @@ class ChatFragment : Fragment() {
         binding.chatViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        currentUserId = binding.root.context.getSharedPreferencesData().id
+
+        val chatId = listOf(getUserResponse.user.id, currentUserId)
+            .sorted()
+            .joinToString(":") {
+                it
+            }
+
         db = Firebase.database
-        val chatReference = db.reference.child("messages")
+        val chatReference = db.reference.child(CHATS_CHILD).child(chatId)
 
         val options = FirebaseRecyclerOptions.Builder<Message>()
             .setQuery(chatReference, Message::class.java)
             .build()
-
-        currentUserId = binding.root.context.getSharedPreferencesData().id
 
         val manager = LinearLayoutManager(binding.root.context)
         manager.stackFromEnd = true
@@ -72,7 +78,7 @@ class ChatFragment : Fragment() {
                     currentUserId,
                     viewModel.message.value
                 )
-                db.reference.child("messages").push().setValue(message)
+                db.reference.child(CHATS_CHILD).child(chatId).push().setValue(message)
                 viewModel.message.postValue("")
                 binding.chatRecyclerView.scrollToPosition(adapter.itemCount - 1)
             }
@@ -89,5 +95,9 @@ class ChatFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         adapter.stopListening()
+    }
+
+    companion object {
+        const val CHATS_CHILD = "chats"
     }
 }
