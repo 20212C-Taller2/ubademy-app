@@ -4,8 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.GetUserResponse
-import com.fiuba.ubademy.network.model.GoogleData
-import com.fiuba.ubademy.network.model.User
 import com.fiuba.ubademy.utils.api
 import com.fiuba.ubademy.utils.getSharedPreferencesData
 import timber.log.Timber
@@ -20,7 +18,6 @@ class ViewCourseViewModel(application: Application) : AndroidViewModel(applicati
     var placeName = MutableLiveData<String>()
 
     var getUserResponse = MutableLiveData<GetUserResponse>()
-    var creatorDisplayName = MutableLiveData<String>()
 
     suspend fun unenrollStudent() : UnenrollStudentStatus {
         var unenrollStudentStatus = UnenrollStudentStatus.FAIL

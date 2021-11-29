@@ -42,14 +42,14 @@ class ChatFragment : Fragment() {
 
         val getUserResponse = ChatFragmentArgs.fromBundle(requireArguments()).getUserResponse
         viewModel.userDisplayName.value = getUserResponse.displayName
-        viewModel.userId.value = getUserResponse.user.id
+        viewModel.userId.value = getUserResponse.id
 
         binding.chatViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         currentUserId = binding.root.context.getSharedPreferencesData().id
 
-        val chatId = listOf(getUserResponse.user.id, currentUserId)
+        val chatId = listOf(getUserResponse.id, currentUserId)
             .sorted()
             .joinToString(":") {
                 it

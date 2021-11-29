@@ -150,6 +150,10 @@ class LoginFragment : Fragment() {
     private fun signInWithGoogle(view: View) {
         view.hideKeyboard()
 
+        // TODO: remove this
+        googleSignInClient.signOut()
+        Firebase.auth.signOut()
+
         signInWithGoogleActivityResultLauncher.launch(googleSignInClient.signInIntent)
     }
 

@@ -31,9 +31,9 @@ class ViewPublicProfileFragment : Fragment() {
 
         val getUserResponse = ViewPublicProfileFragmentArgs.fromBundle(requireArguments()).getUserResponse
         viewModel.displayName.value = getUserResponse.displayName
-        viewModel.id.value = getUserResponse.user.id
+        viewModel.id.value = getUserResponse.id
         viewModel.picture.value = getUserResponse.googleData?.picture
-        viewModel.interests.value = getUserResponse.user.interests.joinToString(System.lineSeparator()) { item ->
+        viewModel.interests.value = getUserResponse.interests.joinToString(System.lineSeparator()) { item ->
             getString(resources.getIdentifier(item, "string", binding.root.context.packageName))
         }
 

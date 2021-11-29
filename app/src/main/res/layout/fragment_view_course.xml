@@ -108,7 +108,7 @@
                 android:layout_marginLeft="@dimen/margin_m"
                 android:layout_marginTop="@dimen/margin_m"
                 android:enabled="false"
-                android:text="@{viewCourseViewModel.creatorDisplayName}"
+                android:text="@{viewCourseViewModel.getUserResponse.displayName}"
                 app:layout_constraintStart_toEndOf="@+id/teacherViewCourseLabel"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionViewCourseLabel"
                 tools:text="@string/display_name" />

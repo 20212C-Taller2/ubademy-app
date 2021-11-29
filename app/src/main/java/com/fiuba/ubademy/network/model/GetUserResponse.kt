@@ -5,9 +5,14 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class GetUserResponse(
-    val user: User,
+    val id: String,
+    val firstName: String?,
+    val lastName: String?,
+    val placeId: String?,
+    val email: String,
+    val interests: Set<String>,
     val googleData: GoogleData?
 ) : Parcelable {
 val displayName
-    get() = googleData?.displayName ?: "${user.firstName} ${user.lastName}"
+    get() = googleData?.displayName ?: "$firstName $lastName"
 }
