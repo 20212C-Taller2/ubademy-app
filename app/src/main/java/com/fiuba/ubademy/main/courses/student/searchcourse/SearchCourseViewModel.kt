@@ -35,20 +35,25 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
     }
 
     suspend fun getSubscriptions() {
-        val response = api().getSubscriptions()
-        if (response.isSuccessful) {
-            subscriptions.value = arrayOf("") + response.body()!!.map { item -> item.code }.toTypedArray()
-        } else {
-            throw Exception("Unable to fetch subscriptions.")
-        }
+        subscriptions.value = arrayOf("", "FREE", "BASIC", "FULL")
+        // TODO:
+//        val response = api().getSubscriptions()
+//        if (response.isSuccessful) {
+//            subscriptions.value = arrayOf("") + response.body()!!.map { item -> item.code }.toTypedArray()
+//        } else {
+//            throw Exception("Unable to fetch subscriptions.")
+//        }
     }
 
     suspend fun getCoursesFiltered() : GetCoursesStatus {
         var getCoursesStatus = GetCoursesStatus.FAIL
 
         try {
-            // TODO: val response = api().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!,0, 20)
-            val response = api().getCoursesFiltered(if (selectedCourseType.value.isNullOrEmpty()) null else selectedCourseType.value!!,0, 20)
+            val response = api().getCoursesFiltered(
+                if (selectedCourseType.value.isNullOrEmpty()) null else selectedCourseType.value!!,
+                if (selectedSubscription.value.isNullOrEmpty()) null else selectedSubscription.value!!,
+                0,
+                20)
             if (response.isSuccessful) {
                 courses.postValue(response.body()!!)
                 getCoursesStatus = GetCoursesStatus.SUCCESS
@@ -67,8 +72,11 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
         var getCoursesStatus = GetCoursesStatus.FAIL
 
             try {
-                // TODO: val response = api().getCoursesFiltered(selectedCourseType.value!!, selectedSubscription.value!!, skip, 10)
-                val response = api().getCoursesFiltered(if (selectedCourseType.value.isNullOrEmpty()) null else selectedCourseType.value!!, skip, 10)
+                val response = api().getCoursesFiltered(
+                    if (selectedCourseType.value.isNullOrEmpty()) null else selectedCourseType.value!!,
+                    if (selectedSubscription.value.isNullOrEmpty()) null else selectedSubscription.value!!,
+                    skip,
+                    10)
                 if (response.isSuccessful) {
                     courses.postValue(courses.value!!.plus(response.body()!!))
                     getCoursesStatus = GetCoursesStatus.SUCCESS

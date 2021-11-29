@@ -8,54 +8,58 @@ interface UbademyApiService {
     // region users
     @POST("users/register")
     suspend fun createAccount(@Body createAccountRequest: CreateAccountRequest)
-        : Response<Void>
+            : Response<Void>
 
     @POST("users/login")
     suspend fun login(@Body loginRequest: LoginRequest)
-        : Response<LoginResponse>
+            : Response<LoginResponse>
 
     @POST("users/login/google")
     suspend fun loginWithGoogle(@Body loginWithGoogleRequest: LoginWithGoogleRequest)
-        : Response<LoginResponse>
+            : Response<LoginResponse>
 
     @GET("users/{userId}")
     suspend fun getUser(@Path("userId") userId: String)
-        : Response<GetUserResponse>
+            : Response<GetUserResponse>
 
     @PATCH("users/{userId}")
     suspend fun editProfile(@Path("userId") userId: String, @Body editProfileRequest: EditProfileRequest)
-        : Response<Void>
+            : Response<Void>
     // endregion
 
     // region courses
     @GET("courses/types")
     suspend fun getCourseTypes()
-        : Response<List<String>>
+            : Response<List<String>>
 
     @GET("courses")
     suspend fun getCourses(@Query("skip") skip: Int, @Query("limit") limit: Int)
-        : Response<List<Course>>
+            : Response<List<Course>>
 
     @GET("courses")
-    suspend fun getCoursesFiltered(@Query("type") type: String?, @Query("skip") skip: Int, @Query("limit") limit: Int)
-        : Response<List<Course>>
+    suspend fun getCoursesFiltered(
+        @Query("type") type: String?,
+        @Query("subscription") subscription: String?,
+        @Query("skip") skip: Int,
+        @Query("limit") limit: Int)
+            : Response<List<Course>>
 
     @POST("courses")
     suspend fun addCourse(@Body addCourseRequest: AddCourseRequest)
-        : Response<Course>
+            : Response<Course>
 
     @POST("courses/{courseId}/students/{studentId}")
     suspend fun enrollStudent(@Path("courseId") courseId: Int, @Path("userId") studentId: String)
-        : Response<Void>
+            : Response<Void>
 
     @DELETE("courses/{courseId}/students/{studentId}")
     suspend fun unenrollStudent(@Path("courseId") courseId: Int, @Path("userId") studentId: String)
-        : Response<Void>
+            : Response<Void>
     // endregion
 
     // region subscriptions
     @GET("subscriptions")
     suspend fun getSubscriptions()
-        : Response<List<Subscription>>
+            : Response<List<Subscription>>
     // endregion
 }
