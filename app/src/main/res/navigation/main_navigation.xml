@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_teacherCoursesFragment_to_addCourseFragment"
             app:destination="@id/addCourseFragment" />
+        <action
+            android:id="@+id/action_teacherCoursesFragment_to_manageCourseFragment"
+            app:destination="@id/manageCourseFragment" />
     </fragment>
     <fragment
         android:id="@+id/collaboratorCoursesFragment"
@@ -52,10 +55,10 @@
         android:label="@string/add_course"
         tools:layout="@layout/fragment_add_course" >
         <action
-            android:id="@+id/action_addCourseFragment_to_teacherCoursesFragment"
-            app:destination="@id/teacherCoursesFragment"
+            android:id="@+id/action_addCourseFragment_to_manageCourseFragment"
+            app:destination="@id/manageCourseFragment"
             app:popUpTo="@id/teacherCoursesFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/searchCourseFragment"
@@ -96,6 +99,9 @@
         <argument
             android:name="getUserResponse"
             app:argType="com.fiuba.ubademy.network.model.GetUserResponse" />
+        <action
+            android:id="@+id/action_viewPublicProfileFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewCourseContentFragment"
@@ -105,5 +111,26 @@
         <argument
             android:name="selectedCourse"
             app:argType="com.fiuba.ubademy.network.model.Course" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageCourseFragment"
+        android:name="com.fiuba.ubademy.main.courses.teacher.managecourse.ManageCourseFragment"
+        android:label="@string/course"
+        tools:layout="@layout/fragment_manage_course">
+        <argument
+            android:name="selectedCourse"
+            app:argType="com.fiuba.ubademy.network.model.Course" />
+        <action
+            android:id="@+id/action_manageCourseFragment_to_viewCourseContentFragment"
+            app:destination="@id/viewCourseContentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.fiuba.ubademy.main.profile.chat.ChatFragment"
+        android:label="@string/chat"
+        tools:layout="@layout/fragment_chat">
+        <argument
+            android:name="getUserResponse"
+            app:argType="com.fiuba.ubademy.network.model.GetUserResponse" />
     </fragment>
 </navigation>

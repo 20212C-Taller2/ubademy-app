@@ -10,5 +10,10 @@ data class Course(
     val description : String,
     val type: String,
     val creator: String,
-    val media: List<String>
+    val media: List<String>,
+    val location: String?
 ) : Parcelable
+{
+    val mediaSorted
+        get() = media.sorted()
+}

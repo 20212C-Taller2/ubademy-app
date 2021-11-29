@@ -33,7 +33,7 @@ class ViewCourseContentFragment : Fragment() {
 
         val course = ViewCourseContentFragmentArgs.fromBundle(requireArguments()).selectedCourse
 
-        viewModel.mediaPaths.value = course.media
+        viewModel.mediaPaths.value = course.mediaSorted
 
         updateButtonsStatus()
 

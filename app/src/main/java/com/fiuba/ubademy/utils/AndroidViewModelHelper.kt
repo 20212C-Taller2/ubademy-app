@@ -49,3 +49,10 @@ suspend fun AndroidViewModel.getPlaceById(placeId: String) : Place? {
         null
     }
 }
+
+suspend fun AndroidViewModel.getPlaceName(placeId: String?) : String {
+    return if (placeId == null)
+        "-"
+    else
+        getPlaceById(placeId)?.address ?: "-"
+}

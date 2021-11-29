@@ -5,6 +5,7 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface UbademyApiService {
+    // region users
     @POST("users/register")
     suspend fun createAccount(@Body createAccountRequest: CreateAccountRequest)
         : Response<Void>
@@ -18,13 +19,15 @@ interface UbademyApiService {
         : Response<LoginResponse>
 
     @GET("users/{userId}")
-    suspend fun getUser(@Path("userId") userId : String)
+    suspend fun getUser(@Path("userId") userId: String)
         : Response<GetUserResponse>
 
     @PATCH("users/{userId}")
-    suspend fun editProfile(@Path("userId") userId : String, @Body editProfileRequest: EditProfileRequest)
+    suspend fun editProfile(@Path("userId") userId: String, @Body editProfileRequest: EditProfileRequest)
         : Response<Void>
+    // endregion
 
+    // region courses
     @GET("courses/types")
     suspend fun getCourseTypes()
         : Response<List<String>>
@@ -39,17 +42,20 @@ interface UbademyApiService {
 
     @POST("courses")
     suspend fun addCourse(@Body addCourseRequest: AddCourseRequest)
+        : Response<Course>
+
+    @POST("courses/{courseId}/students/{studentId}")
+    suspend fun enrollStudent(@Path("courseId") courseId: Int, @Path("userId") studentId: String)
         : Response<Void>
 
-    @POST("courses/enroll")
-    suspend fun enrollCourse(@Body enrollCourseRequest: EnrollCourseRequest)
+    @DELETE("courses/{courseId}/students/{studentId}")
+    suspend fun unenrollStudent(@Path("courseId") courseId: Int, @Path("userId") studentId: String)
         : Response<Void>
+    // endregion
 
-    @POST("courses/unenroll")
-    suspend fun unenrollCourse(@Body unenrollCourseRequest: UnenrollCourseRequest)
-        : Response<Void>
-
+    // region subscriptions
     @GET("subscriptions")
     suspend fun getSubscriptions()
         : Response<List<Subscription>>
+    // endregion
 }

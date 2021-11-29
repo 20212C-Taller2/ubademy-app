@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.main.courses.GetCoursesStatus
 import com.fiuba.ubademy.network.model.Course
-import com.fiuba.ubademy.network.model.EnrollCourseRequest
 import com.fiuba.ubademy.utils.api
 import com.fiuba.ubademy.utils.getSharedPreferencesData
 import timber.log.Timber
@@ -36,15 +35,12 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
     }
 
     suspend fun getSubscriptions() {
-        /* TODO
-        val response = subscriptionsApi().getSubscriptions()
+        val response = api().getSubscriptions()
         if (response.isSuccessful) {
-            subscriptions.value = arrayOf("") + response.body()!!.map { item -> item.name }.toTypedArray()
+            subscriptions.value = arrayOf("") + response.body()!!.map { item -> item.code }.toTypedArray()
         } else {
             throw Exception("Unable to fetch subscriptions.")
         }
-        */
-        subscriptions.value = arrayOf("", "FREE", "STARTER", "FULL")
     }
 
     suspend fun getCoursesFiltered() : GetCoursesStatus {
@@ -86,18 +82,15 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
         return getCoursesStatus
     }
 
-    suspend fun enrollCourse(courseId: Int) : EnrollCourseStatus {
-        var enrollCourseStatus = EnrollCourseStatus.FAIL
+    suspend fun enrollStudent(courseId: Int) : EnrollStudentStatus {
+        var enrollStudentStatus = EnrollStudentStatus.FAIL
         try {
-            val response = api().enrollCourse(EnrollCourseRequest(
-                userId = getSharedPreferencesData().id,
-                courseId = courseId
-            ))
+            val response = api().enrollStudent(courseId, getSharedPreferencesData().id)
             if (response.isSuccessful)
-                enrollCourseStatus = EnrollCourseStatus.SUCCESS
+                enrollStudentStatus = EnrollStudentStatus.SUCCESS
         } catch (e: Exception) {
             Timber.e(e)
         }
-        return enrollCourseStatus
+        return enrollStudentStatus
     }
 }

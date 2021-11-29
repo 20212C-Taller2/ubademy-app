@@ -32,13 +32,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_l"
-            android:textAlignment="center"
+            android:text="@{viewPublicProfileViewModel.displayName}"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="@{viewPublicProfileViewModel.displayName}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profilePicture"
             tools:text="@string/display_name" />
+
+        <TextView
+            android:id="@+id/profileInterestsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_l"
+            android:text="@string/interests"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileDisplayName" />
+
+        <TextView
+            android:id="@+id/profileInterests"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_s"
+            android:gravity="center_horizontal"
+            android:text="@{viewPublicProfileViewModel.interests}"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileInterestsLabel"
+            tools:text="@string/interests" />
+
+        <Button
+            android:id="@+id/profileChatButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_l"
+            android:text="@string/chat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileInterests" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

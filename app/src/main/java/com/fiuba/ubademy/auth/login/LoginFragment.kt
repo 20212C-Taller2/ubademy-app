@@ -90,6 +90,10 @@ class LoginFragment : Fragment() {
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
 
+        // TODO: remove this
+        googleSignInClient.signOut()
+        Firebase.auth.signOut()
+
         return binding.root
     }
 
@@ -131,6 +135,7 @@ class LoginFragment : Fragment() {
 
         BusyFragment.show(this.parentFragmentManager)
         val loginStatus = viewModel.login()
+        Firebase.auth.signInAnonymously().await()
         BusyFragment.hide()
 
         when (loginStatus) {

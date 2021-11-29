@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="viewCourseViewModel"
-            type="com.fiuba.ubademy.main.courses.student.viewcourse.ViewCourseViewModel" />
+            name="manageCourseViewModel"
+            type="com.fiuba.ubademy.main.courses.teacher.managecourse.ManageCourseViewModel" />
     </data>
 
     <ScrollView
@@ -14,64 +14,73 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/viewCourseConstraintLayout"
+            android:id="@+id/manageCourseConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_l"
-            tools:context=".main.courses.student.viewcourse.ViewCourseFragment">
+            tools:context=".main.courses.teacher.managecourse.ManageCourseFragment">
 
             <Button
-                android:id="@+id/contentViewCourseButton"
+                android:id="@+id/contentManageCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_l"
                 android:text="@string/content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/placeViewCourseLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/placeManageCourseLayout" />
 
             <Button
-                android:id="@+id/examsViewCourseButton"
+                android:id="@+id/examsManageCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_l"
                 android:text="@string/exams"
-                app:layout_constraintBaseline_toBaselineOf="@+id/contentViewCourseButton"
-                app:layout_constraintStart_toEndOf="@+id/contentViewCourseButton" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/contentManageCourseButton"
+                app:layout_constraintStart_toEndOf="@+id/contentManageCourseButton" />
 
             <Button
-                android:id="@+id/unenrollViewCourseButton"
+                android:id="@+id/studentsManageCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_m"
-                android:text="@string/unenroll"
+                android:text="@string/students"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contentViewCourseButton" />
+                app:layout_constraintTop_toBottomOf="@+id/contentManageCourseButton" />
+
+            <Button
+                android:id="@+id/editManageCourseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_m"
+                android:text="@string/edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/studentsManageCourseButton" />
 
             <TextView
-                android:id="@+id/descriptionViewCourseLabel"
+                android:id="@+id/descriptionManageCourseLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_m"
-                android:text="@{viewCourseViewModel.description}"
+                android:text="@{manageCourseViewModel.description}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/titleViewCourseLabel"
+                app:layout_constraintTop_toBottomOf="@+id/titleManageCourseLabel"
                 tools:text="@string/description" />
 
             <TextView
-                android:id="@+id/titleViewCourseLabel"
+                android:id="@+id/titleManageCourseLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_m"
-                android:text="@{viewCourseViewModel.title}"
+                android:text="@{manageCourseViewModel.title}"
                 android:textAlignment="viewStart"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/courseTypeViewCourseCardView"
+                app:layout_constraintTop_toBottomOf="@+id/courseTypeManageCourseCardView"
                 tools:text="@string/title" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/courseTypeViewCourseCardView"
+                android:id="@+id/courseTypeManageCourseCardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_xs"
@@ -81,49 +90,27 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/courseTypeViewCourseLabel"
+                    android:id="@+id/courseTypeManageCourseLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_xs"
-                    android:text="@{viewCourseViewModel.courseType}"
+                    android:text="@{manageCourseViewModel.courseType}"
                     android:textAlignment="viewStart"
                     android:textColor="?attr/colorOnPrimary"
                     tools:text="@string/course_type" />
             </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/teacherViewCourseLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/teacher"
-                android:textAlignment="viewStart"
-                android:textStyle="italic"
-                app:layout_constraintBaseline_toBaselineOf="@+id/teacherViewCourseChip"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/teacherViewCourseChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_m"
-                android:layout_marginTop="@dimen/margin_m"
-                android:enabled="false"
-                android:text="@{viewCourseViewModel.getUserResponse.displayName}"
-                app:layout_constraintStart_toEndOf="@+id/teacherViewCourseLabel"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionViewCourseLabel"
-                tools:text="@string/display_name" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/placeViewCourseLayout"
+                android:id="@+id/placeManageCourseLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_m"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/teacherViewCourseChip">
+                app:layout_constraintTop_toBottomOf="@+id/descriptionManageCourseLabel">
 
                 <ImageView
-                    android:id="@+id/placeViewCourseIcon"
+                    android:id="@+id/placeManageCourseIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/place"
@@ -133,24 +120,24 @@
                     app:srcCompat="@drawable/ic_baseline_place_24" />
 
                 <TextView
-                    android:id="@+id/placeViewCourseLabel"
+                    android:id="@+id/placeManageCourseLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:paddingRight="@dimen/padding_l"
-                    android:text="@{viewCourseViewModel.placeName}"
+                    android:text="@{manageCourseViewModel.placeName}"
                     android:textAlignment="textStart"
                     android:textSize="12sp"
                     android:textStyle="italic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/placeViewCourseIcon"
+                    app:layout_constraintStart_toEndOf="@+id/placeManageCourseIcon"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="City, Country" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    </ScrollView>
 </layout>

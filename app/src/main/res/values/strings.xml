@@ -15,6 +15,7 @@
     <string name="cancel">Cancelar</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
+    <string name="edit">Editar</string>
     <string name="backward">Atrás</string>
     <string name="forward">Adelante</string>
     <string name="request_failed">No se pudo realizar la petición al servidor, intente mas tarde</string>
@@ -66,7 +67,11 @@
     <string name="unenroll">Desinscribirse</string>
     <string name="exams">Exámenes</string>
     <string name="content">Contenido</string>
+    <string name="students">Alumnos</string>
     <string name="unable_to_fetch_creator">No se pudo traer información acerca del creador del curso</string>
+    <string name="chat">Mensajes</string>
+    <string name="message">Mensaje</string>
+    <string name="send">Enviar</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>
@@ -75,7 +80,7 @@
     <string name="YOGA">Yoga</string>
     <string name="GRAPHIC_DESIGN">Diseño gráfico</string>
 
-    <string name="FREE">Free</string>
-    <string name="STARTER">Starter</string>
-    <string name="FULL">Full</string>
+    <string name="FREE">Gratuita</string>
+    <string name="BASIC">Básica</string>
+    <string name="FULL">Completa</string>
 </resources>

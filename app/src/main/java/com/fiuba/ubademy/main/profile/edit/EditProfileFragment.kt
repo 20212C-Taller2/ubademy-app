@@ -1,9 +1,8 @@
 package com.fiuba.ubademy.main.profile.edit
 
 import android.Manifest
-import android.app.Activity.RESULT_CANCELED
-import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Patterns
@@ -11,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
@@ -20,15 +20,6 @@ import androidx.lifecycle.lifecycleScope
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentEditProfileBinding
 import com.fiuba.ubademy.utils.*
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.model.RectangularBounds
-import com.google.android.libraries.places.api.model.TypeFilter
-import com.google.android.libraries.places.widget.Autocomplete
-import com.google.android.libraries.places.widget.AutocompleteActivity
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -42,23 +33,9 @@ class EditProfileFragment : Fragment() {
     private var lastNameValid = false
     private var emailValid = false
 
-    private var getPlaceActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        when (it.resultCode) {
-            RESULT_OK -> {
-                val place = Autocomplete.getPlaceFromIntent(it.data!!)
-                viewModel.placeName.value = place.address
-                viewModel.placeId.value = place.id
-            }
-            RESULT_CANCELED -> {
-            }
-            AutocompleteActivity.RESULT_ERROR -> {
-            }
-        }
-    }
+    private lateinit var getPlaceActivityResultLauncher : ActivityResultLauncher<Intent>
 
     private var locationPermissionsActivityResultLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { }
-
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private lateinit var courseTypesLabels : Array<String>
 
@@ -66,6 +43,8 @@ class EditProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
+
+        getPlaceActivityResultLauncher = getPlaceActivityResultLauncher(viewModel.placeName, viewModel.placeId)
 
         binding = DataBindingUtil.inflate(
             inflater,
@@ -85,7 +64,7 @@ class EditProfileFragment : Fragment() {
         }
 
         binding.placeEditProfileInput.setOnClickListener {
-            getPlace(it)
+            getPlace(it, getPlaceActivityResultLauncher)
         }
 
         binding.editProfileViewModel = viewModel
@@ -100,8 +79,6 @@ class EditProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(view.context)
 
         lifecycleScope.launch {
             try {
@@ -281,34 +258,6 @@ class EditProfileFragment : Fragment() {
             }
             EditProfileStatus.EMAIL_ALREADY_USED -> Toast.makeText(context, R.string.email_already_used, Toast.LENGTH_LONG).show()
             EditProfileStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
-        }
-    }
-
-    private fun getPlace(view: View) {
-        val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS)
-
-        if (ActivityCompat.checkSelfPermission(view.context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-            fusedLocationClient.lastLocation.addOnSuccessListener {
-                if (it != null) {
-                    val bounds = RectangularBounds.newInstance(
-                        LatLng(it.latitude - 1, it.longitude - 1),
-                        LatLng(it.latitude + 1, it.latitude + 1)
-                    )
-                    val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
-                        .setTypeFilter(TypeFilter.CITIES)
-                        .setLocationBias(bounds)
-                        .build(view.context)
-                    getPlaceActivityResultLauncher.launch(intent)
-                } else {
-                    val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
-                        .build(view.context)
-                    getPlaceActivityResultLauncher.launch(intent)
-                }
-            }
-        else {
-            val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
-                .build(view.context)
-            getPlaceActivityResultLauncher.launch(intent)
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.fiuba.ubademy.main.courses.student.viewcourse
 
-enum class UnenrollCourseStatus {
+enum class UnenrollStudentStatus {
     SUCCESS,
     FAIL
 }

@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.AddCourseRequest
+import com.fiuba.ubademy.network.model.Course
 import com.fiuba.ubademy.utils.api
 import com.fiuba.ubademy.utils.getSharedPreferencesData
 import timber.log.Timber
@@ -13,6 +14,9 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
     var title = MutableLiveData<String>()
     var description = MutableLiveData<String>()
     var selectedCourseType = MutableLiveData<String>()
+
+    var placeId = MutableLiveData<String?>()
+    var placeName = MutableLiveData<String?>()
 
     var selectedImageUris = MutableLiveData<List<Uri>>()
     var selectedImageFirebasePaths = MutableLiveData<List<String>>()
@@ -32,8 +36,9 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    suspend fun addCourse() : AddCourseStatus {
+    suspend fun addCourse() : Pair<AddCourseStatus, Course?> {
         var addCourseStatus = AddCourseStatus.FAIL
+        var course: Course? = null
 
         try {
             val response = api().addCourse(
@@ -42,16 +47,18 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
                     description = description.value!!,
                     type = selectedCourseType.value!!,
                     media = selectedImageFirebasePaths.value!!,
-                    creator = getSharedPreferencesData().id
+                    creator = getSharedPreferencesData().id,
+                    location = placeId.value
                 )
             )
             if (response.isSuccessful) {
                 addCourseStatus = AddCourseStatus.SUCCESS
+                course = response.body()
             }
         } catch (e: Exception) {
             Timber.e(e)
         }
 
-        return addCourseStatus
+        return Pair(addCourseStatus, course)
     }
 }

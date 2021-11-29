@@ -1,7 +1,9 @@
 package com.fiuba.ubademy.main.courses.teacher.addcourse
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,10 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentAddCourseBinding
-import com.fiuba.ubademy.utils.BusyFragment
-import com.fiuba.ubademy.utils.hideError
-import com.fiuba.ubademy.utils.hideKeyboard
-import com.fiuba.ubademy.utils.showError
+import com.fiuba.ubademy.utils.*
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -37,7 +38,11 @@ class AddCourseFragment : Fragment() {
     private var selectedCourseTypeValid = false
     private var selectedImageUrisValid = false
 
-    private var arl = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    private lateinit var getPlaceActivityResultLauncher: ActivityResultLauncher<Intent>
+
+    private var locationPermissionsActivityResultLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { }
+
+    private var getMultimediaActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             if (it.data!!.clipData != null) {
                 val count: Int = it.data!!.clipData!!.itemCount
@@ -49,6 +54,9 @@ class AddCourseFragment : Fragment() {
                 viewModel.selectedImageUris.postValue(uris)
 
                 binding.selectImagesButton.text = getString(R.string.multimedia_selected, count)
+            } else {
+                viewModel.selectedImageUris.postValue(listOf(it.data!!.data!!))
+                binding.selectImagesButton.text = getString(R.string.multimedia_selected, 1)
             }
         }
     }
@@ -57,6 +65,8 @@ class AddCourseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         viewModel = ViewModelProvider(this).get(AddCourseViewModel::class.java)
+
+        getPlaceActivityResultLauncher = getPlaceActivityResultLauncher(viewModel.placeName, viewModel.placeId)
 
         binding = DataBindingUtil.inflate(
             inflater,
@@ -69,6 +79,10 @@ class AddCourseFragment : Fragment() {
             lifecycleScope.launch {
                 addCourse(it)
             }
+        }
+
+        binding.placeAddCourseInput.setOnClickListener {
+            getPlace(it, getPlaceActivityResultLauncher)
         }
 
         binding.selectImagesButton.setOnClickListener {
@@ -85,6 +99,9 @@ class AddCourseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (ActivityCompat.checkSelfPermission(view.context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            locationPermissionsActivityResultLauncher.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
 
         lifecycleScope.launch {
             try {
@@ -169,7 +186,7 @@ class AddCourseFragment : Fragment() {
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        arl.launch(intent)
+        getMultimediaActivityResultLauncher.launch(intent)
     }
 
     private suspend fun addCourse(view: View) {
@@ -193,13 +210,13 @@ class AddCourseFragment : Fragment() {
             return
         }
 
-        val addCourseStatus : AddCourseStatus = viewModel.addCourse()
+        val (addCourseStatus, course) = viewModel.addCourse()
         BusyFragment.hide()
 
         when (addCourseStatus) {
             AddCourseStatus.SUCCESS -> {
                 Toast.makeText(context, R.string.course_added, Toast.LENGTH_LONG).show()
-                view.findNavController().navigate(AddCourseFragmentDirections.actionAddCourseFragmentToTeacherCoursesFragment())
+                view.findNavController().navigate(AddCourseFragmentDirections.actionAddCourseFragmentToManageCourseFragment(course!!))
             }
             AddCourseStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
         }
