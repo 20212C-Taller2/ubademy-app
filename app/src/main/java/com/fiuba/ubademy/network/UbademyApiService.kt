@@ -49,11 +49,11 @@ interface UbademyApiService {
             : Response<Course>
 
     @POST("courses/{courseId}/students/{studentId}")
-    suspend fun enrollStudent(@Path("courseId") courseId: Int, @Path("userId") studentId: String)
+    suspend fun enrollStudent(@Path("courseId") courseId: Int, @Path("studentId") studentId: String)
             : Response<Void>
 
     @DELETE("courses/{courseId}/students/{studentId}")
-    suspend fun unenrollStudent(@Path("courseId") courseId: Int, @Path("userId") studentId: String)
+    suspend fun unenrollStudent(@Path("courseId") courseId: Int, @Path("studentId") studentId: String)
             : Response<Void>
     // endregion
 

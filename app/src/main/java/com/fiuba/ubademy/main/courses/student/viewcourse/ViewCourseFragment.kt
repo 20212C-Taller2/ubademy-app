@@ -61,6 +61,7 @@ class ViewCourseFragment : Fragment() {
                     val unenrollStudentStatus = viewModel.unenrollStudent()
                     BusyFragment.hide()
                     if (unenrollStudentStatus == UnenrollStudentStatus.SUCCESS) {
+                        Toast.makeText(context, R.string.unenroll_succeeded, Toast.LENGTH_LONG).show()
                         findNavController().navigate(ViewCourseFragmentDirections.actionViewCourseFragmentToStudentCoursesFragment())
                     } else {
                         Toast.makeText(context, R.string.unenroll_failed, Toast.LENGTH_LONG).show()
