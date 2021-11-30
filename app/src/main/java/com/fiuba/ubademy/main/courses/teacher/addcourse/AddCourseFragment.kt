@@ -36,6 +36,7 @@ class AddCourseFragment : Fragment() {
     private var titleValid = false
     private var descriptionValid = false
     private var selectedCourseTypeValid = false
+    private var selectedSubscriptionValid = false
     private var selectedImageUrisValid = false
 
     private lateinit var getPlaceActivityResultLauncher: ActivityResultLauncher<Intent>
@@ -123,6 +124,27 @@ class AddCourseFragment : Fragment() {
                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
             }
         }
+
+        lifecycleScope.launch {
+            try {
+                if (viewModel.subscriptions.value?.any() != true)
+                    viewModel.getSubscriptions()
+
+                val subscriptionsLabels = viewModel.subscriptions.value!!.map {
+                    item -> getString(resources.getIdentifier(item, "string", requireActivity().packageName))
+                }.toTypedArray()
+
+                val adapter = ArrayAdapter(view.context, R.layout.support_simple_spinner_dropdown_item, subscriptionsLabels)
+                binding.subscriptionAddCourseInput.setAdapter(adapter)
+                binding.subscriptionAddCourseInput.setOnItemClickListener { _, _, position, _ ->
+                    viewModel.selectedSubscription.postValue(viewModel.subscriptions.value!![position])
+                }
+                binding.subscriptionAddCourseInput.threshold = 100
+            } catch (e: Exception) {
+                Timber.e(e)
+                Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun setupValidators() {
@@ -136,6 +158,10 @@ class AddCourseFragment : Fragment() {
 
         viewModel.selectedCourseType.observe(viewLifecycleOwner, {
             selectedCourseTypeValid = checkSelectedCourseType(it)
+        })
+
+        viewModel.selectedSubscription.observe(viewLifecycleOwner, {
+            selectedSubscriptionValid = checkSelectedSubscription(it)
         })
 
         viewModel.selectedImageUris.observe(viewLifecycleOwner, {
@@ -164,6 +190,13 @@ class AddCourseFragment : Fragment() {
         return binding.courseTypeAddCourseLayout.hideError()
     }
 
+    private fun checkSelectedSubscription(newValue : String?) : Boolean {
+        if (newValue.isNullOrBlank())
+            return binding.subscriptionAddCourseLayout.showError(getString(R.string.should_have_value))
+
+        return binding.subscriptionAddCourseLayout.hideError()
+    }
+
     private fun checkSelectedImageUris(newValue: List<Uri>?) : Boolean {
         if (newValue == null || newValue.isEmpty()) {
             Toast.makeText(context, R.string.should_select_multimedia, Toast.LENGTH_LONG).show()
@@ -177,8 +210,9 @@ class AddCourseFragment : Fragment() {
         val titleOk = titleValid || checkTitle(viewModel.title.value)
         val descriptionOk = descriptionValid || checkDescription(viewModel.description.value)
         val selectedCourseTypeOk = selectedCourseTypeValid || checkSelectedCourseType(viewModel.selectedCourseType.value)
+        val selectedSubscriptionOk = selectedSubscriptionValid || checkSelectedSubscription(viewModel.selectedSubscription.value)
         val selectedImageUrisOk = selectedImageUrisValid || checkSelectedImageUris(viewModel.selectedImageUris.value)
-        return titleOk && descriptionOk && selectedCourseTypeOk && selectedImageUrisOk
+        return titleOk && descriptionOk && selectedCourseTypeOk && selectedSubscriptionOk && selectedImageUrisOk
     }
 
     private fun selectImages() {
