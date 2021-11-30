@@ -29,7 +29,7 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
         val response = api().getCourseTypes()
         if (response.isSuccessful) {
             courseTypes.value = response.body()!!.toTypedArray()
-            selectedCourseTypes.value = response.body()!!.map { _ -> false }.toBooleanArray()
+            selectedCourseTypes.value = response.body()!!.map { false }.toBooleanArray()
         } else {
             throw Exception("Unable to fetch course types.")
         }

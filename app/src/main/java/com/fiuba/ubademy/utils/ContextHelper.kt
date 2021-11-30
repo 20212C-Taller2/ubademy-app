@@ -43,7 +43,7 @@ fun Context.api() : UbademyApiService {
 private fun Context.getDefaultRetrofitBuilder() : Retrofit.Builder {
     return Retrofit.Builder()
         .client(getDefaultClient())
-        .addConverterFactory(MoshiConverterFactory.create(moshi));
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
 }
 
 private fun Context.getDefaultClient() : OkHttpClient {

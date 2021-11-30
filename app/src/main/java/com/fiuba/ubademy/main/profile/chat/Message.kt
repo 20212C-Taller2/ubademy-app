@@ -4,6 +4,7 @@ class Message {
     var userId: String? = null
     var text: String? = null
 
+    // Empty constructor needed for Firestore serialization
     constructor()
 
     constructor(userId: String?, text: String?) {

@@ -12,7 +12,7 @@ class ViewCourseContentViewModel(application: Application) : AndroidViewModel(ap
     var mediaPaths = MutableLiveData<List<String>>()
     var currentMediaPathIndex = MutableLiveData<Int>()
 
-    var mediaUrisByPaths = MutableLiveData<HashMap<String, Uri>>()
+    private var mediaUrisByPaths = MutableLiveData<HashMap<String, Uri>>()
     var currentMediaUri = MutableLiveData<Uri>()
 
     init {
@@ -20,7 +20,7 @@ class ViewCourseContentViewModel(application: Application) : AndroidViewModel(ap
         mediaUrisByPaths.value = hashMapOf()
     }
 
-    public suspend fun showNextMedia() {
+    suspend fun showNextMedia() {
         if (currentMediaPathIndex.value!! < mediaPaths.value!!.size - 1) {
             currentMediaPathIndex.value = currentMediaPathIndex.value?.plus(1)
             val currentMediaPath = mediaPaths.value!![currentMediaPathIndex.value!!]
@@ -34,7 +34,7 @@ class ViewCourseContentViewModel(application: Application) : AndroidViewModel(ap
         }
     }
 
-    public fun showPreviousMedia() {
+    fun showPreviousMedia() {
         if (currentMediaPathIndex.value!! != 0) {
             currentMediaPathIndex.value = currentMediaPathIndex.value?.minus(1)
             val currentMediaPath = mediaPaths.value!![currentMediaPathIndex.value!!]
@@ -42,7 +42,7 @@ class ViewCourseContentViewModel(application: Application) : AndroidViewModel(ap
         }
     }
 
-    public suspend fun showFirstMedia() {
+    suspend fun showFirstMedia() {
         val currentMediaPath = mediaPaths.value!![0]
         val mediaUri = FirebaseStorage.getInstance().getReference(currentMediaPath).downloadUrl.await()
         mediaUrisByPaths.value!![currentMediaPath] = mediaUri
