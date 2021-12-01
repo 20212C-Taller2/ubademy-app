@@ -133,4 +133,9 @@
             android:name="getUserResponse"
             app:argType="com.fiuba.ubademy.network.model.GetUserResponse" />
     </fragment>
+    <fragment
+        android:id="@+id/subscriptionFragment"
+        android:name="com.fiuba.ubademy.main.profile.subscription.SubscriptionFragment"
+        android:label="@string/subscription"
+        tools:layout="@layout/fragment_subscription" />
 </navigation>
