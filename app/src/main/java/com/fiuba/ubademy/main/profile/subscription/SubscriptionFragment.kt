@@ -59,12 +59,21 @@ class SubscriptionFragment : Fragment() {
 
     private fun updateCurrentSubscriptionUI() {
         when (viewModel.currentSubscription.value) {
-            viewModel.freeSubscription.value!!.code
-                -> binding.freeCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant))
-            viewModel.basicSubscription.value!!.code
-                -> binding.basicCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant))
-            viewModel.fullSubscription.value!!.code
-                -> binding.fullCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant))
+            viewModel.freeSubscription.value!!.code -> {
+                binding.freeCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant))
+                binding.basicCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorBackgroundFloating))
+                binding.fullCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorBackgroundFloating))
+            }
+            viewModel.basicSubscription.value!!.code -> {
+                binding.freeCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorBackgroundFloating))
+                binding.basicCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant))
+                binding.fullCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorBackgroundFloating))
+            }
+            viewModel.fullSubscription.value!!.code -> {
+                binding.freeCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorBackgroundFloating))
+                binding.basicCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorBackgroundFloating))
+                binding.fullCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant))
+            }
         }
     }
 }
