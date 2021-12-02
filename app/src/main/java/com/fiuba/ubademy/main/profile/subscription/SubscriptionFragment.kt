@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentSubscriptionBinding
+import com.fiuba.ubademy.utils.BusyFragment
+import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -41,14 +43,28 @@ class SubscriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        BusyFragment.show(this.parentFragmentManager)
         lifecycleScope.launch {
             try {
                 viewModel.getSubscriptions()
+                viewModel.getUserSubscription()
             } catch (e: Exception) {
                 Timber.e(e)
                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
             }
+            updateCurrentSubscriptionUI()
+            BusyFragment.hide()
+        }
+    }
+
+    private fun updateCurrentSubscriptionUI() {
+        when (viewModel.currentSubscription.value) {
+            viewModel.freeSubscription.value!!.code
+                -> binding.freeCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant))
+            viewModel.basicSubscription.value!!.code
+                -> binding.basicCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant))
+            viewModel.fullSubscription.value!!.code
+                -> binding.fullCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant))
         }
     }
 }
