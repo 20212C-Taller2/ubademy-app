@@ -33,7 +33,7 @@ interface UbademyApiService {
             : Response<List<String>>
 
     @GET("courses")
-    suspend fun getCourses(@Query("skip") skip: Int, @Query("limit") limit: Int)
+    suspend fun getCourses(@Query("creator") creatorUserId: String?, @Query("skip") skip: Int, @Query("limit") limit: Int)
             : Response<List<Course>>
 
     @GET("courses")

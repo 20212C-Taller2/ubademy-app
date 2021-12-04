@@ -20,7 +20,7 @@ class CollaboratorCoursesViewModel(application: Application) : AndroidViewModel(
         var getCoursesStatus = GetCoursesStatus.FAIL
 
         try {
-            val response = api().getCourses(0, 20)
+            val response = api().getCourses(null,0, 20)
             if (response.isSuccessful) {
                 courses.postValue(response.body()!!)
                 getCoursesStatus = GetCoursesStatus.SUCCESS
@@ -39,7 +39,7 @@ class CollaboratorCoursesViewModel(application: Application) : AndroidViewModel(
         var getCoursesStatus = GetCoursesStatus.FAIL
 
         try {
-            val response = api().getCourses(skip, 10)
+            val response = api().getCourses(null, skip, 10)
             if (response.isSuccessful) {
                 courses.postValue(courses.value!!.plus(response.body()!!))
                 getCoursesStatus = GetCoursesStatus.SUCCESS
