@@ -75,12 +75,14 @@
     <string name="send">Enviar</string>
     <string name="balance">Saldo</string>
     <string name="price">Precio</string>
-    <string name="enroll_unlimited">Acceso ilimitado a cusros de este nivel</string>
+    <string name="enroll_unlimited">Acceso ilimitado a cursos de este nivel</string>
     <string name="always_available">Siempre disponible</string>
     <string name="adds_enrollments">Agrega %1$d inscripciones de este nivel</string>
     <string name="available_enrollments">Quedan %1$d inscripciones disponibles</string>
     <string name="wallet">Billetera</string>
     <string name="wallet_copied_to_clipboard">Billetera copiada al portapapeles</string>
+    <string name="confirm_subscription">¿Desea comprar una suscripción %1$s?</string>
+    <string name="subscription_failed">No se pudo comprar la suscripción</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>

@@ -3,12 +3,10 @@ package com.fiuba.ubademy.main.profile.subscription
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.fiuba.ubademy.network.model.Subscription
-import com.fiuba.ubademy.network.model.SubscriptionCode
-import com.fiuba.ubademy.network.model.UserFinancialInformation
-import com.fiuba.ubademy.network.model.UserSubscriptionStatus
+import com.fiuba.ubademy.network.model.*
 import com.fiuba.ubademy.utils.api
 import com.fiuba.ubademy.utils.getSharedPreferencesData
+import timber.log.Timber
 
 class SubscriptionViewModel(application: Application) : AndroidViewModel(application) {
     var balance = MutableLiveData<Double>()
@@ -62,5 +60,20 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
 //        } else {
 //            throw Exception("Unable to fetch subscriptions.")
 //        }
+    }
+
+    suspend fun subscribe(subscriptionCode: SubscriptionCode) : SubscribeStatus {
+        var subscribeStatus = SubscribeStatus.FAIL
+        try {
+            val response = api().subscribe(SubscribeRequest(
+                subscription = subscriptionCode,
+                userId = userId
+            ))
+            if (response.isSuccessful)
+                subscribeStatus = SubscribeStatus.SUCCESS
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+        return subscribeStatus
     }
 }
