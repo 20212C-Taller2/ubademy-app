@@ -37,7 +37,7 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
     suspend fun getSubscriptions() {
         val response = api().getSubscriptions()
         if (response.isSuccessful) {
-            subscriptions.value = arrayOf("") + response.body()!!.sortedBy { item -> item.price }.map { item -> item.code }.toTypedArray()
+            subscriptions.value = arrayOf("") + response.body()!!.sortedBy { item -> item.price }.map { item -> item.code.toString() }.toTypedArray()
         } else {
             throw Exception("Unable to fetch subscriptions.")
         }

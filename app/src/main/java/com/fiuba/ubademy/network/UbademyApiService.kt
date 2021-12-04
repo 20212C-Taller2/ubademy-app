@@ -63,7 +63,7 @@ interface UbademyApiService {
             : Response<List<Subscription>>
 
     @GET("subscriptions/users/{userId}")
-    suspend fun getUserSubscription(@Path("userId") userId: String)
-            : Response<UserSubscription>
+    suspend fun getUserFinancialInformation(@Path("userId") userId: String)
+            : Response<UserFinancialInformation>
     // endregion
 }

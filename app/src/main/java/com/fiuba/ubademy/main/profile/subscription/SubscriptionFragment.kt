@@ -12,9 +12,11 @@ import androidx.lifecycle.lifecycleScope
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentSubscriptionBinding
 import com.fiuba.ubademy.utils.BusyFragment
-import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import android.content.ClipData
+import android.content.ClipboardManager
+import androidx.core.content.ContextCompat.getSystemService
 
 class SubscriptionFragment : Fragment() {
 
@@ -38,6 +40,16 @@ class SubscriptionFragment : Fragment() {
         binding.subscriptionViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.copyWalletImage.setOnClickListener {
+            val clipboardManager = getSystemService(binding.root.context, ClipboardManager::class.java)
+            if (clipboardManager != null)
+            {
+                val clip = ClipData.newPlainText("wallet", viewModel.wallet.value)
+                clipboardManager.setPrimaryClip(clip)
+                Toast.makeText(context, R.string.wallet_copied_to_clipboard, Toast.LENGTH_SHORT).show()
+            }
+        }
+
         return binding.root
     }
 
@@ -47,33 +59,12 @@ class SubscriptionFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 viewModel.getSubscriptions()
-                viewModel.getUserSubscription()
+                viewModel.getUserFinancialInformation()
             } catch (e: Exception) {
                 Timber.e(e)
                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
             }
-            updateCurrentSubscriptionUI()
             BusyFragment.hide()
-        }
-    }
-
-    private fun updateCurrentSubscriptionUI() {
-        when (viewModel.currentSubscription.value) {
-            viewModel.freeSubscription.value!!.code -> {
-                binding.freeCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant))
-                binding.basicCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorBackgroundFloating))
-                binding.fullCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorBackgroundFloating))
-            }
-            viewModel.basicSubscription.value!!.code -> {
-                binding.freeCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorBackgroundFloating))
-                binding.basicCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant))
-                binding.fullCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorBackgroundFloating))
-            }
-            viewModel.fullSubscription.value!!.code -> {
-                binding.freeCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorBackgroundFloating))
-                binding.basicCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorBackgroundFloating))
-                binding.fullCardView.setCardBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant))
-            }
         }
     }
 }
