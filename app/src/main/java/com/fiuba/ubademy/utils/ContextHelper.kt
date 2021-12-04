@@ -43,16 +43,16 @@ fun Context.api() : UbademyApiService {
 private fun Context.getDefaultRetrofitBuilder() : Retrofit.Builder {
     return Retrofit.Builder()
         .client(getDefaultClient())
-        .addConverterFactory(MoshiConverterFactory.create(moshi));
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
 }
 
 private fun Context.getDefaultClient() : OkHttpClient {
     val sharedPreferencesData = getSharedPreferencesData()
 
     return OkHttpClient.Builder()
-        .connectTimeout(45, TimeUnit.SECONDS)
-        .writeTimeout(45, TimeUnit.SECONDS)
-        .readTimeout(45, TimeUnit.SECONDS)
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
         .addInterceptor { chain ->
             val newRequest: Request = chain.request().newBuilder()
                 .addHeader("Authorization", "Bearer ${sharedPreferencesData.token}")

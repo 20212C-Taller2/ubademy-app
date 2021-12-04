@@ -9,6 +9,7 @@ class ManageCourseViewModel(application: Application) : AndroidViewModel(applica
     var title = MutableLiveData<String>()
     var description = MutableLiveData<String>()
     var courseType = MutableLiveData<String>()
+    var subscription = MutableLiveData<String>()
     var placeId = MutableLiveData<String?>()
     var placeName = MutableLiveData<String>()
 }

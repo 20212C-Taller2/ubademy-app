@@ -39,6 +39,7 @@ class ViewCourseFragment : Fragment() {
         viewModel.title.value = course.title
         viewModel.description.value = course.description
         viewModel.courseType.value = getString(resources.getIdentifier(course.type, "string", binding.root.context.packageName))
+        viewModel.subscription.value = getString(resources.getIdentifier(course.subscription, "string", binding.root.context.packageName))
         viewModel.creator.value = course.creator
         viewModel.placeId.value = course.location
         lifecycleScope.launch {
@@ -61,6 +62,7 @@ class ViewCourseFragment : Fragment() {
                     val unenrollStudentStatus = viewModel.unenrollStudent()
                     BusyFragment.hide()
                     if (unenrollStudentStatus == UnenrollStudentStatus.SUCCESS) {
+                        Toast.makeText(context, R.string.unenroll_succeeded, Toast.LENGTH_LONG).show()
                         findNavController().navigate(ViewCourseFragmentDirections.actionViewCourseFragmentToStudentCoursesFragment())
                     } else {
                         Toast.makeText(context, R.string.unenroll_failed, Toast.LENGTH_LONG).show()

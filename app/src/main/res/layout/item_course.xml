@@ -41,6 +41,27 @@
                     tools:text="@string/course_type" />
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/subscriptionCardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_xs"
+                app:cardBackgroundColor="?attr/colorSecondaryVariant"
+                app:cardCornerRadius="@dimen/radius_s"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/subscriptionTypeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_xs"
+                    android:textAlignment="viewStart"
+                    android:textColor="?attr/colorOnSecondary"
+                    app:subscription="@{course}"
+                    tools:text="@string/subscription" />
+            </androidx.cardview.widget.CardView>
+
             <TextView
                 android:id="@+id/courseTitleText"
                 android:layout_width="wrap_content"

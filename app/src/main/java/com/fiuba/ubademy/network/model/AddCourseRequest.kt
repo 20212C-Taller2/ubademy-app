@@ -5,7 +5,7 @@ data class AddCourseRequest(
     val description : String,
     val type : String,
     val exams : Int = 1,
-    val subscription : String = "free",
+    val subscription : String,
     val creator : String,
     val location : String?,
     val media : List<String>

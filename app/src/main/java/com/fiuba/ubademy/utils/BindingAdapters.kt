@@ -2,11 +2,13 @@ package com.fiuba.ubademy.utils
 
 import android.net.Uri
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.fiuba.ubademy.R
+import java.text.DecimalFormat
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
@@ -32,4 +34,16 @@ fun bindImage(imgView: ImageView, imgUri: Uri?) {
                 .error(R.drawable.ic_baseline_broken_image_24))
             .into(imgView)
     }
+}
+
+@BindingAdapter("balance")
+fun TextView.setBalance(balance: Double) {
+    val formatter = DecimalFormat("#,##0.00")
+    text = formatter.format(balance)
+}
+
+@BindingAdapter("price")
+fun TextView.setPrice(price: Double) {
+    val formatter = DecimalFormat("#,##0.00")
+    text = formatter.format(price)
 }

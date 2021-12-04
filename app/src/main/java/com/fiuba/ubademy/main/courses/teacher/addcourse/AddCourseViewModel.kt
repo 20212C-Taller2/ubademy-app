@@ -14,6 +14,7 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
     var title = MutableLiveData<String>()
     var description = MutableLiveData<String>()
     var selectedCourseType = MutableLiveData<String>()
+    var selectedSubscription = MutableLiveData<String>()
 
     var placeId = MutableLiveData<String?>()
     var placeName = MutableLiveData<String?>()
@@ -22,6 +23,7 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
     var selectedImageFirebasePaths = MutableLiveData<List<String>>()
 
     var courseTypes = MutableLiveData<Array<String>>()
+    var subscriptions = MutableLiveData<Array<String>>()
 
     init {
         selectedImageFirebasePaths.value = listOf()
@@ -36,6 +38,15 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    suspend fun getSubscriptions() {
+        val response = api().getSubscriptions()
+        if (response.isSuccessful) {
+            subscriptions.value = response.body()!!.sortedBy { item -> item.price }.map { item -> item.code.toString() }.toTypedArray()
+        } else {
+            throw Exception("Unable to fetch subscriptions.")
+        }
+    }
+
     suspend fun addCourse() : Pair<AddCourseStatus, Course?> {
         var addCourseStatus = AddCourseStatus.FAIL
         var course: Course? = null
@@ -46,6 +57,7 @@ class AddCourseViewModel(application: Application) : AndroidViewModel(applicatio
                     title = title.value!!,
                     description = description.value!!,
                     type = selectedCourseType.value!!,
+                    subscription = selectedSubscription.value!!,
                     media = selectedImageFirebasePaths.value!!,
                     creator = getSharedPreferencesData().id,
                     location = placeId.value
