@@ -48,6 +48,10 @@ interface UbademyApiService {
     suspend fun addCourse(@Body addCourseRequest: AddCourseRequest)
             : Response<Course>
 
+    @PATCH("courses/{courseId}")
+    suspend fun editCourse(@Path("courseId") courseId: Int, @Body editCourseRequest: EditCourseRequest)
+            : Response<Course>
+
     @POST("courses/{courseId}/students/{studentId}")
     suspend fun enrollStudent(@Path("courseId") courseId: Int, @Path("studentId") studentId: String)
             : Response<Void>
