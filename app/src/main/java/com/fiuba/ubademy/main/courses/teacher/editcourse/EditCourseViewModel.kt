@@ -39,10 +39,6 @@ class EditCourseViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    suspend fun fillPlaceName() {
-        placeName.value = getPlaceName(placeId.value)
-    }
-
     suspend fun editCourse() : Pair<EditCourseStatus, Course?> {
         var editCourseStatus = EditCourseStatus.FAIL
         var course: Course? = null

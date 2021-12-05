@@ -131,7 +131,12 @@ class EditCourseFragment : Fragment() {
                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
             }
 
-            viewModel.fillPlaceName()
+            viewModel.placeName.value =
+                if (viewModel.placeId.value != null)
+                    viewModel.getPlaceName(viewModel.placeId.value!!)
+                else
+                    ""
+
             BusyFragment.hide()
         }
 
