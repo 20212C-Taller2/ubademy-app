@@ -83,6 +83,7 @@
     <string name="wallet_copied_to_clipboard">Billetera copiada al portapapeles</string>
     <string name="confirm_subscription">¿Desea comprar una suscripción %1$s?</string>
     <string name="subscription_failed">No se pudo comprar la suscripción</string>
+    <string name="add_exam">Crear exámen</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>

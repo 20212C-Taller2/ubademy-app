@@ -126,6 +126,9 @@
         <action
             android:id="@+id/action_manageCourseFragment_to_editCourseFragment"
             app:destination="@id/editCourseFragment" />
+        <action
+            android:id="@+id/action_manageCourseFragment_to_examsFragment"
+            app:destination="@id/examsFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -154,5 +157,26 @@
             app:destination="@id/manageCourseFragment"
             app:popUpTo="@id/manageCourseFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/examsFragment"
+        android:name="com.fiuba.ubademy.main.courses.teacher.exams.ExamsFragment"
+        android:label="@string/exams"
+        tools:layout="@layout/fragment_exams" >
+        <argument
+            android:name="courseId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_examsFragment_to_addExamFragment"
+            app:destination="@id/addExamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addExamFragment"
+        android:name="com.fiuba.ubademy.main.courses.teacher.exams.addexam.AddExamFragment"
+        android:label="@string/add_exam"
+        tools:layout="@layout/fragment_add_exam">
+        <argument
+            android:name="courseId"
+            app:argType="integer" />
     </fragment>
 </navigation>
