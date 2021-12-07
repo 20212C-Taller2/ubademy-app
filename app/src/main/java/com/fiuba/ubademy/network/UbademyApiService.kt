@@ -84,9 +84,9 @@ interface UbademyApiService {
     suspend fun getSubscriptions()
             : Response<List<Subscription>>
 
-    @GET("subscriptions/users/{userId}")
-    suspend fun getUserFinancialInformation(@Path("userId") userId: String)
-            : Response<UserFinancialInformation>
+    @GET("subscriptions/subscribers/{userId}")
+    suspend fun getSubscriber(@Path("userId") userId: String)
+            : Response<Subscriber>
 
     @POST("subscriptions")
     suspend fun subscribe(@Body subscribeRequest: SubscribeRequest)
