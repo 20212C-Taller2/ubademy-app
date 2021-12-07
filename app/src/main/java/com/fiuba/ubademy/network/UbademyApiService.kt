@@ -36,6 +36,14 @@ interface UbademyApiService {
     suspend fun getCourses(@Query("creator") creatorUserId: String?, @Query("skip") skip: Int, @Query("limit") limit: Int)
             : Response<List<Course>>
 
+    @GET("courses/students/{studentId}")
+    suspend fun getStudentCourses(@Path("studentId") studentId: String, @Query("skip") skip: Int, @Query("limit") limit: Int)
+            : Response<List<Course>>
+
+    @GET("courses/collaborators/{collaboratorId}")
+    suspend fun getCollaboratorCourses(@Path("collaboratorId") collaboratorId: String, @Query("skip") skip: Int, @Query("limit") limit: Int)
+            : Response<List<Course>>
+
     @GET("courses")
     suspend fun getCoursesFiltered(
         @Query("type") type: String?,
