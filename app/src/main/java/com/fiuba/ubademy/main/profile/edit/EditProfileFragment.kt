@@ -247,7 +247,7 @@ class EditProfileFragment : Fragment() {
             return
         }
 
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
         val editProfileStatus : EditProfileStatus = viewModel.editProfile()
         BusyFragment.hide()
 

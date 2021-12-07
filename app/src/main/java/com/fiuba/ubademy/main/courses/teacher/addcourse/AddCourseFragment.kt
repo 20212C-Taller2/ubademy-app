@@ -229,7 +229,7 @@ class AddCourseFragment : Fragment() {
         if (!checkForm())
             return
 
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
 
         try {
             viewModel.selectedImageUris.value!!.forEach {

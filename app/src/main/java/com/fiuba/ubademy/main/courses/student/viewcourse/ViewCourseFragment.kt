@@ -57,7 +57,7 @@ class ViewCourseFragment : Fragment() {
             builder.setCancelable(true)
 
             builder.setPositiveButton(R.string.yes) { _, _ ->
-                BusyFragment.show(this.parentFragmentManager)
+                BusyFragment.show(parentFragmentManager)
                 lifecycleScope.launch {
                     val unenrollStudentStatus = viewModel.unenrollStudent()
                     BusyFragment.hide()
@@ -85,7 +85,7 @@ class ViewCourseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
         lifecycleScope.launch {
             val getCreatorStatus = viewModel.getCreator()
             BusyFragment.hide()

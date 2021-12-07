@@ -94,7 +94,7 @@ class TeacherCoursesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
         lifecycleScope.launch {
             val getCoursesStatus : GetCoursesStatus = viewModel.getCourses()
             if (getCoursesStatus == GetCoursesStatus.FAIL)

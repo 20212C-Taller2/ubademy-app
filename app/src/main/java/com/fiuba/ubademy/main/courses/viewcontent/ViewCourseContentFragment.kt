@@ -54,7 +54,7 @@ class ViewCourseContentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
         lifecycleScope.launch {
             viewModel.showFirstMedia()
             BusyFragment.hide()
@@ -62,7 +62,7 @@ class ViewCourseContentFragment : Fragment() {
     }
 
     private fun showNextMedia() {
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
         lifecycleScope.launch {
             viewModel.showNextMedia()
             BusyFragment.hide()

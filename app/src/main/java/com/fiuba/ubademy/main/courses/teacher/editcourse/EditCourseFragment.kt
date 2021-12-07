@@ -109,7 +109,7 @@ class EditCourseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
         lifecycleScope.launch {
             try {
                 if (viewModel.courseTypes.value?.any() != true)
@@ -188,7 +188,7 @@ class EditCourseFragment : Fragment() {
         if (!checkForm())
             return
 
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
 
         if (viewModel.selectedImageFirebasePaths.value!!.isEmpty()) {
             try {
