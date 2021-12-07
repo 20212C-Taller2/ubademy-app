@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="exam"
+            type="com.fiuba.ubademy.network.model.Exam"/>
+    </data>
+
+    <LinearLayout
+        android:id="@+id/examLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/examCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_s">
+
+            <TextView
+                android:id="@+id/examText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_s"
+                android:textSize="20sp"
+                app:title="@{exam}"
+                tools:text="@string/uba" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</layout>

@@ -70,7 +70,7 @@ class SearchCourseFragment : Fragment() {
             builder.setCancelable(true)
 
             builder.setPositiveButton(R.string.yes) { _, _ ->
-                BusyFragment.show(this.parentFragmentManager)
+                BusyFragment.show(parentFragmentManager)
                 lifecycleScope.launch {
                     val enrollStudentStatus = viewModel.enrollStudent(it.id)
                     BusyFragment.hide()
@@ -173,7 +173,7 @@ class SearchCourseFragment : Fragment() {
     private fun getCoursesFiltered() {
         if (!loading) {
             loading = true
-            BusyFragment.show(this.parentFragmentManager)
+            BusyFragment.show(parentFragmentManager)
             lifecycleScope.launch {
                 val getCoursesStatus : GetCoursesStatus = viewModel.getCoursesFiltered()
                 if (getCoursesStatus == GetCoursesStatus.FAIL)

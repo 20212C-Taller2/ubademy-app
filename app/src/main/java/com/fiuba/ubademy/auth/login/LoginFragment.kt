@@ -133,7 +133,7 @@ class LoginFragment : Fragment() {
         if (!checkForm())
             return
 
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
         val loginStatus = viewModel.login()
         Firebase.auth.signInAnonymously().await()
         BusyFragment.hide()
@@ -158,7 +158,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
 
         lifecycleScope.launch {
             try {

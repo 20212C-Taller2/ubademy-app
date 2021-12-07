@@ -66,6 +66,7 @@
     <string name="there_is_no_courses">No se han encontrado cursos</string>
     <string name="there_is_no_more_courses">No se han encontrado más cursos</string>
     <string name="unenroll">Desinscribirse</string>
+    <string name="exam">Examen</string>
     <string name="exams">Exámenes</string>
     <string name="content">Contenido</string>
     <string name="students">Alumnos</string>
@@ -83,6 +84,16 @@
     <string name="wallet_copied_to_clipboard">Billetera copiada al portapapeles</string>
     <string name="confirm_subscription">¿Desea comprar una suscripción %1$s?</string>
     <string name="subscription_failed">No se pudo comprar la suscripción</string>
+    <string name="add_exam">Crear examen</string>
+    <string name="question">Pregunta</string>
+    <string name="questions">Preguntas</string>
+    <string name="create">Crear</string>
+    <string name="type_question_here">Escribe una pregunta acá</string>
+    <string name="exam_should_have_questions">Un examen debe tener preguntas</string>
+    <string name="exam_cant_have_empty_questions">No puede haber preguntas vacías</string>
+    <string name="exam_added">El examen se creó con éxito</string>
+    <string name="there_is_no_exams">No se encontraron exámenes</string>
+    <string name="question_format">%1$d: %2$s</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>

@@ -36,6 +36,14 @@ interface UbademyApiService {
     suspend fun getCourses(@Query("creator") creatorUserId: String?, @Query("skip") skip: Int, @Query("limit") limit: Int)
             : Response<List<Course>>
 
+    @GET("courses/students/{studentId}")
+    suspend fun getStudentCourses(@Path("studentId") studentId: String, @Query("skip") skip: Int, @Query("limit") limit: Int)
+            : Response<List<Course>>
+
+    @GET("courses/collaborators/{collaboratorId}")
+    suspend fun getCollaboratorCourses(@Path("collaboratorId") collaboratorId: String, @Query("skip") skip: Int, @Query("limit") limit: Int)
+            : Response<List<Course>>
+
     @GET("courses")
     suspend fun getCoursesFiltered(
         @Query("type") type: String?,
@@ -48,12 +56,26 @@ interface UbademyApiService {
     suspend fun addCourse(@Body addCourseRequest: AddCourseRequest)
             : Response<Course>
 
+    @PATCH("courses/{courseId}")
+    suspend fun editCourse(@Path("courseId") courseId: Int, @Body editCourseRequest: EditCourseRequest)
+            : Response<Course>
+
     @POST("courses/{courseId}/students/{studentId}")
     suspend fun enrollStudent(@Path("courseId") courseId: Int, @Path("studentId") studentId: String)
             : Response<Void>
 
     @DELETE("courses/{courseId}/students/{studentId}")
     suspend fun unenrollStudent(@Path("courseId") courseId: Int, @Path("studentId") studentId: String)
+            : Response<Void>
+    // endregion
+
+    // region exams
+    @GET("courses/{courseId}/exams")
+    suspend fun getExams(@Path("courseId") courseId: Int)
+            : Response<List<Exam>>
+
+    @POST("courses/{courseId}/exams")
+    suspend fun addExam(@Path("courseId") courseId: Int, @Body addExamRequest: AddExamRequest)
             : Response<Void>
     // endregion
 

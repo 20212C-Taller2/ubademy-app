@@ -65,7 +65,7 @@ class SubscriptionFragment : Fragment() {
     }
 
     private fun loadData() {
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
         lifecycleScope.launch {
             try {
                 viewModel.getSubscriptions()
@@ -86,7 +86,7 @@ class SubscriptionFragment : Fragment() {
         builder.setCancelable(true)
 
         builder.setPositiveButton(R.string.yes) { _, _ ->
-            BusyFragment.show(this.parentFragmentManager)
+            BusyFragment.show(parentFragmentManager)
             lifecycleScope.launch {
                 val subscribeStatus = viewModel.subscribe(subscription.code)
                 BusyFragment.hide()

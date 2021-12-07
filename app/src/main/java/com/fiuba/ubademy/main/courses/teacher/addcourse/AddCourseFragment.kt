@@ -109,8 +109,8 @@ class AddCourseFragment : Fragment() {
                 if (viewModel.courseTypes.value?.any() != true)
                     viewModel.getCourseTypes()
 
-                val courseTypesLabels = viewModel.courseTypes.value!!.map {
-                    item -> getString(resources.getIdentifier(item, "string", requireActivity().packageName))
+                val courseTypesLabels = viewModel.courseTypes.value!!.map { item ->
+                    getString(resources.getIdentifier(item, "string", requireActivity().packageName))
                 }.toTypedArray()
 
                 val adapter = ArrayAdapter(view.context, R.layout.support_simple_spinner_dropdown_item, courseTypesLabels)
@@ -130,8 +130,8 @@ class AddCourseFragment : Fragment() {
                 if (viewModel.subscriptions.value?.any() != true)
                     viewModel.getSubscriptions()
 
-                val subscriptionsLabels = viewModel.subscriptions.value!!.map {
-                    item -> getString(resources.getIdentifier(item, "string", requireActivity().packageName))
+                val subscriptionsLabels = viewModel.subscriptions.value!!.map { item ->
+                    getString(resources.getIdentifier(item, "string", requireActivity().packageName))
                 }.toTypedArray()
 
                 val adapter = ArrayAdapter(view.context, R.layout.support_simple_spinner_dropdown_item, subscriptionsLabels)
@@ -229,7 +229,7 @@ class AddCourseFragment : Fragment() {
         if (!checkForm())
             return
 
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
 
         try {
             viewModel.selectedImageUris.value!!.forEach {

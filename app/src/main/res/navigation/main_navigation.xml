@@ -123,6 +123,12 @@
         <action
             android:id="@+id/action_manageCourseFragment_to_viewCourseContentFragment"
             app:destination="@id/viewCourseContentFragment" />
+        <action
+            android:id="@+id/action_manageCourseFragment_to_editCourseFragment"
+            app:destination="@id/editCourseFragment" />
+        <action
+            android:id="@+id/action_manageCourseFragment_to_examsFragment"
+            app:destination="@id/examsFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -138,4 +144,56 @@
         android:name="com.fiuba.ubademy.main.profile.subscription.SubscriptionFragment"
         android:label="@string/subscription"
         tools:layout="@layout/fragment_subscription" />
+    <fragment
+        android:id="@+id/editCourseFragment"
+        android:name="com.fiuba.ubademy.main.courses.teacher.editcourse.EditCourseFragment"
+        android:label="@string/course"
+        tools:layout="@layout/fragment_edit_course" >
+        <argument
+            android:name="selectedCourse"
+            app:argType="com.fiuba.ubademy.network.model.Course" />
+        <action
+            android:id="@+id/action_editCourseFragment_to_manageCourseFragment"
+            app:destination="@id/manageCourseFragment"
+            app:popUpTo="@id/manageCourseFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/examsFragment"
+        android:name="com.fiuba.ubademy.main.courses.teacher.exams.ExamsFragment"
+        android:label="@string/exams"
+        tools:layout="@layout/fragment_exams" >
+        <argument
+            android:name="courseId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_examsFragment_to_addExamFragment"
+            app:destination="@id/addExamFragment" />
+        <action
+            android:id="@+id/action_examsFragment_to_viewExamFragment"
+            app:destination="@id/viewExamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addExamFragment"
+        android:name="com.fiuba.ubademy.main.courses.teacher.exams.addexam.AddExamFragment"
+        android:label="@string/add_exam"
+        tools:layout="@layout/fragment_add_exam">
+        <argument
+            android:name="courseId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_addExamFragment_to_examsFragment"
+            app:destination="@id/examsFragment"
+            app:popUpTo="@id/examsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewExamFragment"
+        android:name="com.fiuba.ubademy.main.courses.teacher.exams.viewexam.ViewExamFragment"
+        android:label="@string/exam"
+        tools:layout="@layout/fragment_view_exam">
+        <argument
+            android:name="exam"
+            app:argType="com.fiuba.ubademy.network.model.Exam" />
+    </fragment>
 </navigation>

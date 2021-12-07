@@ -6,11 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.main.courses.GetCoursesStatus
 import com.fiuba.ubademy.network.model.Course
 import com.fiuba.ubademy.utils.api
+import com.fiuba.ubademy.utils.getSharedPreferencesData
 import timber.log.Timber
 
 class StudentCoursesViewModel(application: Application) : AndroidViewModel(application) {
 
     var courses = MutableLiveData<List<Course>>()
+
+    private val userId = getSharedPreferencesData().id
 
     init {
         courses.value = listOf()
@@ -20,7 +23,7 @@ class StudentCoursesViewModel(application: Application) : AndroidViewModel(appli
         var getCoursesStatus = GetCoursesStatus.FAIL
 
         try {
-            val response = api().getCourses(null, 0, 20)
+            val response = api().getStudentCourses(userId, 0, 20)
             if (response.isSuccessful) {
                 courses.postValue(response.body()!!)
                 getCoursesStatus = GetCoursesStatus.SUCCESS
@@ -39,7 +42,7 @@ class StudentCoursesViewModel(application: Application) : AndroidViewModel(appli
         var getCoursesStatus = GetCoursesStatus.FAIL
 
         try {
-            val response = api().getCourses(null, skip, 10)
+            val response = api().getStudentCourses(userId, skip, 10)
             if (response.isSuccessful) {
                 courses.postValue(courses.value!!.plus(response.body()!!))
                 getCoursesStatus = GetCoursesStatus.SUCCESS
