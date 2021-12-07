@@ -10,23 +10,23 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/messageLinearLayout"
+        android:id="@+id/examLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/messageCard"
+            android:id="@+id/examCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_s">
 
             <TextView
-                android:id="@+id/messageText"
+                android:id="@+id/examText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_s"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 app:title="@{exam}"
                 tools:text="@string/uba" />
         </androidx.cardview.widget.CardView>
