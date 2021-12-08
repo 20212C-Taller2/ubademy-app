@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="takenExam"
+            type="com.fiuba.ubademy.main.courses.TakenExam"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/studentExamCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_s">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/studentExamConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_s">
+
+            <TextView
+                android:id="@+id/studentExamText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:title="@{takenExam}"
+                tools:text="@string/uba" />
+
+            <TextView
+                android:id="@+id/studentExamStatusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_s"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/studentExamText"
+                app:status="@{takenExam}"
+                tools:text="@string/reviewed" />
+
+            <TextView
+                android:id="@+id/studentExamGradeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBaseline_toBaselineOf="@+id/studentExamStatusText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:grade="@{takenExam}"
+                tools:text="8" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
