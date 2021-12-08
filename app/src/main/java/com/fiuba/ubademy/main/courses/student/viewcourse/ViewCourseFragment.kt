@@ -80,6 +80,10 @@ class ViewCourseFragment : Fragment() {
             findNavController().navigate(ViewCourseFragmentDirections.actionViewCourseFragmentToViewCourseContentFragment(course))
         }
 
+        binding.examsViewCourseButton.setOnClickListener {
+            findNavController().navigate(ViewCourseFragmentDirections.actionViewCourseFragmentToStudentExamsFragment(course.id))
+        }
+
         return binding.root
     }
 

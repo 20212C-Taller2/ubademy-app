@@ -35,26 +35,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_l"
                 android:text="@string/exams"
-                app:layout_constraintBaseline_toBaselineOf="@+id/contentManageCourseButton"
-                app:layout_constraintStart_toEndOf="@+id/contentManageCourseButton" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/collaboratorsManageCourseButton"
+                app:layout_constraintStart_toEndOf="@+id/collaboratorsManageCourseButton" />
 
             <Button
                 android:id="@+id/studentsManageCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_m"
+                android:layout_marginTop="@dimen/margin_l"
                 android:text="@string/students"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contentManageCourseButton" />
+                app:layout_constraintTop_toBottomOf="@+id/collaboratorsManageCourseButton" />
 
             <Button
                 android:id="@+id/editManageCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_m"
+                android:layout_marginLeft="@dimen/margin_l"
                 android:text="@string/edit"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/studentsManageCourseButton" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/contentManageCourseButton"
+                app:layout_constraintStart_toEndOf="@+id/contentManageCourseButton" />
 
             <TextView
                 android:id="@+id/descriptionManageCourseLabel"
@@ -158,6 +158,24 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="City, Country" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/collaboratorsManageCourseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_l"
+                android:text="@string/collaborators"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contentManageCourseButton" />
+
+            <Button
+                android:id="@+id/takenExamsManageCourseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_l"
+                android:text="@string/taken_exams"
+                app:layout_constraintBaseline_toBaselineOf="@+id/studentsManageCourseButton"
+                app:layout_constraintStart_toEndOf="@+id/studentsManageCourseButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

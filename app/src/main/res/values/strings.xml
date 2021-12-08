@@ -40,6 +40,7 @@
     <string name="my_courses">Mis cursos</string>
     <string name="teacher">Docente</string>
     <string name="collaborator">Colaborador</string>
+    <string name="collaborators">Colaboradores</string>
     <string name="student">Estudiante</string>
     <string name="my_teacher_courses">Mis cursos (docente)</string>
     <string name="my_collaborator_courses">Mis cursos (colaborador)</string>
@@ -68,6 +69,7 @@
     <string name="unenroll">Desinscribirse</string>
     <string name="exam">Examen</string>
     <string name="exams">Exámenes</string>
+    <string name="taken_exams">Exámenes rendidos</string>
     <string name="content">Contenido</string>
     <string name="students">Alumnos</string>
     <string name="unable_to_fetch_creator">No se pudo traer información acerca del creador del curso</string>
