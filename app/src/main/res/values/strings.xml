@@ -102,6 +102,8 @@
     <string name="pending">Pendiente</string>
     <string name="taken">Rendido</string>
     <string name="reviewed">Corregido</string>
+    <string name="there_are_unanswered_questions">Hay preguntas sin responder aún</string>
+    <string name="exam_submitted">El exámen ha sido enviado</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>

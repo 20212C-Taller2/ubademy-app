@@ -11,14 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fiuba.ubademy.R
-import com.fiuba.ubademy.databinding.FragmentExamsBinding
 import com.fiuba.ubademy.databinding.FragmentStudentExamsBinding
-import com.fiuba.ubademy.main.courses.ExamAdapter
 import com.fiuba.ubademy.main.courses.GetExamSubmissionsStatus
 import com.fiuba.ubademy.main.courses.GetExamsStatus
 import com.fiuba.ubademy.main.courses.TakenExamAdapter
-import com.fiuba.ubademy.main.courses.teacher.exams.ExamsFragmentDirections
-import com.fiuba.ubademy.main.courses.teacher.exams.ExamsViewModel
 import com.fiuba.ubademy.utils.BusyFragment
 import kotlinx.coroutines.launch
 

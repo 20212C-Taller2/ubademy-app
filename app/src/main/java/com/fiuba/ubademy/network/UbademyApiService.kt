@@ -86,6 +86,13 @@ interface UbademyApiService {
         @Query("skip") skip: Int,
         @Query("limit") limit: Int)
             : Response<List<ExamSubmission>>
+
+    @POST("courses/{courseId}/exams/{examId}")
+    suspend fun submitExam(
+        @Path("courseId") courseId: Int,
+        @Path("examId") examId: Int,
+        @Body submitExamRequest: SubmitExamRequest)
+            : Response<Void>
     // endregion
 
     // region subscriptions
