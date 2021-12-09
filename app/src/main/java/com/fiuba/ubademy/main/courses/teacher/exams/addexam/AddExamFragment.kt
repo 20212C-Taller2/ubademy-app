@@ -99,7 +99,7 @@ class AddExamFragment : Fragment() {
             return
 
         BusyFragment.show(parentFragmentManager)
-        val addExamStatus = viewModel.addExam(questions.mapIndexed { i, et -> Question(i + 1, et.text.toString()) })
+        val addExamStatus = viewModel.addExam(questions.mapIndexed { i, et -> Question(0, i + 1, et.text.toString()) })
         BusyFragment.hide()
 
         when (addExamStatus) {

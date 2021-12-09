@@ -40,6 +40,7 @@
     <string name="my_courses">Mis cursos</string>
     <string name="teacher">Docente</string>
     <string name="collaborator">Colaborador</string>
+    <string name="collaborators">Colaboradores</string>
     <string name="student">Estudiante</string>
     <string name="my_teacher_courses">Mis cursos (docente)</string>
     <string name="my_collaborator_courses">Mis cursos (colaborador)</string>
@@ -68,6 +69,7 @@
     <string name="unenroll">Desinscribirse</string>
     <string name="exam">Examen</string>
     <string name="exams">Exámenes</string>
+    <string name="taken_exams">Exámenes rendidos</string>
     <string name="content">Contenido</string>
     <string name="students">Alumnos</string>
     <string name="unable_to_fetch_creator">No se pudo traer información acerca del creador del curso</string>
@@ -89,11 +91,19 @@
     <string name="questions">Preguntas</string>
     <string name="create">Crear</string>
     <string name="type_question_here">Escribe una pregunta acá</string>
+    <string name="type_answer_here">Escribe una respuesta acá</string>
     <string name="exam_should_have_questions">Un examen debe tener preguntas</string>
     <string name="exam_cant_have_empty_questions">No puede haber preguntas vacías</string>
     <string name="exam_added">El examen se creó con éxito</string>
     <string name="there_is_no_exams">No se encontraron exámenes</string>
     <string name="question_format">%1$d: %2$s</string>
+    <string name="take_exam">Rendir examen</string>
+    <string name="submit_exam">Enviar examen</string>
+    <string name="pending">Pendiente</string>
+    <string name="taken">Rendido</string>
+    <string name="reviewed">Corregido</string>
+    <string name="there_are_unanswered_questions">Hay preguntas sin responder aún</string>
+    <string name="exam_submitted">El exámen ha sido enviado</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>

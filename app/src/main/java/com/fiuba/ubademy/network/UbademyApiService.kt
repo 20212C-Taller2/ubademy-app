@@ -77,6 +77,22 @@ interface UbademyApiService {
     @POST("courses/{courseId}/exams")
     suspend fun addExam(@Path("courseId") courseId: Int, @Body addExamRequest: AddExamRequest)
             : Response<Void>
+
+    @GET("courses/{courseId}/exam-submissions")
+    suspend fun getExamSubmissions(
+        @Path("courseId") courseId: Int,
+        @Query("student_id") studentId: String?,
+        @Query("exam_id") examId: String?,
+        @Query("skip") skip: Int,
+        @Query("limit") limit: Int)
+            : Response<List<ExamSubmission>>
+
+    @POST("courses/{courseId}/exams/{examId}")
+    suspend fun submitExam(
+        @Path("courseId") courseId: Int,
+        @Path("examId") examId: Int,
+        @Body submitExamRequest: SubmitExamRequest)
+            : Response<Void>
     // endregion
 
     // region subscriptions
@@ -84,9 +100,9 @@ interface UbademyApiService {
     suspend fun getSubscriptions()
             : Response<List<Subscription>>
 
-    @GET("subscriptions/users/{userId}")
-    suspend fun getUserFinancialInformation(@Path("userId") userId: String)
-            : Response<UserFinancialInformation>
+    @GET("subscriptions/subscribers/{userId}")
+    suspend fun getSubscriber(@Path("userId") userId: String)
+            : Response<Subscriber>
 
     @POST("subscriptions")
     suspend fun subscribe(@Body subscribeRequest: SubscribeRequest)

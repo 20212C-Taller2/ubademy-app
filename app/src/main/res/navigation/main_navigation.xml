@@ -90,6 +90,9 @@
         <action
             android:id="@+id/action_viewCourseFragment_to_viewCourseContentFragment"
             app:destination="@id/viewCourseContentFragment" />
+        <action
+            android:id="@+id/action_viewCourseFragment_to_studentExamsFragment"
+            app:destination="@id/studentExamsFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewPublicProfileFragment"
@@ -195,5 +198,34 @@
         <argument
             android:name="exam"
             app:argType="com.fiuba.ubademy.network.model.Exam" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentExamsFragment"
+        android:name="com.fiuba.ubademy.main.courses.student.exams.StudentExamsFragment"
+        android:label="@string/exams"
+        tools:layout="@layout/fragment_student_exams">
+        <argument
+            android:name="courseId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_studentExamsFragment_to_takeExamFragment"
+            app:destination="@id/takeExamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/takeExamFragment"
+        android:name="com.fiuba.ubademy.main.courses.student.exams.takeexam.TakeExamFragment"
+        android:label="@string/take_exam"
+        tools:layout="@layout/fragment_take_exam">
+        <argument
+            android:name="courseId"
+            app:argType="integer" />
+        <argument
+            android:name="exam"
+            app:argType="com.fiuba.ubademy.network.model.Exam" />
+        <action
+            android:id="@+id/action_takeExamFragment_to_studentExamsFragment"
+            app:destination="@id/studentExamsFragment"
+            app:popUpTo="@id/studentExamsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

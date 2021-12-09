@@ -69,7 +69,7 @@ class SubscriptionFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 viewModel.getSubscriptions()
-                viewModel.getUserFinancialInformation()
+                viewModel.getSubscriber()
             } catch (e: Exception) {
                 Timber.e(e)
                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
