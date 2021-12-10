@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ExamSubmission(
     val id: Int,
+    @Json(name = "exam_id")
     val examId: Int,
     @Json(name = "student")
     val studentId: String,

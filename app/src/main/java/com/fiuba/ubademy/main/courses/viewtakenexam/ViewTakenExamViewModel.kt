@@ -15,7 +15,7 @@ class ViewTakenExamViewModel(application: Application) : AndroidViewModel(applic
     var takenExam = MutableLiveData<TakenExam>()
 
     var grade = Transformations.map(takenExam) {
-        it.examSubmission?.examReview?.grade?.toString() ?: ""
+        it.examSubmission?.examReview?.grade?.toString() ?: "-"
     }
 
     var getStudentUserResponse = MutableLiveData<GetUserResponse>()

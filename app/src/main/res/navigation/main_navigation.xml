@@ -234,7 +234,7 @@
     <fragment
         android:id="@+id/viewTakenExamFragment"
         android:name="com.fiuba.ubademy.main.courses.viewtakenexam.ViewTakenExamFragment"
-        android:label="ViewTakenExamFragment"
+        android:label="@string/exam"
         tools:layout="@layout/fragment_view_taken_exam">
         <argument
             android:name="takenExam"

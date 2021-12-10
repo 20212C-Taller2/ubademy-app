@@ -107,10 +107,10 @@
             android:id="@+id/viewTakenExamGradeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/grade"
             app:layout_constraintBottom_toBottomOf="@+id/viewTakenExamGradeValue"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/viewTakenExamGradeValue"
-            tools:text="@string/grade" />
+            app:layout_constraintTop_toTopOf="@+id/viewTakenExamGradeValue" />
 
         <TextView
             android:id="@+id/viewTakenExamGradeValue"

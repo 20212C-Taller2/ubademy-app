@@ -46,10 +46,10 @@ class StudentExamsViewModel(application: Application) : AndroidViewModel(applica
         try {
             val response = api().getExams(courseId.value!!)
             if (response.isSuccessful) {
-                exams.postValue(response.body()!!)
+                exams.value = response.body()!!
                 getExamsStatus = GetExamsStatus.SUCCESS
             } else if (response.code() == 404) {
-                exams.postValue(listOf())
+                exams.value = listOf()
                 getExamsStatus = GetExamsStatus.NOT_FOUND
             }
         } catch (e: Exception) {
@@ -65,10 +65,10 @@ class StudentExamsViewModel(application: Application) : AndroidViewModel(applica
         try {
             val response = api().getExamSubmissions(courseId.value!!, userId, null, 0, exams.value!!.count())
             if (response.isSuccessful) {
-                examSubmissions.postValue(response.body()!!)
+                examSubmissions.value = response.body()!!
                 getExamSubmissionsStatus = GetExamSubmissionsStatus.SUCCESS
             } else if (response.code() == 404) {
-                examSubmissions.postValue(listOf())
+                examSubmissions.value = listOf()
                 getExamSubmissionsStatus = GetExamSubmissionsStatus.NOT_FOUND
             }
         } catch (e: Exception) {
