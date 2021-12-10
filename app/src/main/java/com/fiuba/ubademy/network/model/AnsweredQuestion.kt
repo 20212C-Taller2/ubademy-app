@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ExamReview(
-    val reviewerId: String,
-    val grade: Int
+data class AnsweredQuestion(
+    val question: Question,
+    val text: String
 ) : Parcelable

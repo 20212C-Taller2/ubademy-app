@@ -72,7 +72,7 @@
     <string name="taken_exams">Exámenes rendidos</string>
     <string name="content">Contenido</string>
     <string name="students">Alumnos</string>
-    <string name="unable_to_fetch_creator">No se pudo traer información acerca del creador del curso</string>
+    <string name="unable_to_fetch_user">No se pudo traer información acerca del usuario</string>
     <string name="chat">Mensajes</string>
     <string name="message">Mensaje</string>
     <string name="send">Enviar</string>
@@ -87,6 +87,7 @@
     <string name="confirm_subscription">¿Desea comprar una suscripción %1$s?</string>
     <string name="subscription_failed">No se pudo comprar la suscripción</string>
     <string name="add_exam">Crear examen</string>
+    <string name="answer">Respuesta</string>
     <string name="question">Pregunta</string>
     <string name="questions">Preguntas</string>
     <string name="create">Crear</string>
@@ -104,6 +105,9 @@
     <string name="reviewed">Corregido</string>
     <string name="there_are_unanswered_questions">Hay preguntas sin responder aún</string>
     <string name="exam_submitted">El exámen ha sido enviado</string>
+    <string name="submitted_by">Resuelto por</string>
+    <string name="reviewed_by">Corregido por</string>
+    <string name="grade">Nota</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>

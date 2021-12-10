@@ -78,7 +78,7 @@ interface UbademyApiService {
     suspend fun addExam(@Path("courseId") courseId: Int, @Body addExamRequest: AddExamRequest)
             : Response<Void>
 
-    @GET("courses/{courseId}/exam-submissions")
+    @GET("courses/{courseId}/exams/submissions")
     suspend fun getExamSubmissions(
         @Path("courseId") courseId: Int,
         @Query("student_id") studentId: String?,

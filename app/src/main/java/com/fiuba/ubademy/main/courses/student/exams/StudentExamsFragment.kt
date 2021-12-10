@@ -44,6 +44,8 @@ class StudentExamsFragment : Fragment() {
             if (it.examSubmission == null) {
                 val exam = viewModel.exams.value!!.first { e -> e.id == it.examId }
                 findNavController().navigate(StudentExamsFragmentDirections.actionStudentExamsFragmentToTakeExamFragment(courseId, exam))
+            } else {
+                findNavController().navigate(StudentExamsFragmentDirections.actionStudentExamsFragmentToViewTakenExamFragment(it))
             }
         }
 
