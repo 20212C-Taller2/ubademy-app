@@ -71,7 +71,7 @@ interface UbademyApiService {
 
     // region exams
     @GET("courses/{courseId}/exams")
-    suspend fun getExams(@Path("courseId") courseId: Int)
+    suspend fun getExams(@Path("courseId") courseId: Int, @Query("published") published: Boolean? = null)
             : Response<List<Exam>>
 
     @POST("courses/{courseId}/exams")
@@ -82,7 +82,7 @@ interface UbademyApiService {
     suspend fun getExamSubmissions(
         @Path("courseId") courseId: Int,
         @Query("student_id") studentId: String?,
-        @Query("exam_id") examId: String?,
+        @Query("exam_id") examId: Int?,
         @Query("skip") skip: Int,
         @Query("limit") limit: Int)
             : Response<List<ExamSubmission>>

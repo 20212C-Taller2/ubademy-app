@@ -15,6 +15,7 @@ import timber.log.Timber
 
 class TakenExamsViewModel(application: Application) : AndroidViewModel(application) {
     var courseId = MutableLiveData<Int>()
+    var selectedExamId = MutableLiveData<Int?>()
     var exams = MutableLiveData<List<Exam>>()
     var examSubmissions = MutableLiveData<List<ExamSubmission>>()
     var takenExams: LiveData<List<TakenExam>> = Transformations.switchMap(examSubmissions) { examSubmissions ->
@@ -32,6 +33,7 @@ class TakenExamsViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     init {
+        selectedExamId.value = null
         exams.value = listOf()
         examSubmissions.value = listOf()
     }
@@ -40,7 +42,7 @@ class TakenExamsViewModel(application: Application) : AndroidViewModel(applicati
         var getExamsStatus = GetExamsStatus.FAIL
 
         try {
-            val response = api().getExams(courseId.value!!)
+            val response = api().getExams(courseId.value!!, true)
             if (response.isSuccessful) {
                 exams.value = response.body()!!
                 getExamsStatus = GetExamsStatus.SUCCESS
@@ -59,12 +61,30 @@ class TakenExamsViewModel(application: Application) : AndroidViewModel(applicati
         var getExamSubmissionsStatus = GetExamSubmissionsStatus.FAIL
 
         try {
-            val response = api().getExamSubmissions(courseId.value!!, null, null, 0, exams.value!!.count())
+            val response = api().getExamSubmissions(courseId.value!!, null, selectedExamId.value, 0, 20)
             if (response.isSuccessful) {
                 examSubmissions.value = response.body()!!
                 getExamSubmissionsStatus = GetExamSubmissionsStatus.SUCCESS
             } else if (response.code() == 404) {
                 examSubmissions.value = listOf()
+                getExamSubmissionsStatus = GetExamSubmissionsStatus.NOT_FOUND
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+
+        return getExamSubmissionsStatus
+    }
+
+    suspend fun addExamSubmissions(skip: Int) : GetExamSubmissionsStatus {
+        var getExamSubmissionsStatus = GetExamSubmissionsStatus.FAIL
+
+        try {
+            val response = api().getExamSubmissions(courseId.value!!, null, selectedExamId.value, skip, 10)
+            if (response.isSuccessful) {
+                examSubmissions.postValue(examSubmissions.value!!.plus(response.body()!!))
+                getExamSubmissionsStatus = GetExamSubmissionsStatus.SUCCESS
+            } else if (response.code() == 404) {
                 getExamSubmissionsStatus = GetExamSubmissionsStatus.NOT_FOUND
             }
         } catch (e: Exception) {

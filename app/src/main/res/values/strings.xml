@@ -100,7 +100,10 @@
     <string name="exam_should_have_questions">Un examen debe tener preguntas</string>
     <string name="exam_cant_have_empty_questions">No puede haber preguntas vacías</string>
     <string name="exam_added">El examen se creó con éxito</string>
-    <string name="there_is_no_exams">No se encontraron exámenes</string>
+    <string name="there_is_no_exams">No se han encontrado exámenes</string>
+    <string name="there_is_no_more_exams">No se han encontrado más exámenes</string>
+    <string name="there_is_no_taken_exams">No se han encontrado exámenes rendidos</string>
+    <string name="there_is_no_more_taken_exams">No se han encontrado más exámenes rendidos</string>
     <string name="question_format">%1$d: %2$s</string>
     <string name="take_exam">Rendir examen</string>
     <string name="submit_exam">Enviar examen</string>

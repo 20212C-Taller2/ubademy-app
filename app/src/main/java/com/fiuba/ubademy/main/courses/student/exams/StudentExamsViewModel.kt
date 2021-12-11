@@ -9,9 +9,7 @@ import com.fiuba.ubademy.main.courses.GetExamSubmissionsStatus
 import com.fiuba.ubademy.main.courses.GetExamsStatus
 import com.fiuba.ubademy.main.courses.TakenExam
 import com.fiuba.ubademy.network.model.Exam
-import com.fiuba.ubademy.network.model.ExamReview
 import com.fiuba.ubademy.network.model.ExamSubmission
-import com.fiuba.ubademy.network.model.Question
 import com.fiuba.ubademy.utils.api
 import com.fiuba.ubademy.utils.getSharedPreferencesData
 import timber.log.Timber
@@ -44,7 +42,7 @@ class StudentExamsViewModel(application: Application) : AndroidViewModel(applica
         var getExamsStatus = GetExamsStatus.FAIL
 
         try {
-            val response = api().getExams(courseId.value!!)
+            val response = api().getExams(courseId.value!!, true)
             if (response.isSuccessful) {
                 exams.value = response.body()!!
                 getExamsStatus = GetExamsStatus.SUCCESS
