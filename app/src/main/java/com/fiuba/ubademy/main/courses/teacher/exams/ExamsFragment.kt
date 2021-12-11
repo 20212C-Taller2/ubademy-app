@@ -46,7 +46,10 @@ class ExamsFragment : Fragment() {
         val adapter = ExamAdapter()
 
         adapter.onExamItemClick = {
-            findNavController().navigate(ExamsFragmentDirections.actionExamsFragmentToViewExamFragment(it))
+            if (it.published)
+                findNavController().navigate(ExamsFragmentDirections.actionExamsFragmentToViewExamFragment(it))
+            else
+                findNavController().navigate(ExamsFragmentDirections.actionExamsFragmentToEditExamFragment(courseId, it))
         }
 
         viewModel.filteredExams.observe(viewLifecycleOwner, {
