@@ -1,8 +1,10 @@
 package com.fiuba.ubademy.main.courses.teacher.exams.addexam
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -15,12 +17,15 @@ import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentAddExamBinding
 import com.fiuba.ubademy.network.model.Question
 import com.fiuba.ubademy.utils.*
+import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.launch
 
 class AddExamFragment : Fragment() {
 
     private lateinit var viewModel: AddExamViewModel
     private lateinit var binding: FragmentAddExamBinding
+
+    private var removingQuestions: Boolean = false
 
     private var titleValid = false
 
@@ -42,6 +47,17 @@ class AddExamFragment : Fragment() {
 
         binding.addQuestionButton.setOnClickListener { addQuestion() }
 
+        binding.removeQuestionButton.setOnClickListener {
+            removingQuestions = !removingQuestions
+            if (removingQuestions) {
+                binding.removeQuestionButton.setBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorError))
+                binding.removeQuestionButton.setText(R.string.removing)
+            } else {
+                binding.removeQuestionButton.setBackgroundColor(MaterialColors.getColor(binding.root, R.attr.colorPrimary))
+                binding.removeQuestionButton.setText(R.string.question)
+            }
+        }
+
         binding.createExamButton.setOnClickListener {
             lifecycleScope.launch {
                 createExam(it, false)
@@ -62,6 +78,7 @@ class AddExamFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun addQuestion() {
         val question = binding.questionEditText
         val editText = EditText(context)
@@ -72,6 +89,15 @@ class AddExamFragment : Fragment() {
         questions.add(editText)
         binding.questionsAddExamLinearLayout.addView(editText)
         editText.requestFocus()
+        editText.setOnTouchListener { v, event ->
+            when (event?.action) {
+                MotionEvent.ACTION_DOWN -> if (removingQuestions) {
+                    binding.questionsAddExamLinearLayout.removeView(editText)
+                    questions.remove(editText)
+                }
+            }
+            v?.onTouchEvent(event) ?: true
+        }
     }
 
     private fun setupValidators() {

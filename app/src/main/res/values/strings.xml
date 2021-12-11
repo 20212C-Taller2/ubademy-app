@@ -116,6 +116,7 @@
     <string name="reviewed_by">Corregido por</string>
     <string name="grade">Nota</string>
     <string name="edit_exam">Editar examen</string>
+    <string name="removing">Borrando…</string>
 
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>
