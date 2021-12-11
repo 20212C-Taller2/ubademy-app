@@ -87,10 +87,13 @@
     <string name="confirm_subscription">¿Desea comprar una suscripción %1$s?</string>
     <string name="subscription_failed">No se pudo comprar la suscripción</string>
     <string name="add_exam">Crear examen</string>
+    <string name="published">Publicado</string>
+    <string name="not_published">No publicado</string>
     <string name="answer">Respuesta</string>
     <string name="question">Pregunta</string>
     <string name="questions">Preguntas</string>
     <string name="create">Crear</string>
+    <string name="create_published">Crear y publicar</string>
     <string name="type_question_here">Escribe una pregunta acá</string>
     <string name="type_answer_here">Escribe una respuesta acá</string>
     <string name="exam_should_have_questions">Un examen debe tener preguntas</string>

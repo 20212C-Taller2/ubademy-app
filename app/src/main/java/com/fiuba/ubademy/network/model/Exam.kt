@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class Exam(
     val id: Int,
     val title: String,
+    val published: Boolean,
     val questions: List<Question>
 ) : Parcelable

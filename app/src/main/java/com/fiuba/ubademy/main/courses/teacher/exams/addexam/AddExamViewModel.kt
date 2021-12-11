@@ -12,13 +12,14 @@ class AddExamViewModel(application: Application) : AndroidViewModel(application)
     var courseId = MutableLiveData<Int>()
     var title = MutableLiveData<String>()
 
-    suspend fun addExam(questions: List<Question>) : AddExamStatus {
+    suspend fun addExam(questions: List<Question>, published: Boolean) : AddExamStatus {
         var addExamStatus = AddExamStatus.FAIL
 
         try {
             val response = api().addExam(courseId.value!!,
                 AddExamRequest(
                     title = title.value!!,
+                    published = published,
                     questions = questions
                 )
             )

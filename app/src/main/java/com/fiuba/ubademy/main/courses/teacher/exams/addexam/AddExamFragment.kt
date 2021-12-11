@@ -44,7 +44,13 @@ class AddExamFragment : Fragment() {
 
         binding.createExamButton.setOnClickListener {
             lifecycleScope.launch {
-                createExam(it)
+                createExam(it, false)
+            }
+        }
+
+        binding.createPublishedExamButton.setOnClickListener {
+            lifecycleScope.launch {
+                createExam(it, true)
             }
         }
 
@@ -92,14 +98,15 @@ class AddExamFragment : Fragment() {
         return titleOk && thereAreQuestions && allQuestionsHaveText
     }
 
-    private suspend fun createExam(view: View) {
+    private suspend fun createExam(view: View, published: Boolean) {
         view.hideKeyboard()
 
         if (!checkForm())
             return
 
         BusyFragment.show(parentFragmentManager)
-        val addExamStatus = viewModel.addExam(questions.mapIndexed { i, et -> Question(0, i + 1, et.text.toString()) })
+        val indexedQuestions = questions.mapIndexed { i, et -> Question(0, i + 1, et.text.toString()) }
+        val addExamStatus = viewModel.addExam(indexedQuestions, published)
         BusyFragment.hide()
 
         when (addExamStatus) {
