@@ -51,6 +51,10 @@ class ManageCourseFragment : Fragment() {
             findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToExamsFragment(course.id))
         }
 
+        binding.takenExamsManageCourseButton.setOnClickListener {
+            findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToTakenExamsFragment(course.id))
+        }
+
         binding.editManageCourseButton.setOnClickListener {
             findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToEditCourseFragment(course))
         }
