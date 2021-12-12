@@ -75,7 +75,11 @@ interface UbademyApiService {
             : Response<List<Exam>>
 
     @POST("courses/{courseId}/exams")
-    suspend fun addExam(@Path("courseId") courseId: Int, @Body addExamRequest: AddExamRequest)
+    suspend fun addExam(@Path("courseId") courseId: Int, @Body upsertExamRequest: UpsertExamRequest)
+            : Response<Void>
+
+    @PUT("courses/{courseId}/exams/{examId}")
+    suspend fun editExam(@Path("courseId") courseId: Int, @Path("examId") examId: Int, @Body upsertExamRequest: UpsertExamRequest)
             : Response<Void>
 
     @GET("courses/{courseId}/exams/submissions")

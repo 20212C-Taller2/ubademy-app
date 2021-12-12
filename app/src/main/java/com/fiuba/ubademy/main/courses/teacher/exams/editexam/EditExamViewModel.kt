@@ -1,4 +1,4 @@
-package com.fiuba.ubademy.main.courses.teacher.exams.addexam
+package com.fiuba.ubademy.main.courses.teacher.exams.editexam
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -8,15 +8,16 @@ import com.fiuba.ubademy.network.model.Question
 import com.fiuba.ubademy.utils.api
 import timber.log.Timber
 
-class AddExamViewModel(application: Application) : AndroidViewModel(application) {
+class EditExamViewModel(application: Application) : AndroidViewModel(application) {
     var courseId = MutableLiveData<Int>()
+    var examId = MutableLiveData<Int>()
     var title = MutableLiveData<String>()
 
-    suspend fun addExam(questions: List<Question>, published: Boolean) : AddExamStatus {
-        var addExamStatus = AddExamStatus.FAIL
+    suspend fun editExam(questions: List<Question>, published: Boolean) : EditExamStatus {
+        var editExamStatus = EditExamStatus.FAIL
 
         try {
-            val response = api().addExam(courseId.value!!,
+            val response = api().editExam(courseId.value!!, examId.value!!,
                 UpsertExamRequest(
                     title = title.value!!,
                     published = published,
@@ -24,12 +25,12 @@ class AddExamViewModel(application: Application) : AndroidViewModel(application)
                 )
             )
             if (response.isSuccessful) {
-                addExamStatus = AddExamStatus.SUCCESS
+                editExamStatus = EditExamStatus.SUCCESS
             }
         } catch (e: Exception) {
             Timber.e(e)
         }
 
-        return addExamStatus
+        return editExamStatus
     }
 }
