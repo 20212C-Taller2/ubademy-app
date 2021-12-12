@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="addExamViewModel"
-            type="com.fiuba.ubademy.main.courses.teacher.exams.addexam.AddExamViewModel" />
+            name="editExamViewModel"
+            type="com.fiuba.ubademy.main.courses.teacher.exams.editexam.EditExamViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,29 +24,29 @@
             app:layout_constraintEnd_toStartOf="@+id/removeQuestionButton"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/createExamButton" />
+            app:layout_constraintTop_toBottomOf="@+id/saveExamButton" />
 
         <Button
-            android:id="@+id/createExamButton"
+            android:id="@+id/saveExamButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_m"
-            android:text="@string/create"
-            app:layout_constraintEnd_toStartOf="@+id/createPublishedExamButton"
+            android:text="@string/save"
+            app:layout_constraintEnd_toStartOf="@+id/savePublishedExamButton"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleAddExamLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/titleEditExamLayout" />
 
         <Button
-            android:id="@+id/createPublishedExamButton"
+            android:id="@+id/savePublishedExamButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/create_published"
+            android:text="@string/save_and_publish"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/createExamButton"
-            app:layout_constraintTop_toTopOf="@+id/createExamButton" />
+            app:layout_constraintStart_toEndOf="@+id/saveExamButton"
+            app:layout_constraintTop_toTopOf="@+id/saveExamButton" />
 
         <Button
             android:id="@+id/removeQuestionButton"
@@ -59,7 +59,7 @@
             app:layout_constraintTop_toTopOf="@+id/addQuestionButton" />
 
         <ScrollView
-            android:id="@+id/questionsAddExamScrollView"
+            android:id="@+id/questionsEditExamScrollView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_m"
@@ -70,7 +70,7 @@
             app:layout_constraintTop_toBottomOf="@+id/addQuestionButton">
 
             <LinearLayout
-                android:id="@+id/questionsAddExamLinearLayout"
+                android:id="@+id/questionsEditExamLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -89,7 +89,7 @@
         </ScrollView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/titleAddExamLayout"
+            android:id="@+id/titleEditExamLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,12 +97,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/titleAddExamInput"
+                android:id="@+id/titleEditExamInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/title"
                 android:inputType="textShortMessage|textCapSentences"
-                android:text="@={addExamViewModel.title}" />
+                android:text="@={editExamViewModel.title}" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

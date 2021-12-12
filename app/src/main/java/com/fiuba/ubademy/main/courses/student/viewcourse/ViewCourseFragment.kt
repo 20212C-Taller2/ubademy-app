@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentViewCourseBinding
+import com.fiuba.ubademy.main.courses.GetUserStatus
 import com.fiuba.ubademy.utils.BusyFragment
 import com.fiuba.ubademy.utils.getPlaceName
 import kotlinx.coroutines.launch
@@ -91,15 +92,15 @@ class ViewCourseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         BusyFragment.show(parentFragmentManager)
         lifecycleScope.launch {
-            val getCreatorStatus = viewModel.getCreator()
+            val getUserStatus = viewModel.getCreator()
             BusyFragment.hide()
-            if (getCreatorStatus == GetCreatorStatus.SUCCESS) {
+            if (getUserStatus == GetUserStatus.SUCCESS) {
                 binding.teacherViewCourseChip.isEnabled = true
                 binding.teacherViewCourseChip.setOnClickListener {
                     findNavController().navigate(ViewCourseFragmentDirections.actionViewCourseFragmentToViewPublicProfileFragment(viewModel.getUserResponse.value!!))
                 }
             } else {
-                Toast.makeText(context, R.string.unable_to_fetch_creator, Toast.LENGTH_LONG).show()
+                Toast.makeText(context, R.string.unable_to_fetch_user, Toast.LENGTH_LONG).show()
             }
         }
     }

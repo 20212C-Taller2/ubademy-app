@@ -10,19 +10,19 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/studentExamCard"
+        android:id="@+id/takenExamCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_s">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/studentExamConstraintLayout"
+            android:id="@+id/takenExamConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/padding_s">
 
             <TextView
-                android:id="@+id/studentExamText"
+                android:id="@+id/takenExamText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
@@ -32,20 +32,20 @@
                 tools:text="@string/uba" />
 
             <TextView
-                android:id="@+id/studentExamStatusText"
+                android:id="@+id/takenExamStatusText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_s"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/studentExamText"
+                app:layout_constraintTop_toBottomOf="@+id/takenExamText"
                 app:status="@{takenExam}"
                 tools:text="@string/reviewed" />
 
             <TextView
-                android:id="@+id/studentExamGradeText"
+                android:id="@+id/takenExamGradeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@+id/studentExamStatusText"
+                app:layout_constraintBaseline_toBaselineOf="@+id/takenExamStatusText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:grade="@{takenExam}"
                 tools:text="8" />

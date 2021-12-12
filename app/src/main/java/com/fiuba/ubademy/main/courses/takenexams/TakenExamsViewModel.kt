@@ -1,4 +1,4 @@
-package com.fiuba.ubademy.main.courses.student.exams
+package com.fiuba.ubademy.main.courses.takenexams
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -11,29 +11,29 @@ import com.fiuba.ubademy.main.courses.TakenExam
 import com.fiuba.ubademy.network.model.Exam
 import com.fiuba.ubademy.network.model.ExamSubmission
 import com.fiuba.ubademy.utils.api
-import com.fiuba.ubademy.utils.getSharedPreferencesData
 import timber.log.Timber
 
-class StudentExamsViewModel(application: Application) : AndroidViewModel(application) {
+class TakenExamsViewModel(application: Application) : AndroidViewModel(application) {
     var courseId = MutableLiveData<Int>()
+    var selectedExamId = MutableLiveData<Int?>()
     var exams = MutableLiveData<List<Exam>>()
     var examSubmissions = MutableLiveData<List<ExamSubmission>>()
-    var takenExams: LiveData<List<TakenExam>> = Transformations.switchMap(exams) { exams ->
-        Transformations.map(examSubmissions) { examSubmissions ->
-            exams.map { exam ->
+    var takenExams: LiveData<List<TakenExam>> = Transformations.switchMap(examSubmissions) { examSubmissions ->
+        Transformations.map(exams) { exams ->
+            examSubmissions.map { examSubmission ->
+                val exam = exams.first { e -> e.id == examSubmission.examId }
                 TakenExam(
                     examId = exam.id,
                     title = exam.title,
                     questions = exam.questions,
-                    examSubmission = examSubmissions.firstOrNull { es -> es.examId == exam.id }
+                    examSubmission = examSubmission
                 )
             }
         }
     }
 
-    private val userId = getSharedPreferencesData().id
-
     init {
+        selectedExamId.value = null
         exams.value = listOf()
         examSubmissions.value = listOf()
     }
@@ -61,12 +61,30 @@ class StudentExamsViewModel(application: Application) : AndroidViewModel(applica
         var getExamSubmissionsStatus = GetExamSubmissionsStatus.FAIL
 
         try {
-            val response = api().getExamSubmissions(courseId.value!!, userId, null, 0, exams.value!!.count())
+            val response = api().getExamSubmissions(courseId.value!!, null, selectedExamId.value, 0, 20)
             if (response.isSuccessful) {
                 examSubmissions.value = response.body()!!
                 getExamSubmissionsStatus = GetExamSubmissionsStatus.SUCCESS
             } else if (response.code() == 404) {
                 examSubmissions.value = listOf()
+                getExamSubmissionsStatus = GetExamSubmissionsStatus.NOT_FOUND
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+
+        return getExamSubmissionsStatus
+    }
+
+    suspend fun addExamSubmissions(skip: Int) : GetExamSubmissionsStatus {
+        var getExamSubmissionsStatus = GetExamSubmissionsStatus.FAIL
+
+        try {
+            val response = api().getExamSubmissions(courseId.value!!, null, selectedExamId.value, skip, 10)
+            if (response.isSuccessful) {
+                examSubmissions.postValue(examSubmissions.value!!.plus(response.body()!!))
+                getExamSubmissionsStatus = GetExamSubmissionsStatus.SUCCESS
+            } else if (response.code() == 404) {
                 getExamSubmissionsStatus = GetExamSubmissionsStatus.NOT_FOUND
             }
         } catch (e: Exception) {

@@ -3,6 +3,7 @@ package com.fiuba.ubademy.main.courses.student.viewcourse
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.fiuba.ubademy.main.courses.GetUserStatus
 import com.fiuba.ubademy.network.model.GetUserResponse
 import com.fiuba.ubademy.utils.api
 import com.fiuba.ubademy.utils.getSharedPreferencesData
@@ -32,17 +33,17 @@ class ViewCourseViewModel(application: Application) : AndroidViewModel(applicati
         return unenrollStudentStatus
     }
 
-    suspend fun getCreator() : GetCreatorStatus {
-        var getCreatorStatus = GetCreatorStatus.FAIL
+    suspend fun getCreator() : GetUserStatus {
+        var getUserStatus = GetUserStatus.FAIL
         try {
             val response = api().getUser(creator.value!!)
             if (response.isSuccessful) {
                 getUserResponse.value = response.body()
-                getCreatorStatus = GetCreatorStatus.SUCCESS
+                getUserStatus = GetUserStatus.SUCCESS
             }
         } catch (e: Exception) {
             Timber.e(e)
         }
-        return getCreatorStatus
+        return getUserStatus
     }
 }

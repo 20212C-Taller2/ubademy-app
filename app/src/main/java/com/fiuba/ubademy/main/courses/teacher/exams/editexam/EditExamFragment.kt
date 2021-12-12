@@ -1,4 +1,4 @@
-package com.fiuba.ubademy.main.courses.teacher.exams.addexam
+package com.fiuba.ubademy.main.courses.teacher.exams.editexam
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -14,16 +14,22 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.fiuba.ubademy.R
-import com.fiuba.ubademy.databinding.FragmentAddExamBinding
+import com.fiuba.ubademy.databinding.FragmentEditExamBinding
+import com.fiuba.ubademy.network.model.Exam
 import com.fiuba.ubademy.network.model.Question
-import com.fiuba.ubademy.utils.*
+import com.fiuba.ubademy.utils.BusyFragment
+import com.fiuba.ubademy.utils.hideError
+import com.fiuba.ubademy.utils.hideKeyboard
+import com.fiuba.ubademy.utils.showError
 import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.launch
 
-class AddExamFragment : Fragment() {
+class EditExamFragment : Fragment() {
 
-    private lateinit var viewModel: AddExamViewModel
-    private lateinit var binding: FragmentAddExamBinding
+    private lateinit var viewModel: EditExamViewModel
+    private lateinit var binding: FragmentEditExamBinding
+
+    private lateinit var originalExam: Exam
 
     private var removingQuestions: Boolean = false
 
@@ -34,16 +40,19 @@ class AddExamFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this).get(AddExamViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(EditExamViewModel::class.java)
 
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_add_exam,
+            R.layout.fragment_edit_exam,
             container,
             false
         )
 
-        viewModel.courseId.value = AddExamFragmentArgs.fromBundle(requireArguments()).courseId
+        viewModel.courseId.value = EditExamFragmentArgs.fromBundle(requireArguments()).courseId
+        originalExam = EditExamFragmentArgs.fromBundle(requireArguments()).exam
+        viewModel.examId.value = originalExam.id
+        viewModel.title.value = originalExam.title
 
         binding.addQuestionButton.setOnClickListener { addQuestion() }
 
@@ -58,19 +67,19 @@ class AddExamFragment : Fragment() {
             }
         }
 
-        binding.createExamButton.setOnClickListener {
+        binding.saveExamButton.setOnClickListener {
             lifecycleScope.launch {
-                createExam(it, false)
+                saveExam(it, false)
             }
         }
 
-        binding.createPublishedExamButton.setOnClickListener {
+        binding.savePublishedExamButton.setOnClickListener {
             lifecycleScope.launch {
-                createExam(it, true)
+                saveExam(it, true)
             }
         }
 
-        binding.addExamViewModel = viewModel
+        binding.editExamViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         setupValidators()
@@ -78,21 +87,30 @@ class AddExamFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        originalExam.questions.sortedBy { q -> q.number }.forEach { q ->
+            addQuestion(q.text)
+        }
+    }
+
     @SuppressLint("ClickableViewAccessibility")
-    private fun addQuestion() {
+    private fun addQuestion(text: String? = null) {
         val question = binding.questionEditText
         val editText = EditText(context)
         editText.layoutParams = question.layoutParams
         editText.hint = question.hint
         editText.inputType = question.inputType
         editText.visibility = View.VISIBLE
+        if (text != null) editText.setText(text)
         questions.add(editText)
-        binding.questionsAddExamLinearLayout.addView(editText)
+        binding.questionsEditExamLinearLayout.addView(editText)
         editText.requestFocus()
         editText.setOnTouchListener { v, event ->
             when (event?.action) {
                 MotionEvent.ACTION_DOWN -> if (removingQuestions) {
-                    binding.questionsAddExamLinearLayout.removeView(editText)
+                    binding.questionsEditExamLinearLayout.removeView(editText)
                     questions.remove(editText)
                 }
             }
@@ -108,9 +126,9 @@ class AddExamFragment : Fragment() {
 
     private fun checkTitle(newValue : String?) : Boolean {
         if (newValue.isNullOrBlank())
-            return binding.titleAddExamLayout.showError(getString(R.string.should_have_value))
+            return binding.titleEditExamLayout.showError(getString(R.string.should_have_value))
 
-        return binding.titleAddExamLayout.hideError()
+        return binding.titleEditExamLayout.hideError()
     }
 
     private fun checkForm() : Boolean {
@@ -124,7 +142,7 @@ class AddExamFragment : Fragment() {
         return titleOk && thereAreQuestions && allQuestionsHaveText
     }
 
-    private suspend fun createExam(view: View, published: Boolean) {
+    private suspend fun saveExam(view: View, published: Boolean) {
         view.hideKeyboard()
 
         if (!checkForm())
@@ -132,15 +150,15 @@ class AddExamFragment : Fragment() {
 
         BusyFragment.show(parentFragmentManager)
         val indexedQuestions = questions.mapIndexed { i, et -> Question(0, i + 1, et.text.toString()) }
-        val addExamStatus = viewModel.addExam(indexedQuestions, published)
+        val editExamStatus = viewModel.editExam(indexedQuestions, published)
         BusyFragment.hide()
 
-        when (addExamStatus) {
-            AddExamStatus.SUCCESS -> {
-                Toast.makeText(context, R.string.exam_added, Toast.LENGTH_LONG).show()
-                view.findNavController().navigate(AddExamFragmentDirections.actionAddExamFragmentToExamsFragment(viewModel.courseId.value!!))
+        when (editExamStatus) {
+            EditExamStatus.SUCCESS -> {
+                Toast.makeText(context, R.string.exam_saved, Toast.LENGTH_LONG).show()
+                view.findNavController().navigate(EditExamFragmentDirections.actionEditExamFragmentToExamsFragment(viewModel.courseId.value!!))
             }
-            AddExamStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+            EditExamStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
         }
     }
 }

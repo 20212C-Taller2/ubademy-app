@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -45,10 +46,13 @@ class ExamsFragment : Fragment() {
         val adapter = ExamAdapter()
 
         adapter.onExamItemClick = {
-            findNavController().navigate(ExamsFragmentDirections.actionExamsFragmentToViewExamFragment(it))
+            if (it.published)
+                findNavController().navigate(ExamsFragmentDirections.actionExamsFragmentToViewExamFragment(it))
+            else
+                findNavController().navigate(ExamsFragmentDirections.actionExamsFragmentToEditExamFragment(courseId, it))
         }
 
-        viewModel.exams.observe(viewLifecycleOwner, {
+        viewModel.filteredExams.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it)
             }
@@ -64,6 +68,20 @@ class ExamsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val stateLabels = arrayOf(getString(R.string.all_m), getString(R.string.not_published), getString(R.string.published))
+        val adapter = ArrayAdapter(view.context, R.layout.support_simple_spinner_dropdown_item, stateLabels)
+        binding.stateExamsInput.setAdapter(adapter)
+        binding.stateExamsInput.setOnItemClickListener { _, _, position, _ ->
+            viewModel.published.value = when (position) {
+                1 -> false
+                2 -> true
+                else -> null
+            }
+        }
+        binding.stateExamsInput.threshold = 100
+        if (viewModel.published.value == null)
+            binding.stateExamsInput.setText(getString(R.string.all_m), false)
 
         BusyFragment.show(parentFragmentManager)
         lifecycleScope.launch {
