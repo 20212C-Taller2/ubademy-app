@@ -57,7 +57,7 @@ class TakenExamsFragment : Fragment() {
 
         adapter.onTakenExamItemClick = {
             if (it.examSubmission?.examReview == null) {
-                // TODO: navigate to review
+                findNavController().navigate(TakenExamsFragmentDirections.actionTakenExamsFragmentToReviewTakenExamFragment(courseId, it))
             } else {
                 findNavController().navigate(TakenExamsFragmentDirections.actionTakenExamsFragmentToViewTakenExamFragment(it))
             }

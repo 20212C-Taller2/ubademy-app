@@ -260,6 +260,9 @@
         <action
             android:id="@+id/action_takenExamsFragment_to_viewTakenExamFragment"
             app:destination="@id/viewTakenExamFragment" />
+        <action
+            android:id="@+id/action_takenExamsFragment_to_reviewTakenExamFragment"
+            app:destination="@id/reviewTakenExamFragment" />
     </fragment>
     <fragment
         android:id="@+id/editExamFragment"
@@ -276,6 +279,23 @@
             android:id="@+id/action_editExamFragment_to_examsFragment"
             app:destination="@id/examsFragment"
             app:popUpTo="@id/examsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewTakenExamFragment"
+        android:name="com.fiuba.ubademy.main.courses.takenexams.review.ReviewTakenExamFragment"
+        android:label="@string/review_exam"
+        tools:layout="@layout/fragment_review_taken_exam">
+        <argument
+            android:name="courseId"
+            app:argType="integer" />
+        <argument
+            android:name="takenExam"
+            app:argType="com.fiuba.ubademy.main.courses.TakenExam" />
+        <action
+            android:id="@+id/action_reviewTakenExamFragment_to_takenExamsFragment"
+            app:destination="@id/takenExamsFragment"
+            app:popUpTo="@id/takenExamsFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>
