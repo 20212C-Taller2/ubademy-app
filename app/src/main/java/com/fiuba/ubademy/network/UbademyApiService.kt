@@ -97,6 +97,13 @@ interface UbademyApiService {
         @Path("examId") examId: Int,
         @Body submitExamRequest: SubmitExamRequest)
             : Response<Void>
+
+    @PATCH("courses/{courseId}/exams/{submittedExamId}")
+    suspend fun reviewExam(
+        @Path("courseId") courseId: Int,
+        @Path("submittedExamId") submittedExamId: Int,
+        @Body examReview: ExamReview)
+            : Response<Void>
     // endregion
 
     // region subscriptions

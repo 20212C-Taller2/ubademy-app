@@ -21,7 +21,6 @@ import com.fiuba.ubademy.main.courses.GetExamsStatus
 import com.fiuba.ubademy.main.courses.TakenExamAdapter
 import com.fiuba.ubademy.utils.BusyFragment
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class TakenExamsFragment : Fragment() {
 

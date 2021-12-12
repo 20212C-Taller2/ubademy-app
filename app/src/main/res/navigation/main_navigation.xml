@@ -297,5 +297,8 @@
             app:destination="@id/takenExamsFragment"
             app:popUpTo="@id/takenExamsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_reviewTakenExamFragment_to_viewPublicProfileFragment"
+            app:destination="@id/viewPublicProfileFragment" />
     </fragment>
 </navigation>
