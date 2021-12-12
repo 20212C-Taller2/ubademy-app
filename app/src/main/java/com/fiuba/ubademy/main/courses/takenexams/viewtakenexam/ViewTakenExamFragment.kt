@@ -1,4 +1,4 @@
-package com.fiuba.ubademy.main.courses.viewtakenexam
+package com.fiuba.ubademy.main.courses.takenexams.viewtakenexam
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -20,7 +20,7 @@ class TakenExamsViewModel(application: Application) : AndroidViewModel(applicati
     var examSubmissions = MutableLiveData<List<ExamSubmission>>()
     var takenExams: LiveData<List<TakenExam>> = Transformations.switchMap(examSubmissions) { examSubmissions ->
         Transformations.map(exams) { exams ->
-            examSubmissions.map { examSubmission ->
+            examSubmissions.filter { es -> exams.any { e -> es.examId == e.id } }.map { examSubmission ->
                 val exam = exams.first { e -> e.id == examSubmission.examId }
                 TakenExam(
                     examId = exam.id,

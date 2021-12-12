@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewTakenExamViewModel"
-            type="com.fiuba.ubademy.main.courses.viewtakenexam.ViewTakenExamViewModel" />
+            type="com.fiuba.ubademy.main.courses.takenexams.viewtakenexam.ViewTakenExamViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
