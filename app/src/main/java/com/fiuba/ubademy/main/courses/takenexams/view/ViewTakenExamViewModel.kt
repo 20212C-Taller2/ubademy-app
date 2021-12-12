@@ -1,4 +1,4 @@
-package com.fiuba.ubademy.main.courses.takenexams.viewtakenexam
+package com.fiuba.ubademy.main.courses.takenexams.view
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

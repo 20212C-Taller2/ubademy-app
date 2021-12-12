@@ -239,7 +239,7 @@
     </fragment>
     <fragment
         android:id="@+id/viewTakenExamFragment"
-        android:name="com.fiuba.ubademy.main.courses.takenexams.viewtakenexam.ViewTakenExamFragment"
+        android:name="com.fiuba.ubademy.main.courses.takenexams.view.ViewTakenExamFragment"
         android:label="@string/exam"
         tools:layout="@layout/fragment_view_taken_exam">
         <argument
