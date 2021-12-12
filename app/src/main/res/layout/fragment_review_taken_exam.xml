@@ -53,6 +53,7 @@
                     android:id="@+id/reviewTakenExamAnswer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_s"
                     android:layout_marginBottom="@dimen/margin_l"
                     android:visibility="gone"
                     tools:text="@string/answer"
@@ -125,7 +126,7 @@
                 android:id="@+id/feedbackReviewTakenExamInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/optional_feedback"
+                android:hint="@string/feedback"
                 android:inputType="textLongMessage|textCapSentences|textMultiLine"
                 android:maxLines="5"
                 android:text="@={reviewTakenExamViewModel.feedback}" />
