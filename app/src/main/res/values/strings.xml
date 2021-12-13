@@ -118,16 +118,18 @@
     <string name="edit_exam">Editar examen</string>
     <string name="removing">Borrando…</string>
     <string name="save">Guardar</string>
+    <string name="qualify">Calificar</string>
     <string name="save_and_publish">Guardar y publicar</string>
     <string name="exam_saved">El examen se guardó con éxito</string>
-
+    <string name="review_exam">Revisar examen</string>
+    <string name="feedback">Feedback</string>
+    <string name="exam_qualified">El examen ha sido calificado con éxito</string>
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>
     <string name="WOODWORKING">Carpintería</string>
     <string name="MATHEMATICS">Matemáticas</string>
     <string name="YOGA">Yoga</string>
     <string name="GRAPHIC_DESIGN">Diseño gráfico</string>
-
     <string name="FREE">Gratuita</string>
     <string name="BASIC">Básica</string>
     <string name="FULL">Completa</string>

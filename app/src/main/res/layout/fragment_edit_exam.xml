@@ -33,7 +33,6 @@
             android:layout_marginTop="@dimen/margin_m"
             android:text="@string/save"
             app:layout_constraintEnd_toStartOf="@+id/savePublishedExamButton"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleEditExamLayout" />
@@ -44,7 +43,6 @@
             android:layout_height="wrap_content"
             android:text="@string/save_and_publish"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/saveExamButton"
             app:layout_constraintTop_toTopOf="@+id/saveExamButton" />
 

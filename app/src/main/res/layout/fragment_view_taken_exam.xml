@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewTakenExamViewModel"
-            type="com.fiuba.ubademy.main.courses.viewtakenexam.ViewTakenExamViewModel" />
+            type="com.fiuba.ubademy.main.courses.takenexams.view.ViewTakenExamViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,11 +30,11 @@
             android:id="@+id/questionsViewTakenExamScrollView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_s"
+            android:layout_marginTop="@dimen/margin_m"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewTakenExamGradeValue">
+            app:layout_constraintTop_toBottomOf="@+id/feedbackViewTakenExamLayout">
 
             <LinearLayout
                 android:id="@+id/questionsViewTakenExamLinearLayout"
@@ -54,6 +54,7 @@
                     android:id="@+id/viewTakenExamAnswer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_s"
                     android:layout_marginBottom="@dimen/margin_l"
                     android:visibility="gone"
                     tools:text="@string/answer"
@@ -76,9 +77,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reviewed_by"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/viewTakenExamReviewedByChip"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/viewTakenExamReviewedByChip" />
+            app:layout_constraintTop_toTopOf="@+id/viewTakenExamReviewedByChip"
+            tools:visibility="visible" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/viewTakenExamSubmittedByChip"
@@ -98,31 +101,59 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_s"
             android:enabled="false"
+            android:text="@{viewTakenExamViewModel.getReviewerUserResponse.displayName}"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/viewTakenExamReviewedByLabel"
             app:layout_constraintTop_toBottomOf="@+id/viewTakenExamSubmittedByChip"
-            android:text="@{viewTakenExamViewModel.getReviewerUserResponse.displayName}"
-            tools:text="@string/display_name" />
+            tools:text="@string/display_name"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/viewTakenExamGradeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/grade"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/viewTakenExamGradeValue"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/viewTakenExamGradeValue" />
+            app:layout_constraintTop_toTopOf="@+id/viewTakenExamGradeValue"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/viewTakenExamGradeValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_s"
+            android:text="@{viewTakenExamViewModel.grade}"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/viewTakenExamGradeLabel"
             app:layout_constraintTop_toBottomOf="@+id/viewTakenExamReviewedByChip"
-            android:text="@{viewTakenExamViewModel.grade}"
-            tools:text="7" />
+            tools:text="7"
+            tools:visibility="visible" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/feedbackViewTakenExamLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_m"
+            android:enabled="false"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewTakenExamGradeValue"
+            tools:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/feedbackViewTakenExamInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/feedback"
+                android:inputType="textLongMessage|textCapSentences|textMultiLine"
+                android:maxLines="5"
+                android:text="@{viewTakenExamViewModel.takenExam.examSubmission.examReview.feedback}" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

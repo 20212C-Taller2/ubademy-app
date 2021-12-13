@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="reviewTakenExamViewModel"
+            type="com.fiuba.ubademy.main.courses.takenexams.review.ReviewTakenExamViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_l">
+
+        <Button
+            android:id="@+id/reviewTakenExamQualifyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_l"
+            android:text="@string/qualify"
+            app:layout_constraintBottom_toBottomOf="@+id/reviewExamGradeLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/reviewExamGradeLayout"
+            app:layout_constraintTop_toTopOf="@+id/reviewExamGradeLayout" />
+
+        <ScrollView
+            android:id="@+id/questionsReviewTakenExamScrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_m"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feedbackReviewTakenExamLayout">
+
+            <LinearLayout
+                android:id="@+id/questionsReviewTakenExamLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/reviewTakenExamQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:text="@string/question"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/reviewTakenExamAnswer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_s"
+                    android:layout_marginBottom="@dimen/margin_l"
+                    android:visibility="gone"
+                    tools:text="@string/answer"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/reviewTakenExamSubmittedByLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submitted_by"
+            app:layout_constraintBottom_toBottomOf="@+id/reviewTakenExamSubmittedByChip"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/reviewTakenExamSubmittedByChip" />
+
+        <TextView
+            android:id="@+id/reviewTakenExamTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{reviewTakenExamViewModel.takenExam.title}"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/title" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/reviewTakenExamSubmittedByChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_s"
+            android:layout_marginTop="@dimen/margin_s"
+            android:enabled="false"
+            android:text="@{reviewTakenExamViewModel.getStudentUserResponse.displayName}"
+            app:layout_constraintStart_toEndOf="@+id/reviewTakenExamSubmittedByLabel"
+            app:layout_constraintTop_toBottomOf="@+id/reviewTakenExamTitle"
+            tools:text="@string/display_name" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/reviewExamGradeLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_m"
+            app:layout_constraintEnd_toStartOf="@+id/reviewTakenExamQualifyButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reviewTakenExamSubmittedByChip">
+
+            <AutoCompleteTextView
+                android:id="@+id/reviewExamGradeInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/grade"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/feedbackReviewTakenExamLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_m"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reviewExamGradeLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/feedbackReviewTakenExamInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/feedback"
+                android:inputType="textLongMessage|textCapSentences|textMultiLine"
+                android:maxLines="5"
+                android:text="@={reviewTakenExamViewModel.feedback}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

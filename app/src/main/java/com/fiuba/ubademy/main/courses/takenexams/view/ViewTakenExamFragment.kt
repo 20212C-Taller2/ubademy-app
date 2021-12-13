@@ -1,4 +1,4 @@
-package com.fiuba.ubademy.main.courses.viewtakenexam
+package com.fiuba.ubademy.main.courses.takenexams.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -34,10 +34,21 @@ class ViewTakenExamFragment : Fragment() {
             false
         )
 
-        viewModel.takenExam.value = ViewTakenExamFragmentArgs.fromBundle(requireArguments()).takenExam
+        val takenExam = ViewTakenExamFragmentArgs.fromBundle(requireArguments()).takenExam
+        viewModel.takenExam.value = takenExam
 
         binding.viewTakenExamViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        if (takenExam.examSubmission?.examReview != null) {
+            binding.viewTakenExamReviewedByLabel.visibility = View.VISIBLE
+            binding.viewTakenExamReviewedByChip.visibility = View.VISIBLE
+            binding.viewTakenExamGradeLabel.visibility = View.VISIBLE
+            binding.viewTakenExamGradeValue.visibility = View.VISIBLE
+            if (!takenExam.examSubmission.examReview.feedback.isNullOrBlank()) {
+                binding.feedbackViewTakenExamLayout.visibility = View.VISIBLE
+            }
+        }
 
         return binding.root
     }

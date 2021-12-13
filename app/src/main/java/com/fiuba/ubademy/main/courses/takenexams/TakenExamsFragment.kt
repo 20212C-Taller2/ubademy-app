@@ -21,7 +21,6 @@ import com.fiuba.ubademy.main.courses.GetExamsStatus
 import com.fiuba.ubademy.main.courses.TakenExamAdapter
 import com.fiuba.ubademy.utils.BusyFragment
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class TakenExamsFragment : Fragment() {
 
@@ -57,7 +56,7 @@ class TakenExamsFragment : Fragment() {
 
         adapter.onTakenExamItemClick = {
             if (it.examSubmission?.examReview == null) {
-                // TODO: navigate to review
+                findNavController().navigate(TakenExamsFragmentDirections.actionTakenExamsFragmentToReviewTakenExamFragment(courseId, it))
             } else {
                 findNavController().navigate(TakenExamsFragmentDirections.actionTakenExamsFragmentToViewTakenExamFragment(it))
             }

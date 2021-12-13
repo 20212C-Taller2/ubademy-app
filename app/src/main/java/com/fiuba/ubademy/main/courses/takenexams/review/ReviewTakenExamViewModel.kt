@@ -1,25 +1,24 @@
-package com.fiuba.ubademy.main.courses.viewtakenexam
+package com.fiuba.ubademy.main.courses.takenexams.review
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import com.fiuba.ubademy.main.courses.TakenExam
 import com.fiuba.ubademy.main.courses.GetUserStatus
+import com.fiuba.ubademy.main.courses.TakenExam
+import com.fiuba.ubademy.network.model.ExamReview
 import com.fiuba.ubademy.network.model.GetUserResponse
 import com.fiuba.ubademy.utils.api
+import com.fiuba.ubademy.utils.getSharedPreferencesData
 import timber.log.Timber
 
-class ViewTakenExamViewModel(application: Application) : AndroidViewModel(application) {
+class ReviewTakenExamViewModel(application: Application) : AndroidViewModel(application) {
 
+    var courseId = MutableLiveData<Int>()
     var takenExam = MutableLiveData<TakenExam>()
-
-    var grade = Transformations.map(takenExam) {
-        it.examSubmission?.examReview?.grade?.toString() ?: "-"
-    }
+    var grade = MutableLiveData<Int>()
+    var feedback = MutableLiveData<String>()
 
     var getStudentUserResponse = MutableLiveData<GetUserResponse>()
-    var getReviewerUserResponse = MutableLiveData<GetUserResponse>()
 
     suspend fun getStudent() : GetUserStatus {
         var getUserStatus = GetUserStatus.FAIL
@@ -35,17 +34,26 @@ class ViewTakenExamViewModel(application: Application) : AndroidViewModel(applic
         return getUserStatus
     }
 
-    suspend fun getReviewer() : GetUserStatus {
-        var getUserStatus = GetUserStatus.FAIL
+    suspend fun qualifyTakenExam() : QualifyTakenExamStatus {
+        var qualifyTakenExamStatus = QualifyTakenExamStatus.FAIL
+
         try {
-            val response = api().getUser(takenExam.value!!.examSubmission!!.examReview!!.reviewerId)
+            val response = api().reviewExam(
+                courseId.value!!,
+                takenExam.value!!.examSubmission!!.id,
+                ExamReview(
+                    reviewerId = getSharedPreferencesData().id,
+                    feedback = feedback.value,
+                    grade = grade.value!!
+                )
+            )
             if (response.isSuccessful) {
-                getReviewerUserResponse.value = response.body()
-                getUserStatus = GetUserStatus.SUCCESS
+                qualifyTakenExamStatus = QualifyTakenExamStatus.SUCCESS
             }
         } catch (e: Exception) {
             Timber.e(e)
         }
-        return getUserStatus
+
+        return qualifyTakenExamStatus
     }
 }
