@@ -13,3 +13,13 @@ fun TextView.setTitle(item: Course) {
 fun TextView.setDescription(item: Course) {
     text = item.description
 }
+
+@BindingAdapter("type")
+fun TextView.setType(item: Course) {
+    text = context.getString(resources.getIdentifier(item.type, "string", context.packageName))
+}
+
+@BindingAdapter("subscription")
+fun TextView.setSubscription(item: Course) {
+    text = context.getString(resources.getIdentifier(item.subscription, "string", context.packageName))
+}

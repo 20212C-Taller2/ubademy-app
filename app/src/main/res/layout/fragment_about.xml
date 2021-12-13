@@ -67,21 +67,21 @@
 
         <TextView
             android:id="@+id/aboutSemesterLabel"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/semester"
             android:textAlignment="center" />
 
         <TextView
             android:id="@+id/aboutGroupLabel"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/group"
             android:textAlignment="center" />
 
         <TextView
             android:id="@+id/applicationIdLabel"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_l"
             android:textAlignment="center"
@@ -90,7 +90,7 @@
 
         <TextView
             android:id="@+id/buildTypeLabel"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textSize="12sp"

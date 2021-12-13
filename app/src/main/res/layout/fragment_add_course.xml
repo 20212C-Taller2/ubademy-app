@@ -53,8 +53,60 @@
                         android:hint="@string/description"
                         android:inputType="textLongMessage|textMultiLine|textCapSentences"
                         android:text="@={addCourseViewModel.description}" />
-
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/courseTypeAddCourseLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_l"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu" >
+
+                    <AutoCompleteTextView
+                        android:id="@+id/courseTypeAddCourseInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:hint="@string/course_type" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/subscriptionAddCourseLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_l"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu" >
+
+                    <AutoCompleteTextView
+                        android:id="@+id/subscriptionAddCourseInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:hint="@string/subscription" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/placeAddCourseLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_l">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/placeAddCourseInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="@string/place"
+                        android:text="@={addCourseViewModel.placeName}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/selectImagesButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_l"
+                    android:text="@string/select_multimedia"
+                    android:backgroundTint="?attr/colorSecondaryVariant" />
 
                 <Button
                     android:id="@+id/submitAddCourseFormButton"

@@ -4,11 +4,11 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/ubademy_2</item>
         <item name="colorPrimaryVariant">@color/ubademy_3</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/quantum_grey800</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/ubademy_2_teal</item>
         <item name="colorSecondaryVariant">@color/ubademy_3_teal</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnSecondary">@color/quantum_grey800</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/ubademy_2</item>
         <item name="android:windowLightStatusBar">false</item>
@@ -21,11 +21,11 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/ubademy_2</item>
         <item name="colorPrimaryVariant">@color/ubademy_3</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/quantum_grey800</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/ubademy_2_teal</item>
         <item name="colorSecondaryVariant">@color/ubademy_3_teal</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnSecondary">@color/quantum_grey800</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>

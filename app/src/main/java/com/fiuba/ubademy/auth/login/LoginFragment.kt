@@ -2,13 +2,13 @@ package com.fiuba.ubademy.auth.login
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -20,17 +20,16 @@ import com.fiuba.ubademy.utils.hideError
 import com.fiuba.ubademy.utils.hideKeyboard
 import com.fiuba.ubademy.utils.showError
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import kotlinx.coroutines.launch
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import timber.log.Timber
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
+import timber.log.Timber
 
 class LoginFragment : Fragment() {
 
@@ -91,6 +90,10 @@ class LoginFragment : Fragment() {
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
 
+        // TODO: remove this
+        googleSignInClient.signOut()
+        Firebase.auth.signOut()
+
         return binding.root
     }
 
@@ -130,8 +133,9 @@ class LoginFragment : Fragment() {
         if (!checkForm())
             return
 
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
         val loginStatus = viewModel.login()
+        Firebase.auth.signInAnonymously().await()
         BusyFragment.hide()
 
         when (loginStatus) {
@@ -154,7 +158,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
-        BusyFragment.show(this.parentFragmentManager)
+        BusyFragment.show(parentFragmentManager)
 
         lifecycleScope.launch {
             try {

@@ -72,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:focusable="false"
                         android:hint="@string/place"
-                        android:text="@={createAccountViewModel.placeName}"/>
+                        android:text="@={createAccountViewModel.placeName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -108,6 +108,22 @@
                         android:importantForAutofill="yes"
                         android:inputType="textPassword"
                         android:text="@={createAccountViewModel.password}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/interestsCreateAccountLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_l">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/interestsCreateAccountInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="@string/interests"
+                        android:inputType="textMultiLine"
+                        android:text="@{createAccountViewModel.selectedCourseTypesText}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button

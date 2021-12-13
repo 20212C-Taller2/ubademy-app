@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="manageCourseViewModel"
+            type="com.fiuba.ubademy.main.courses.teacher.managecourse.ManageCourseViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/manageCourseConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_l"
+            tools:context=".main.courses.teacher.managecourse.ManageCourseFragment">
+
+            <Button
+                android:id="@+id/contentManageCourseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_l"
+                android:text="@string/content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/placeManageCourseLayout" />
+
+            <Button
+                android:id="@+id/examsManageCourseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_l"
+                android:text="@string/exams"
+                app:layout_constraintBaseline_toBaselineOf="@+id/collaboratorsManageCourseButton"
+                app:layout_constraintStart_toEndOf="@+id/collaboratorsManageCourseButton" />
+
+            <Button
+                android:id="@+id/studentsManageCourseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_l"
+                android:text="@string/students"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/collaboratorsManageCourseButton" />
+
+            <Button
+                android:id="@+id/editManageCourseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_l"
+                android:text="@string/edit"
+                app:layout_constraintBaseline_toBaselineOf="@+id/contentManageCourseButton"
+                app:layout_constraintStart_toEndOf="@+id/contentManageCourseButton" />
+
+            <TextView
+                android:id="@+id/descriptionManageCourseLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_m"
+                android:text="@{manageCourseViewModel.description}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleManageCourseLabel"
+                tools:text="@string/description" />
+
+            <TextView
+                android:id="@+id/titleManageCourseLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_m"
+                android:text="@{manageCourseViewModel.title}"
+                android:textAlignment="viewStart"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/courseTypeManageCourseCardView"
+                tools:text="@string/title" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/courseTypeManageCourseCardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_xs"
+                app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                app:cardCornerRadius="@dimen/radius_s"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/courseTypeManageCourseLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_xs"
+                    android:text="@{manageCourseViewModel.courseType}"
+                    android:textAlignment="viewStart"
+                    android:textColor="?attr/colorOnPrimary"
+                    tools:text="@string/course_type" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/subscriptionManageCourseCardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_xs"
+                app:cardBackgroundColor="?attr/colorSecondaryVariant"
+                app:cardCornerRadius="@dimen/radius_s"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/subscriptionManageCourseLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_xs"
+                    android:text="@{manageCourseViewModel.subscription}"
+                    android:textAlignment="viewStart"
+                    android:textColor="?attr/colorOnSecondary"
+                    tools:text="@string/subscription" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/placeManageCourseLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_m"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionManageCourseLabel">
+
+                <ImageView
+                    android:id="@+id/placeManageCourseIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/place"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_place_24" />
+
+                <TextView
+                    android:id="@+id/placeManageCourseLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:paddingRight="@dimen/padding_l"
+                    android:text="@{manageCourseViewModel.placeName}"
+                    android:textAlignment="textStart"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/placeManageCourseIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="City, Country" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/collaboratorsManageCourseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_l"
+                android:text="@string/collaborators"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contentManageCourseButton" />
+
+            <Button
+                android:id="@+id/takenExamsManageCourseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_l"
+                android:text="@string/taken_exams"
+                app:layout_constraintBaseline_toBaselineOf="@+id/studentsManageCourseButton"
+                app:layout_constraintStart_toEndOf="@+id/studentsManageCourseButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

@@ -3,9 +3,17 @@
 
     <group android:id="@+id/profileMenuGroup">
         <item
+            android:id="@+id/homeFragment"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/home" />
+        <item
             android:id="@+id/editProfileFragment"
             android:icon="@drawable/ic_baseline_person_24"
             android:title="@string/edit_profile" />
+        <item
+            android:id="@+id/subscriptionFragment"
+            android:icon="@drawable/ic_baseline_attach_money_24"
+            android:title="@string/subscription" />
     </group>
 
     <group android:id="@+id/coursesMenuGroup">
