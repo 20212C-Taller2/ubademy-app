@@ -9,12 +9,19 @@ import com.fiuba.ubademy.utils.getSharedPreferencesData
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     var displayName = MutableLiveData<String>()
+    var picture = MutableLiveData<String?>()
+    var placeName = MutableLiveData<String>()
+    var email = MutableLiveData<String>()
 
     init {
         refreshFromSharedPreferences()
     }
 
     fun refreshFromSharedPreferences() {
-        displayName.value = getSharedPreferencesData().getDisplayName()
+        val sharedPreferencesData = getSharedPreferencesData()
+        displayName.value = sharedPreferencesData.getDisplayName()
+        picture.value = sharedPreferencesData.picture
+        placeName.value = if (sharedPreferencesData.placeName.isNullOrBlank()) "-" else sharedPreferencesData.placeName
+        email.value = sharedPreferencesData.email
     }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentHomeBinding
 
@@ -30,6 +31,10 @@ class HomeFragment : Fragment() {
         binding.homeViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.profileFloatingActionButton.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToEditProfileFragment())
+        }
+
         return binding.root
     }
 
@@ -37,5 +42,4 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.refreshFromSharedPreferences()
     }
-
 }
