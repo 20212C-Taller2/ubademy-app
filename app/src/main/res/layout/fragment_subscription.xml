@@ -102,7 +102,7 @@
                     android:id="@+id/basicEnrollLeftLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{@string/available_enrollments(subscriptionViewModel.basicUserSubscription.coursesTotal - subscriptionViewModel.basicUserSubscription.coursesUsed)}"
+                    android:text="@{@string/available_enrollments(subscriptionViewModel.basicUserSubscription.coursesLimit - subscriptionViewModel.basicUserSubscription.coursesUsed)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/basicEnrollLimitLabel"
                     tools:text="@string/available_enrollments" />
@@ -208,7 +208,7 @@
                     android:id="@+id/fullEnrollLeftLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{@string/available_enrollments(subscriptionViewModel.fullUserSubscription.coursesTotal - subscriptionViewModel.fullUserSubscription.coursesUsed)}"
+                    android:text="@{@string/available_enrollments(subscriptionViewModel.fullUserSubscription.coursesLimit - subscriptionViewModel.fullUserSubscription.coursesUsed)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fullEnrollLimitLabel"
                     tools:text="@string/available_enrollments" />
