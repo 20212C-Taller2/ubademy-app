@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.ubademy.R
@@ -43,6 +44,10 @@ class CollaboratorCoursesFragment : Fragment() {
         progressBar = binding.root.findViewById(R.id.collaboratorCoursesProgressBar)
 
         val adapter = CourseAdapter()
+
+        adapter.onCourseItemClick = {
+            findNavController().navigate(CollaboratorCoursesFragmentDirections.actionCollaboratorCoursesFragmentToAssistCourseFragment(it))
+        }
 
         viewModel.courses.observe(viewLifecycleOwner, {
             it?.let {
