@@ -332,5 +332,8 @@
         <action
             android:id="@+id/action_assistCourseFragment_to_viewCourseContentFragment"
             app:destination="@id/viewCourseContentFragment" />
+        <action
+            android:id="@+id/action_assistCourseFragment_to_takenExamsFragment"
+            app:destination="@id/takenExamsFragment" />
     </fragment>
 </navigation>

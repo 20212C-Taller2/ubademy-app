@@ -46,6 +46,10 @@ class AssistCourseFragment : Fragment() {
             findNavController().navigate(AssistCourseFragmentDirections.actionAssistCourseFragmentToViewCourseContentFragment(course))
         }
 
+        binding.takenExamsAssistCourseButton.setOnClickListener {
+            findNavController().navigate(AssistCourseFragmentDirections.actionAssistCourseFragmentToTakenExamsFragment(course.id))
+        }
+
         binding.assistCourseViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
