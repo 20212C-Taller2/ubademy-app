@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -9,20 +9,296 @@
             type="com.fiuba.ubademy.main.home.HomeViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/homeConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:padding="@dimen/padding_m">
+
+        <ImageView
+            android:id="@+id/homePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_l"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/user"
+            android:scaleType="fitCenter"
+            app:imageUrl="@{homeViewModel.picture}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_min="120dp"
+            app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+
+        <ImageView
+            android:id="@+id/homePlaceIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/place"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homePlaceText"
+            app:srcCompat="@drawable/ic_baseline_place_24" />
 
         <TextView
-            android:id="@+id/userNameLabel"
-            android:layout_width="match_parent"
+            android:id="@+id/homeDisplayName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_s"
+            android:gravity="center_horizontal"
+            android:text="@{homeViewModel.displayName}"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homePicture"
+            tools:text="@string/display_name" />
+
+        <TextView
+            android:id="@+id/homeEmail"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@{@string/greetings_format(homeViewModel.displayName)}"
-            tools:text="firstName lastName" />
+            android:text="@{homeViewModel.email}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeDisplayName"
+            tools:text="email@gmail.com" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/homePlaceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_m"
+            android:gravity="center_horizontal"
+            android:text="@{homeViewModel.placeName}"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeEmail"
+            tools:text="City, Country" />
 
+        <TextView
+            android:id="@+id/homeBalanceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_m"
+            android:text="@string/balance"
+            android:textAllCaps="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeDivider1" />
+
+        <TextView
+            android:id="@+id/homeBalanceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kodchasan_regular"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:balance="@{homeViewModel.balance}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeBalanceLabel"
+            tools:text="100.00" />
+
+        <TextView
+            android:id="@+id/homeMyCoursesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_m"
+            android:text="@string/my_courses"
+            android:textAllCaps="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeDivider2" />
+
+        <View
+            android:id="@+id/homeDivider1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/margin_xs"
+            android:layout_marginTop="@dimen/margin_m"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homePlaceIcon" />
+
+        <View
+            android:id="@+id/homeDivider2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/margin_xs"
+            android:layout_marginTop="@dimen/margin_m"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeBasicSubscriptionCard" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/homeBasicSubscriptionCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_xs"
+            app:layout_constraintEnd_toStartOf="@+id/homeFullSubscriptionCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeBalanceValue">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_s">
+
+                <TextView
+                    android:id="@+id/homeBasicSubscriptionLabel1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/subscription"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/homeBasicSubscriptionLabel2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/BASIC"
+                    android:textAllCaps="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/homeBasicSubscriptionLeftLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_s"
+                    android:text="@string/inscriptions_left"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/homeBasicSubscriptionLabel1" />
+
+                <TextView
+                    android:id="@+id/homeBasicSubscriptionLeftValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{homeViewModel.basicUserSubscriptionCoursesLeft.toString()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/homeBasicSubscriptionLeftLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/homeBasicSubscriptionLeftLabel"
+                    tools:text="15" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/homeFullSubscriptionCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_xs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/homeBasicSubscriptionCard"
+            app:layout_constraintTop_toBottomOf="@+id/homeBalanceValue">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_s">
+
+                <TextView
+                    android:id="@+id/homeFullSubscriptionLabel2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/FULL"
+                    android:textAllCaps="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/homeFullSubscriptionLabel1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/subscription"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/homeFullSubscriptionLeftLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_s"
+                    android:text="@string/inscriptions_left"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/homeFullSubscriptionLabel1" />
+
+                <TextView
+                    android:id="@+id/homeFullSubscriptionLeftValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{homeViewModel.fullUserSubscriptionCoursesLeft.toString()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/homeFullSubscriptionLeftLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/homeFullSubscriptionLeftLabel"
+                    tools:text="25" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/homeProfileFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/user"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toTopOf="@+id/homePicture"
+            app:layout_constraintEnd_toEndOf="@+id/homePicture"
+            app:layout_constraintStart_toEndOf="@+id/homePicture"
+            app:layout_constraintTop_toTopOf="@+id/homePicture"
+            app:srcCompat="@drawable/ic_baseline_person_24" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/homeTeacherCoursesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_s"
+            android:clickable="true"
+            android:contentDescription="@string/my_teacher_courses"
+            app:layout_constraintEnd_toStartOf="@+id/homeCollaboratorCoursesButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeMyCoursesLabel"
+            app:maxImageSize="32dp"
+            app:srcCompat="@drawable/ic_baseline_cast_for_education_24" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/homeCollaboratorCoursesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_s"
+            android:clickable="true"
+            android:contentDescription="@string/my_collaborator_courses"
+            app:layout_constraintEnd_toStartOf="@+id/homeStudentCoursesButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/homeTeacherCoursesButton"
+            app:layout_constraintTop_toBottomOf="@+id/homeMyCoursesLabel"
+            app:maxImageSize="32dp"
+            app:srcCompat="@drawable/ic_baseline_co_present_24" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/homeStudentCoursesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_s"
+            android:clickable="true"
+            android:contentDescription="@string/my_student_courses"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/homeCollaboratorCoursesButton"
+            app:layout_constraintTop_toBottomOf="@+id/homeMyCoursesLabel"
+            app:maxImageSize="32dp"
+            app:srcCompat="@drawable/ic_baseline_ondemand_video_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

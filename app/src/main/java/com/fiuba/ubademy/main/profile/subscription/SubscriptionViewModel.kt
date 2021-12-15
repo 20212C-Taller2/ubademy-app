@@ -40,12 +40,12 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
             basicUserSubscription.value = response.body()!!.subscriptions
                 .firstOrNull { s -> s.subscription == SubscriptionCode.BASIC } ?: UserSubscription(
                     subscription = SubscriptionCode.BASIC,
-                    coursesTotal = 0,
+                    coursesLimit = 0,
                     coursesUsed = 0)
             fullUserSubscription.value = response.body()!!.subscriptions
                 .firstOrNull { s -> s.subscription == SubscriptionCode.FULL } ?: UserSubscription(
                     subscription = SubscriptionCode.FULL,
-                    coursesTotal = 0,
+                    coursesLimit = 0,
                     coursesUsed = 0)
         } else {
             throw Exception("Unable to fetch subscriber information.")
