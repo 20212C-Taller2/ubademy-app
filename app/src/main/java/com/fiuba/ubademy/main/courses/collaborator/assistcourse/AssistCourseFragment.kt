@@ -1,4 +1,4 @@
-package com.fiuba.ubademy.main.courses.teacher.managecourse
+package com.fiuba.ubademy.main.courses.collaborator.assistcourse
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,28 +10,28 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fiuba.ubademy.R
-import com.fiuba.ubademy.databinding.FragmentManageCourseBinding
+import com.fiuba.ubademy.databinding.FragmentAssistCourseBinding
 import com.fiuba.ubademy.utils.getPlaceName
 import kotlinx.coroutines.launch
 
-class ManageCourseFragment : Fragment() {
+class AssistCourseFragment : Fragment() {
 
-    private lateinit var viewModel: ManageCourseViewModel
-    private lateinit var binding: FragmentManageCourseBinding
+    private lateinit var viewModel: AssistCourseViewModel
+    private lateinit var binding: FragmentAssistCourseBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this).get(ManageCourseViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AssistCourseViewModel::class.java)
 
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_manage_course,
+            R.layout.fragment_assist_course,
             container,
             false
         )
 
-        val course = ManageCourseFragmentArgs.fromBundle(requireArguments()).selectedCourse
+        val course = AssistCourseFragmentArgs.fromBundle(requireArguments()).selectedCourse
         viewModel.courseId.value = course.id
         viewModel.title.value = course.title
         viewModel.description.value = course.description
@@ -42,23 +42,15 @@ class ManageCourseFragment : Fragment() {
             viewModel.placeName.value = viewModel.getPlaceName(course.location)
         }
 
-        binding.contentManageCourseButton.setOnClickListener {
-            findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToViewCourseContentFragment(course))
+        binding.contentAssistCourseButton.setOnClickListener {
+            findNavController().navigate(AssistCourseFragmentDirections.actionAssistCourseFragmentToViewCourseContentFragment(course))
         }
 
-        binding.examsManageCourseButton.setOnClickListener {
-            findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToExamsFragment(course.id))
+        binding.takenExamsAssistCourseButton.setOnClickListener {
+            findNavController().navigate(AssistCourseFragmentDirections.actionAssistCourseFragmentToTakenExamsFragment(course.id))
         }
 
-        binding.takenExamsManageCourseButton.setOnClickListener {
-            findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToTakenExamsFragment(course.id))
-        }
-
-        binding.editManageCourseButton.setOnClickListener {
-            findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToEditCourseFragment(course))
-        }
-
-        binding.manageCourseViewModel = viewModel
+        binding.assistCourseViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root

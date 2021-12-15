@@ -52,7 +52,11 @@
         android:id="@+id/collaboratorCoursesFragment"
         android:name="com.fiuba.ubademy.main.courses.collaborator.CollaboratorCoursesFragment"
         android:label="@string/my_collaborator_courses"
-        tools:layout="@layout/fragment_collaborator_courses" />
+        tools:layout="@layout/fragment_collaborator_courses" >
+        <action
+            android:id="@+id/action_collaboratorCoursesFragment_to_assistCourseFragment"
+            app:destination="@id/assistCourseFragment" />
+    </fragment>
     <fragment
         android:id="@+id/studentCoursesFragment"
         android:name="com.fiuba.ubademy.main.courses.student.StudentCoursesFragment"
@@ -316,5 +320,20 @@
         <action
             android:id="@+id/action_reviewTakenExamFragment_to_viewPublicProfileFragment"
             app:destination="@id/viewPublicProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/assistCourseFragment"
+        android:name="com.fiuba.ubademy.main.courses.collaborator.assistcourse.AssistCourseFragment"
+        android:label="@string/course"
+        tools:layout="@layout/fragment_assist_course">
+        <argument
+            android:name="selectedCourse"
+            app:argType="com.fiuba.ubademy.network.model.Course" />
+        <action
+            android:id="@+id/action_assistCourseFragment_to_viewCourseContentFragment"
+            app:destination="@id/viewCourseContentFragment" />
+        <action
+            android:id="@+id/action_assistCourseFragment_to_takenExamsFragment"
+            app:destination="@id/takenExamsFragment" />
     </fragment>
 </navigation>
