@@ -155,6 +155,9 @@
         <action
             android:id="@+id/action_manageCourseFragment_to_takenExamsFragment"
             app:destination="@id/takenExamsFragment" />
+        <action
+            android:id="@+id/action_manageCourseFragment_to_addCollaboratorFragment"
+            app:destination="@id/addCollaboratorFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -335,5 +338,17 @@
         <action
             android:id="@+id/action_assistCourseFragment_to_takenExamsFragment"
             app:destination="@id/takenExamsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCollaboratorFragment"
+        android:name="com.fiuba.ubademy.main.courses.teacher.addcollaborator.AddCollaboratorFragment"
+        android:label="@string/add_collaborator"
+        tools:layout="@layout/fragment_add_collaborator">
+        <argument
+            android:name="courseId"
+            app:argType="integer" />
+        <argument
+            android:name="collaboratorIds"
+            app:argType="string[]" />
     </fragment>
 </navigation>

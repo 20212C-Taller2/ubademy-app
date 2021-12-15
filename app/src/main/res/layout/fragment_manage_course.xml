@@ -35,8 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_l"
                 android:text="@string/exams"
-                app:layout_constraintBaseline_toBaselineOf="@+id/collaboratorsManageCourseButton"
-                app:layout_constraintStart_toEndOf="@+id/collaboratorsManageCourseButton" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/addCollaboratorManageCourseButton"
+                app:layout_constraintStart_toEndOf="@+id/addCollaboratorManageCourseButton" />
 
             <Button
                 android:id="@+id/studentsManageCourseButton"
@@ -45,7 +45,7 @@
                 android:layout_marginTop="@dimen/margin_l"
                 android:text="@string/students"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/collaboratorsManageCourseButton" />
+                app:layout_constraintTop_toBottomOf="@+id/addCollaboratorManageCourseButton" />
 
             <Button
                 android:id="@+id/editManageCourseButton"
@@ -160,11 +160,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
-                android:id="@+id/collaboratorsManageCourseButton"
+                android:id="@+id/addCollaboratorManageCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_l"
-                android:text="@string/collaborators"
+                android:text="@string/collaborator"
+                app:icon="@drawable/ic_baseline_add_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/contentManageCourseButton" />
 
