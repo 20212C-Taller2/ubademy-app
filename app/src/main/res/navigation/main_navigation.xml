@@ -13,6 +13,18 @@
         <action
             android:id="@+id/action_homeFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_subscriptionFragment"
+            app:destination="@id/subscriptionFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_teacherCoursesFragment"
+            app:destination="@id/teacherCoursesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_studentCoursesFragment"
+            app:destination="@id/studentCoursesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_collaboratorCoursesFragment"
+            app:destination="@id/collaboratorCoursesFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
