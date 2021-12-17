@@ -22,6 +22,10 @@ interface UbademyApiService {
     suspend fun getUser(@Path("userId") userId: String)
             : Response<GetUserResponse>
 
+    @GET("users")
+    suspend fun getUsers(@Query("appUsers") appUsers: Boolean = true, @Query("offset") offset: Int, @Query("limit") limit: Int)
+            : Response<GetUsersResponse>
+
     @PATCH("users/{userId}")
     suspend fun editProfile(@Path("userId") userId: String, @Body editProfileRequest: EditProfileRequest)
             : Response<Void>
@@ -62,6 +66,10 @@ interface UbademyApiService {
 
     @POST("courses/{courseId}/students/{studentId}")
     suspend fun enrollStudent(@Path("courseId") courseId: Int, @Path("studentId") studentId: String)
+            : Response<Void>
+
+    @POST("courses/{courseId}/collaborators/{collaboratorId}")
+    suspend fun enrollCollaborator(@Path("courseId") courseId: Int, @Path("collaboratorId") collaboratorId: String)
             : Response<Void>
 
     @DELETE("courses/{courseId}/students/{studentId}")
