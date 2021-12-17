@@ -32,6 +32,11 @@ class ManageCourseFragment : Fragment() {
         )
 
         val course = ManageCourseFragmentArgs.fromBundle(requireArguments()).selectedCourse
+        var collaboratorIds = course.collaborators
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<String>>("collaboratorIds")?.observe(viewLifecycleOwner) { result ->
+            collaboratorIds = result
+        }
+
         viewModel.courseId.value = course.id
         viewModel.title.value = course.title
         viewModel.description.value = course.description
@@ -59,7 +64,7 @@ class ManageCourseFragment : Fragment() {
         }
 
         binding.addCollaboratorManageCourseButton.setOnClickListener {
-            findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToAddCollaboratorFragment(course.id, course.collaborators.toTypedArray()))
+            findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToAddCollaboratorFragment(course.id, collaboratorIds.toTypedArray()))
         }
 
         binding.manageCourseViewModel = viewModel

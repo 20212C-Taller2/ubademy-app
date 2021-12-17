@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.ubademy.R
@@ -71,7 +72,9 @@ class AddCollaboratorFragment : Fragment() {
                     val addCollaboratorStatus = viewModel.addCollaborator(it.id)
                     BusyFragment.hide()
                     if (addCollaboratorStatus == AddCollaboratorStatus.SUCCESS) {
-                        viewModel.collaboratorIds.postValue(viewModel.collaboratorIds.value!!.plus(listOf(it.id)))
+                        val newCollaboratorIds = viewModel.collaboratorIds.value!!.plus(listOf(it.id))
+                        viewModel.collaboratorIds.postValue(newCollaboratorIds)
+                        findNavController().previousBackStackEntry?.savedStateHandle?.set("collaboratorIds", newCollaboratorIds)
                         Toast.makeText(context, getString(R.string.add_collaborator_succeeded, it.displayName), Toast.LENGTH_LONG).show()
                     } else {
                         Toast.makeText(context, R.string.add_collaborator_failed, Toast.LENGTH_LONG).show()

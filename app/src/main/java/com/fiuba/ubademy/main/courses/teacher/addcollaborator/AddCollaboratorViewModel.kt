@@ -21,7 +21,7 @@ class AddCollaboratorViewModel(application: Application) : AndroidViewModel(appl
     }
 
     private var offset = MutableLiveData(0)
-    private var limit = 10
+    private var limit = 30
 
     init {
         users.value = listOf()
