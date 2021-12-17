@@ -12,8 +12,8 @@ import java.text.DecimalFormat
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
-    imgUrl?.let {
-        val imgUri = it.toUri().buildUpon().scheme("https").build()
+    if (imgUrl != null) {
+        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
             .load(imgUri)
             .apply(RequestOptions
@@ -21,6 +21,8 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
                 .placeholder(R.drawable.ic_baseline_account_circle_24)
                 .error(R.drawable.ic_baseline_broken_image_24))
             .into(imgView)
+    } else {
+        Glide.with(imgView.context).clear(imgView)
     }
 }
 
