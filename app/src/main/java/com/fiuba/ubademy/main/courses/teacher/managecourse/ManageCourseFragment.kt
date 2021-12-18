@@ -67,6 +67,10 @@ class ManageCourseFragment : Fragment() {
             findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToAddCollaboratorFragment(course.id, collaboratorIds.toTypedArray()))
         }
 
+        binding.studentsManageCourseButton.setOnClickListener {
+            findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToStudentsFragment(course.students.toTypedArray()))
+        }
+
         binding.manageCourseViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 

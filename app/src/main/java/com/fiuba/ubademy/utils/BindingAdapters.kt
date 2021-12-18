@@ -40,12 +40,12 @@ fun bindImage(imgView: ImageView, imgUri: Uri?) {
 
 @BindingAdapter("balance")
 fun TextView.setBalance(balance: Double) {
-    val formatter = DecimalFormat("#,##0.00")
+    val formatter = DecimalFormat("#,##0.000000")
     text = formatter.format(balance)
 }
 
 @BindingAdapter("price")
 fun TextView.setPrice(price: Double) {
-    val formatter = DecimalFormat("#,##0.00")
+    val formatter = DecimalFormat("#,##0.000000")
     text = formatter.format(price)
 }

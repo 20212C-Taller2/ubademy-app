@@ -6,7 +6,7 @@ data class Subscriber(
     @Json(name = "subscriber_id")
     val userId: String,
     val balance: Double,
-    @Json(name = "wallet_id")
+    @Json(name = "address")
     val wallet: String,
     val subscriptions: List<UserSubscription>
 )
