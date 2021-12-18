@@ -18,7 +18,7 @@
     <string name="edit">Editar</string>
     <string name="backward">Atrás</string>
     <string name="forward">Adelante</string>
-    <string name="request_failed">No se pudo realizar la petición al servidor, intente mas tarde</string>
+    <string name="request_failed">No se pudo realizar la petición al servidor</string>
     <string name="invalid_credentials">Credenciales invalidas</string>
     <string name="email_already_used">El email indicado ya se encuentra registrado</string>
     <string name="account_created_text">Su cuenta se ha creado con éxito.\n\nPuede usar sus credenciales para ingresar al sistema.</string>
@@ -131,6 +131,8 @@
     <string name="confirm_add_collaborator">¿Desea agregar %1$s como colaborador?</string>
     <string name="add_collaborator_succeeded">Se agregó %1$s como colaborador</string>
     <string name="add_collaborator_failed">No se pudo agregar colaborador</string>
+    <string name="expired_session">Sesión expirada</string>
+    <string name="user_blocked">Usuario blockeado</string>
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>
     <string name="WOODWORKING">Carpintería</string>

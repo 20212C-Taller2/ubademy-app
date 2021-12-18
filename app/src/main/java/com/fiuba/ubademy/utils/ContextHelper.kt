@@ -1,6 +1,8 @@
 package com.fiuba.ubademy.utils
 
 import android.content.Context
+import android.content.Intent
+import com.fiuba.ubademy.AuthActivity
 import com.fiuba.ubademy.BuildConfig
 import com.fiuba.ubademy.network.UbademyApiService
 import com.squareup.moshi.Moshi
@@ -10,6 +12,8 @@ import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
+import com.fiuba.ubademy.InvalidSessionReason
+
 
 fun Context.getSharedPreferencesData() : SharedPreferencesData {
     val sharedPreferences = getSharedPreferences(name, Context.MODE_PRIVATE)
@@ -46,6 +50,8 @@ private fun Context.getDefaultRetrofitBuilder() : Retrofit.Builder {
         .addConverterFactory(MoshiConverterFactory.create(moshi))
 }
 
+private val freePaths = listOf("users/register", "users/login", "users/login/google", "courses/types")
+
 private fun Context.getDefaultClient() : OkHttpClient {
     val sharedPreferencesData = getSharedPreferencesData()
 
@@ -54,9 +60,23 @@ private fun Context.getDefaultClient() : OkHttpClient {
         .writeTimeout(60, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)
         .addInterceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer ${sharedPreferencesData.token}")
-                .build()
-            chain.proceed(newRequest)
+            val encodedPath = chain.request().url().encodedPath()
+            val validSessionRequired = freePaths.none { path -> encodedPath.contains(path) }
+
+            val newRequest: Request =
+                if (validSessionRequired)
+                    chain.request().newBuilder().addHeader("Authorization", "Bearer ${sharedPreferencesData.token}").build()
+                else
+                    chain.request()
+
+            val response = chain.proceed(newRequest)
+
+            if (validSessionRequired && response.code() == 401) {
+                val intent = Intent(applicationContext, AuthActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.putExtra(InvalidSessionReason::class.simpleName, InvalidSessionReason.TOKEN_EXPIRED)
+                applicationContext.startActivity(intent)
+            }
+            response
         }.build()
 }
