@@ -26,9 +26,9 @@ interface UbademyApiService {
     suspend fun getUsers(@Query("appUsers") appUsers: Boolean = true, @Query("offset") offset: Int, @Query("limit") limit: Int)
             : Response<GetUsersResponse>
 
-    @POST("usersbyids")
+    @POST("users")
     suspend fun getUsersByIds(@Body userIds: List<String>)
-            : Response<GetUsersResponse>
+            : Response<List<GetUserResponse>>
 
     @PATCH("users/{userId}")
     suspend fun editProfile(@Path("userId") userId: String, @Body editProfileRequest: EditProfileRequest)

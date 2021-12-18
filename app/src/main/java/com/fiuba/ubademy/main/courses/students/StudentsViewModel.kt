@@ -33,8 +33,8 @@ class StudentsViewModel(application: Application) : AndroidViewModel(application
         try {
             val response = api().getUsersByIds(studentIds.value!!)
             if (response.isSuccessful) {
-                getUsersStatus = if (response.body()!!.users.any()) {
-                    students.postValue(response.body()!!.users)
+                getUsersStatus = if (response.body()!!.any()) {
+                    students.postValue(response.body()!!)
                     GetUsersStatus.SUCCESS
                 } else {
                     students.postValue(listOf())
