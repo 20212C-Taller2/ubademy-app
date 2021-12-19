@@ -143,6 +143,7 @@ class LoginFragment : Fragment() {
                 goToMain()
             }
             LoginStatus.INVALID_CREDENTIALS -> Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_LONG).show()
+            LoginStatus.USER_BLOCKED -> Toast.makeText(context, R.string.user_blocked, Toast.LENGTH_LONG).show()
             LoginStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
         }
     }
@@ -165,8 +166,13 @@ class LoginFragment : Fragment() {
                 val credential = GoogleAuthProvider.getCredential(idToken, null)
                 val authResult = Firebase.auth.signInWithCredential(credential).await()
                 val getTokenResult = authResult.user!!.getIdToken(false).await()
-                viewModel.loginWithGoogle(getTokenResult.token!!)
-                goToMain()
+
+                when (viewModel.loginWithGoogle(getTokenResult.token!!)) {
+                    LoginStatus.SUCCESS -> goToMain()
+                    LoginStatus.INVALID_CREDENTIALS -> Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_LONG).show()
+                    LoginStatus.USER_BLOCKED -> Toast.makeText(context, R.string.user_blocked, Toast.LENGTH_LONG).show()
+                    LoginStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+                }
             } catch (e: Exception) {
                 Timber.e(e)
                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()

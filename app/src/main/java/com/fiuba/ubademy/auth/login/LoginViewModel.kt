@@ -46,7 +46,13 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     interests = response.body()!!.user.interests
                 ))
             } else {
-                loginStatus = LoginStatus.INVALID_CREDENTIALS
+                var error = response.errorBody()?.string()
+                loginStatus = if (error?.contains("Sorry, email or password incorrect") == true)
+                    LoginStatus.INVALID_CREDENTIALS
+                else if (error?.contains("The user is blocked") == true)
+                    LoginStatus.USER_BLOCKED
+                else
+                    LoginStatus.FAIL
             }
         } catch (e: Exception) {
             Timber.e(e)
@@ -55,29 +61,46 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         return loginStatus
     }
 
-    suspend fun loginWithGoogle(idToken: String) {
-        val response = api().loginWithGoogle(
-            LoginWithGoogleRequest(
-                googleToken = idToken
+    suspend fun loginWithGoogle(idToken: String) : LoginStatus {
+        var loginStatus = LoginStatus.FAIL
+
+        try {
+            val response = api().loginWithGoogle(
+                LoginWithGoogleRequest(
+                    googleToken = idToken
+                )
             )
-        )
-        if (response.isSuccessful) {
-            var place : Place? = null
-            if (!response.body()!!.user.placeId.isNullOrBlank())
-                place = getPlaceById(response.body()!!.user.placeId!!)
-            setSharedPreferencesData(SharedPreferencesData(
-                id = response.body()!!.user.id,
-                firstName = null,
-                lastName = null,
-                email = response.body()!!.user.email,
-                placeId = place?.id,
-                placeName = place?.address,
-                token = response.body()!!.token,
-                loggedInWithGoogle = true,
-                displayName = response.body()!!.googleData!!.displayName,
-                picture = response.body()!!.googleData!!.picture,
-                interests = response.body()!!.user.interests
-            ))
+            if (response.isSuccessful) {
+                loginStatus = LoginStatus.SUCCESS
+                var place : Place? = null
+                if (!response.body()!!.user.placeId.isNullOrBlank())
+                    place = getPlaceById(response.body()!!.user.placeId!!)
+                setSharedPreferencesData(SharedPreferencesData(
+                    id = response.body()!!.user.id,
+                    firstName = null,
+                    lastName = null,
+                    email = response.body()!!.user.email,
+                    placeId = place?.id,
+                    placeName = place?.address,
+                    token = response.body()!!.token,
+                    loggedInWithGoogle = true,
+                    displayName = response.body()!!.googleData!!.displayName,
+                    picture = response.body()!!.googleData!!.picture,
+                    interests = response.body()!!.user.interests
+                ))
+            } else {
+                var error = response.errorBody()?.string()
+                loginStatus = if (error?.contains("Sorry, email or password incorrect") == true)
+                    LoginStatus.INVALID_CREDENTIALS
+                else if (error?.contains("The user is blocked") == true)
+                    LoginStatus.USER_BLOCKED
+                else
+                    LoginStatus.FAIL
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
         }
+
+        return loginStatus
     }
 }
