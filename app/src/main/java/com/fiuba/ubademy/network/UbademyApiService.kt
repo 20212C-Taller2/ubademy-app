@@ -37,6 +37,10 @@ interface UbademyApiService {
     @PATCH("users/{userId}")
     suspend fun updateFcmToken(@Path("userId") userId: String, @Body updateFcmTokenRequest: UpdateFcmTokenRequest)
             : Response<Void>
+
+    @POST("users/notify")
+    suspend fun notify(@Body notifyRequest: NotifyRequest)
+            : Response<Void>
     // endregion
 
     // region courses

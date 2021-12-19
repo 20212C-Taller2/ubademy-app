@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.fiuba.ubademy.R
@@ -15,6 +16,7 @@ import com.fiuba.ubademy.utils.getSharedPreferencesData
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 class ChatFragment : Fragment() {
 
@@ -79,6 +81,7 @@ class ChatFragment : Fragment() {
                     viewModel.message.value
                 )
                 db.reference.child(CHATS_CHILD).child(chatId).push().setValue(message)
+                lifecycleScope.launch { viewModel.notify(viewModel.message.value!!) }
                 viewModel.message.postValue("")
                 binding.chatRecyclerView.scrollToPosition(adapter.itemCount - 1)
             }
