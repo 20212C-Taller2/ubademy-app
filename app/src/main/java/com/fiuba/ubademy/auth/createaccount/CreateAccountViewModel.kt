@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.CreateAccountRequest
+import com.fiuba.ubademy.network.model.UpdateFcmTokenRequest
 import com.fiuba.ubademy.utils.api
+import com.fiuba.ubademy.utils.getFcmToken
 import timber.log.Timber
 
 class CreateAccountViewModel(application: Application) : AndroidViewModel(application) {
@@ -19,6 +21,8 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
     var courseTypes = MutableLiveData<Array<String>>()
     var selectedCourseTypes = MutableLiveData<BooleanArray>()
     var selectedCourseTypesText = MutableLiveData<String>()
+
+    var createdUserId = MutableLiveData("")
 
     init {
         courseTypes.value = arrayOf()
@@ -49,8 +53,10 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
                     interests = courseTypes.value!!.filterIndexed { index, _ -> selectedCourseTypes.value!![index] }.toSet()
                 )
             )
-            if (response.isSuccessful)
+            if (response.isSuccessful) {
                 createAccountStatus = CreateAccountStatus.SUCCESS
+                createdUserId.value = response.body()!!.user.id
+            }
             else if (response.code() == 409)
                 createAccountStatus = CreateAccountStatus.EMAIL_ALREADY_USED
         } catch (e: Exception) {
@@ -58,5 +64,15 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
         }
 
         return createAccountStatus
+    }
+
+    suspend fun updateFcmToken() {
+        try {
+            val fcmtoken = getFcmToken()
+            if (fcmtoken != null)
+                api().updateFcmToken(createdUserId.value!!, UpdateFcmTokenRequest(fcmtoken))
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
     }
 }

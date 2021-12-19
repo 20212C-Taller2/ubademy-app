@@ -5,10 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.LoginRequest
 import com.fiuba.ubademy.network.model.LoginWithGoogleRequest
-import com.fiuba.ubademy.utils.SharedPreferencesData
-import com.fiuba.ubademy.utils.api
-import com.fiuba.ubademy.utils.getPlaceById
-import com.fiuba.ubademy.utils.setSharedPreferencesData
+import com.fiuba.ubademy.network.model.UpdateFcmTokenRequest
+import com.fiuba.ubademy.utils.*
 import com.google.android.libraries.places.api.model.Place
 import timber.log.Timber
 
@@ -16,6 +14,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     var email = MutableLiveData<String>()
     var password = MutableLiveData<String>()
+
+    val loggedUserId = MutableLiveData("")
 
     suspend fun login() : LoginStatus {
         var loginStatus = LoginStatus.FAIL
@@ -29,6 +29,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
             )
             if (response.isSuccessful) {
                 loginStatus = LoginStatus.SUCCESS
+                loggedUserId.value = response.body()!!.user.id
                 var place : Place? = null
                 if (!response.body()!!.user.placeId.isNullOrBlank())
                     place = getPlaceById(response.body()!!.user.placeId!!)
@@ -72,6 +73,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
             )
             if (response.isSuccessful) {
                 loginStatus = LoginStatus.SUCCESS
+                loggedUserId.value = response.body()!!.user.id
                 var place : Place? = null
                 if (!response.body()!!.user.placeId.isNullOrBlank())
                     place = getPlaceById(response.body()!!.user.placeId!!)
@@ -102,5 +104,15 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         return loginStatus
+    }
+
+    suspend fun updateFcmToken() {
+        try {
+            val fcmtoken = getFcmToken()
+            if (fcmtoken != null)
+                api().updateFcmToken(loggedUserId.value!!, UpdateFcmTokenRequest(fcmtoken))
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
     }
 }

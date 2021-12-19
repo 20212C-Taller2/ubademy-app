@@ -139,9 +139,7 @@ class LoginFragment : Fragment() {
         BusyFragment.hide()
 
         when (loginStatus) {
-            LoginStatus.SUCCESS -> {
-                goToMain()
-            }
+            LoginStatus.SUCCESS -> goToMain()
             LoginStatus.INVALID_CREDENTIALS -> Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_LONG).show()
             LoginStatus.USER_BLOCKED -> Toast.makeText(context, R.string.user_blocked, Toast.LENGTH_LONG).show()
             LoginStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
@@ -181,7 +179,8 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun goToMain() {
+    private suspend fun goToMain() {
+        viewModel.updateFcmToken()
         val mainIntent = Intent(this.context, MainActivity::class.java)
         startActivity(mainIntent)
     }

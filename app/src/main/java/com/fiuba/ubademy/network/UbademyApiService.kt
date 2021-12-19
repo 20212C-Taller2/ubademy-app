@@ -8,7 +8,7 @@ interface UbademyApiService {
     // region users
     @POST("users/register")
     suspend fun createAccount(@Body createAccountRequest: CreateAccountRequest)
-            : Response<Void>
+            : Response<LoginResponse>
 
     @POST("users/login")
     suspend fun login(@Body loginRequest: LoginRequest)
@@ -32,6 +32,10 @@ interface UbademyApiService {
 
     @PATCH("users/{userId}")
     suspend fun editProfile(@Path("userId") userId: String, @Body editProfileRequest: EditProfileRequest)
+            : Response<Void>
+
+    @PATCH("users/{userId}")
+    suspend fun updateFcmToken(@Path("userId") userId: String, @Body updateFcmTokenRequest: UpdateFcmTokenRequest)
             : Response<Void>
     // endregion
 
