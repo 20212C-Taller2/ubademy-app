@@ -46,10 +46,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     interests = response.body()!!.user.interests
                 ))
             } else {
-                var error = response.errorBody()?.string()
-                loginStatus = if (error?.contains("Sorry, email or password incorrect") == true)
+                val error = response.errorBody()?.string()
+                loginStatus = if (error?.contains("incorrect", true) == true)
                     LoginStatus.INVALID_CREDENTIALS
-                else if (error?.contains("The user is blocked") == true)
+                else if (error?.contains("blocked", true) == true)
                     LoginStatus.USER_BLOCKED
                 else
                     LoginStatus.FAIL
@@ -89,10 +89,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     interests = response.body()!!.user.interests
                 ))
             } else {
-                var error = response.errorBody()?.string()
-                loginStatus = if (error?.contains("Sorry, email or password incorrect") == true)
+                val error = response.errorBody()?.string()
+                loginStatus = if (error?.contains("incorrect", true) == true)
                     LoginStatus.INVALID_CREDENTIALS
-                else if (error?.contains("The user is blocked") == true)
+                else if (error?.contains("blocked", true) == true)
                     LoginStatus.USER_BLOCKED
                 else
                     LoginStatus.FAIL

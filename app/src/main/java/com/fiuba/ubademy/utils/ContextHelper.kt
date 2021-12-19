@@ -72,9 +72,13 @@ private fun Context.getDefaultClient() : OkHttpClient {
             val response = chain.proceed(newRequest)
 
             if (validSessionRequired && response.code() == 401) {
+                val bodyString = response.body()?.string()
                 val intent = Intent(applicationContext, AuthActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                intent.putExtra(InvalidSessionReason::class.simpleName, InvalidSessionReason.TOKEN_EXPIRED)
+                if (bodyString?.contains("expired", true) == true)
+                    intent.putExtra(InvalidSessionReason::class.simpleName, InvalidSessionReason.TOKEN_EXPIRED)
+                else if (bodyString?.contains("blocked", true) == true)
+                    intent.putExtra(InvalidSessionReason::class.simpleName, InvalidSessionReason.USER_BLOCKED)
                 applicationContext.startActivity(intent)
             }
             response
