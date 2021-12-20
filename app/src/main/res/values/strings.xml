@@ -133,6 +133,8 @@
     <string name="add_collaborator_failed">No se pudo agregar colaborador</string>
     <string name="expired_session">Sesión expirada</string>
     <string name="user_blocked">Usuario blockeado</string>
+    <string name="message_sent_for">Este mensaje fue enviado para</string>
+    <string name="login_to_another_account_for_chat">Este usuario no corresponde con el que actualmente se encuentra logueado. Para poder seguir el chat, es necesario ingresar en la aplicación con la cuenta indicada.</string>
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>
     <string name="WOODWORKING">Carpintería</string>
