@@ -175,6 +175,7 @@ class LoginFragment : Fragment() {
         googleSignInClient.signOut()
         Firebase.auth.signOut()
         requireContext().clearSharedPreferencesData()
+        requireContext().clearSharedPreferencesChat()
         // endregion
     }
 

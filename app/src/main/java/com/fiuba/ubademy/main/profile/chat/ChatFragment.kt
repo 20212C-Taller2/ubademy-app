@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentChatBinding
+import com.fiuba.ubademy.utils.clearSharedPreferencesChat
 import com.fiuba.ubademy.utils.getSharedPreferencesData
+import com.fiuba.ubademy.utils.setSharedPreferencesChat
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -27,10 +29,10 @@ class ChatFragment : Fragment() {
     private lateinit var adapter: MessageAdapter
 
     private lateinit var currentUserId: String
+    private lateinit var otherUserId: String
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
@@ -45,6 +47,7 @@ class ChatFragment : Fragment() {
         val getUserResponse = ChatFragmentArgs.fromBundle(requireArguments()).getUserResponse
         viewModel.userDisplayName.value = getUserResponse.displayName
         viewModel.userId.value = getUserResponse.id
+        otherUserId = getUserResponse.id
 
         binding.chatViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -98,6 +101,16 @@ class ChatFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         adapter.stopListening()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireContext().setSharedPreferencesChat(currentUserId, otherUserId)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireContext().clearSharedPreferencesChat()
     }
 
     companion object {
