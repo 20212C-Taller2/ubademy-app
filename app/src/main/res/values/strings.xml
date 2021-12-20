@@ -89,7 +89,8 @@
     <string name="wallet">Billetera</string>
     <string name="wallet_copied_to_clipboard">Billetera copiada al portapapeles</string>
     <string name="confirm_subscription">¿Desea comprar una suscripción %1$s?</string>
-    <string name="subscription_failed">No se pudo comprar la suscripción</string>
+    <string name="insufficient_funds">No se pudo comprar la suscripción por falta de fondos</string>
+    <string name="subscription_successful">¡Compraste una suscripción %1$s!</string>
     <string name="add_exam">Crear examen</string>
     <string name="state">Estado</string>
     <string name="published">Publicado</string>

@@ -60,6 +60,8 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
             ))
             if (response.isSuccessful)
                 subscribeStatus = SubscribeStatus.SUCCESS
+            else if (response.code() == 422)
+                subscribeStatus = SubscribeStatus.INSUFFICIENT_FUNDS
         } catch (e: Exception) {
             Timber.e(e)
         }
