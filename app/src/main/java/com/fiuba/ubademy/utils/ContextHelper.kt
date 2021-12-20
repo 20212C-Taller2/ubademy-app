@@ -14,7 +14,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import com.fiuba.ubademy.InvalidSessionReason
 
-
 fun Context.getSharedPreferencesData() : SharedPreferencesData {
     val sharedPreferences = getSharedPreferences(name, Context.MODE_PRIVATE)
     return SharedPreferencesData(
@@ -30,6 +29,10 @@ fun Context.getSharedPreferencesData() : SharedPreferencesData {
         picture = sharedPreferences.getString(pref_picture_key, null),
         interests = sharedPreferences.getStringSet(pref_interests_key, setOf())!!
     )
+}
+
+fun Context.clearSharedPreferencesData() {
+    deleteSharedPreferences(name)
 }
 
 private val moshi = Moshi.Builder()

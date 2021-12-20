@@ -15,10 +15,7 @@ import androidx.navigation.findNavController
 import com.fiuba.ubademy.MainActivity
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentLoginBinding
-import com.fiuba.ubademy.utils.BusyFragment
-import com.fiuba.ubademy.utils.hideError
-import com.fiuba.ubademy.utils.hideKeyboard
-import com.fiuba.ubademy.utils.showError
+import com.fiuba.ubademy.utils.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -90,10 +87,6 @@ class LoginFragment : Fragment() {
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
 
-        // TODO: remove this
-        googleSignInClient.signOut()
-        Firebase.auth.signOut()
-
         return binding.root
     }
 
@@ -148,11 +141,6 @@ class LoginFragment : Fragment() {
 
     private fun signInWithGoogle(view: View) {
         view.hideKeyboard()
-
-        // TODO: remove this
-        googleSignInClient.signOut()
-        Firebase.auth.signOut()
-
         signInWithGoogleActivityResultLauncher.launch(googleSignInClient.signInIntent)
     }
 
@@ -177,6 +165,17 @@ class LoginFragment : Fragment() {
             }
             BusyFragment.hide()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // region LOGOUT
+        viewModel.loggedUserId.value = ""
+        googleSignInClient.signOut()
+        Firebase.auth.signOut()
+        requireContext().clearSharedPreferencesData()
+        // endregion
     }
 
     private suspend fun goToMain() {
