@@ -135,7 +135,7 @@ interface UbademyApiService {
     suspend fun getSubscriber(@Path("userId") userId: String)
             : Response<Subscriber>
 
-    @POST("subscribers/{userId}/subscription")
+    @POST("subscriptions/subscribers/{userId}/subscription")
     suspend fun subscribe(@Path("userId") userId: String, @Body subscribeRequest: SubscribeRequest)
             : Response<Void>
     // endregion

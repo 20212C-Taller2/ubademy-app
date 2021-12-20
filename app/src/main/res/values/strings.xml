@@ -85,6 +85,7 @@
     <string name="adds_enrollments">Agrega %1$d inscripciones de este nivel</string>
     <string name="available_enrollments">Quedan %1$d inscripciones disponibles</string>
     <string name="inscriptions_left">Quedan inscripciones</string>
+    <string name="plus_fee">(+GasFee)</string>
     <string name="wallet">Billetera</string>
     <string name="wallet_copied_to_clipboard">Billetera copiada al portapapeles</string>
     <string name="confirm_subscription">¿Desea comprar una suscripción %1$s?</string>
