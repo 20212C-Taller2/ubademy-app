@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 import com.fiuba.ubademy.InvalidSessionReason
 
 fun Context.getSharedPreferencesData() : SharedPreferencesData {
-    val sharedPreferences = getSharedPreferences(name, Context.MODE_PRIVATE)
+    val sharedPreferences = getSharedPreferences(ubademy_user_shared_preferences, Context.MODE_PRIVATE)
     return SharedPreferencesData(
         id = sharedPreferences.getString(pref_id_key, "")!!,
         firstName = sharedPreferences.getString(pref_first_name_key, null),
@@ -32,7 +32,25 @@ fun Context.getSharedPreferencesData() : SharedPreferencesData {
 }
 
 fun Context.clearSharedPreferencesData() {
-    deleteSharedPreferences(name)
+    deleteSharedPreferences(ubademy_user_shared_preferences)
+}
+
+fun Context.setSharedPreferencesChat(currentUser: String, otherUser: String) {
+    val sharedPreferences = applicationContext.getSharedPreferences(ubademy_chat_shared_preferences, Context.MODE_PRIVATE)
+    with (sharedPreferences.edit()) {
+        putString(pref_chat_current_user_key, currentUser)
+        putString(pref_chat_other_user_key, otherUser)
+        apply()
+    }
+}
+
+fun Context.clearSharedPreferencesChat() {
+    deleteSharedPreferences(ubademy_chat_shared_preferences)
+}
+
+fun Context.getSharedPreferencesChat() : Pair<String, String> {
+    val sharedPreferences = getSharedPreferences(ubademy_chat_shared_preferences, Context.MODE_PRIVATE)
+    return Pair(sharedPreferences.getString(pref_chat_current_user_key, "")!!, sharedPreferences.getString(pref_chat_other_user_key, "")!!)
 }
 
 private val moshi = Moshi.Builder()

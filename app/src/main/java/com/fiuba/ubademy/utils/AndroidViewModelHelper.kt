@@ -12,7 +12,7 @@ import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
 fun AndroidViewModel.setSharedPreferencesData(sharedPreferencesData: SharedPreferencesData) {
-    val sharedPreferences = getApplication<UbademyApplication>().getSharedPreferences(name, Context.MODE_PRIVATE)
+    val sharedPreferences = getApplication<UbademyApplication>().getSharedPreferences(ubademy_user_shared_preferences, Context.MODE_PRIVATE)
     with (sharedPreferences.edit()) {
         putString(pref_id_key, sharedPreferencesData.id)
         putString(pref_first_name_key, sharedPreferencesData.firstName)

@@ -1,6 +1,6 @@
 package com.fiuba.ubademy.utils
 
-const val name = "ubademy_shared_preferences"
+const val ubademy_user_shared_preferences = "ubademy_user_shared_preferences"
 
 const val pref_id_key = "P_ID"
 const val pref_first_name_key = "P_FIRST_NAME"
@@ -13,6 +13,10 @@ const val pref_logged_in_with_google_key = "P_LOGGED_IN_WITH_GOOGLE"
 const val pref_display_name_key = "P_DISPLAY_NAME"
 const val pref_picture_key = "P_PICTURE"
 const val pref_interests_key = "P_INTERESTS"
+
+const val ubademy_chat_shared_preferences = "ubademy_chat_shared_preferences"
+const val pref_chat_current_user_key = "P_CHAT_CURRENT_USER"
+const val pref_chat_other_user_key = "P_CHAT_OTHER_USER"
 
 data class SharedPreferencesData(
     val id: String,
