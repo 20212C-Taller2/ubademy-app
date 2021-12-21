@@ -40,12 +40,12 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
             basicUserSubscription.value = response.body()!!.subscriptions
                 .firstOrNull { s -> s.subscription == SubscriptionCode.BASIC } ?: UserSubscription(
                     subscription = SubscriptionCode.BASIC,
-                    coursesTotal = 0,
+                    coursesLimit = 0,
                     coursesUsed = 0)
             fullUserSubscription.value = response.body()!!.subscriptions
                 .firstOrNull { s -> s.subscription == SubscriptionCode.FULL } ?: UserSubscription(
                     subscription = SubscriptionCode.FULL,
-                    coursesTotal = 0,
+                    coursesLimit = 0,
                     coursesUsed = 0)
         } else {
             throw Exception("Unable to fetch subscriber information.")
@@ -55,12 +55,13 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
     suspend fun subscribe(subscriptionCode: SubscriptionCode) : SubscribeStatus {
         var subscribeStatus = SubscribeStatus.FAIL
         try {
-            val response = api().subscribe(SubscribeRequest(
-                subscription = subscriptionCode,
-                userId = userId
+            val response = api().subscribe(userId, SubscribeRequest(
+                subscription = subscriptionCode
             ))
             if (response.isSuccessful)
                 subscribeStatus = SubscribeStatus.SUCCESS
+            else if (response.code() == 422)
+                subscribeStatus = SubscribeStatus.INSUFFICIENT_FUNDS
         } catch (e: Exception) {
             Timber.e(e)
         }

@@ -20,8 +20,7 @@ class ManageCourseFragment : Fragment() {
     private lateinit var binding: FragmentManageCourseBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         viewModel = ViewModelProvider(this).get(ManageCourseViewModel::class.java)
 
@@ -33,6 +32,11 @@ class ManageCourseFragment : Fragment() {
         )
 
         val course = ManageCourseFragmentArgs.fromBundle(requireArguments()).selectedCourse
+        var collaboratorIds = course.collaborators
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<String>>("collaboratorIds")?.observe(viewLifecycleOwner) { result ->
+            collaboratorIds = result
+        }
+
         viewModel.courseId.value = course.id
         viewModel.title.value = course.title
         viewModel.description.value = course.description
@@ -57,6 +61,14 @@ class ManageCourseFragment : Fragment() {
 
         binding.editManageCourseButton.setOnClickListener {
             findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToEditCourseFragment(course))
+        }
+
+        binding.addCollaboratorManageCourseButton.setOnClickListener {
+            findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToAddCollaboratorFragment(course.id, collaboratorIds.toTypedArray()))
+        }
+
+        binding.studentsManageCourseButton.setOnClickListener {
+            findNavController().navigate(ManageCourseFragmentDirections.actionManageCourseFragmentToStudentsFragment(course.students.toTypedArray()))
         }
 
         binding.manageCourseViewModel = viewModel

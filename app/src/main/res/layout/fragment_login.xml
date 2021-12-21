@@ -74,8 +74,9 @@
                 android:text="@string/create_account" />
 
             <View
+                android:id="@+id/loginDivider"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="1dp"
                 android:layout_marginTop="@dimen/margin_l"
                 android:background="?android:attr/listDivider" />
 

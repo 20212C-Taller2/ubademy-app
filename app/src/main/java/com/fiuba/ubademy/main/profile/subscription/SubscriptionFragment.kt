@@ -81,7 +81,9 @@ class SubscriptionFragment : Fragment() {
     private fun openBuySubscriptionDialog(subscription: Subscription) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
 
-        builder.setTitle(getString(R.string.confirm_subscription, getString(resources.getIdentifier(subscription.code.toString(), "string", binding.root.context.packageName))))
+        val subscriptionName = getString(resources.getIdentifier(subscription.code.toString(), "string", binding.root.context.packageName))
+
+        builder.setTitle(getString(R.string.confirm_subscription, subscriptionName))
 
         builder.setCancelable(true)
 
@@ -90,10 +92,13 @@ class SubscriptionFragment : Fragment() {
             lifecycleScope.launch {
                 val subscribeStatus = viewModel.subscribe(subscription.code)
                 BusyFragment.hide()
-                if (subscribeStatus == SubscribeStatus.SUCCESS) {
-                    loadData()
-                } else {
-                    Toast.makeText(context, R.string.subscription_failed, Toast.LENGTH_LONG).show()
+                when (subscribeStatus) {
+                    SubscribeStatus.SUCCESS -> {
+                        loadData()
+                        Toast.makeText(context, getString(R.string.subscription_successful, subscriptionName), Toast.LENGTH_LONG).show()
+                    }
+                    SubscribeStatus.INSUFFICIENT_FUNDS -> Toast.makeText(context, R.string.insufficient_funds, Toast.LENGTH_LONG).show()
+                    SubscribeStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
                 }
             }
         }

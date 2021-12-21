@@ -12,7 +12,9 @@ data class Course(
     val subscription: String,
     val creator: String,
     val media: List<String>,
-    val location: String?
+    val location: String?,
+    val collaborators: List<String>,
+    val students: List<String>,
 ) : Parcelable
 {
     val mediaSorted

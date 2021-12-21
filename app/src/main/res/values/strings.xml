@@ -18,7 +18,7 @@
     <string name="edit">Editar</string>
     <string name="backward">Atrás</string>
     <string name="forward">Adelante</string>
-    <string name="request_failed">No se pudo realizar la petición al servidor, intente mas tarde</string>
+    <string name="request_failed">No se pudo realizar la petición al servidor</string>
     <string name="invalid_credentials">Credenciales invalidas</string>
     <string name="email_already_used">El email indicado ya se encuentra registrado</string>
     <string name="account_created_text">Su cuenta se ha creado con éxito.\n\nPuede usar sus credenciales para ingresar al sistema.</string>
@@ -66,6 +66,8 @@
     <string name="unenroll_succeeded">Desinscripción exitosa</string>
     <string name="there_is_no_courses">No se han encontrado cursos</string>
     <string name="there_is_no_more_courses">No se han encontrado más cursos</string>
+    <string name="there_is_no_users">No se han encontrado usuarios</string>
+    <string name="there_is_no_more_users">No se han encontrado más usuarios</string>
     <string name="unenroll">Desinscribirse</string>
     <string name="exam">Examen</string>
     <string name="exams">Exámenes</string>
@@ -82,10 +84,13 @@
     <string name="always_available">Siempre disponible</string>
     <string name="adds_enrollments">Agrega %1$d inscripciones de este nivel</string>
     <string name="available_enrollments">Quedan %1$d inscripciones disponibles</string>
+    <string name="inscriptions_left">Quedan inscripciones</string>
+    <string name="plus_fee">(+GasFee)</string>
     <string name="wallet">Billetera</string>
     <string name="wallet_copied_to_clipboard">Billetera copiada al portapapeles</string>
     <string name="confirm_subscription">¿Desea comprar una suscripción %1$s?</string>
-    <string name="subscription_failed">No se pudo comprar la suscripción</string>
+    <string name="insufficient_funds">No se pudo comprar la suscripción por falta de fondos</string>
+    <string name="subscription_successful">¡Compraste una suscripción %1$s!</string>
     <string name="add_exam">Crear examen</string>
     <string name="state">Estado</string>
     <string name="published">Publicado</string>
@@ -124,6 +129,14 @@
     <string name="review_exam">Revisar examen</string>
     <string name="feedback">Feedback</string>
     <string name="exam_qualified">El examen ha sido calificado con éxito</string>
+    <string name="add_collaborator">Agregar colaborador</string>
+    <string name="confirm_add_collaborator">¿Desea agregar %1$s como colaborador?</string>
+    <string name="add_collaborator_succeeded">Se agregó %1$s como colaborador</string>
+    <string name="add_collaborator_failed">No se pudo agregar colaborador</string>
+    <string name="expired_session">Sesión expirada</string>
+    <string name="user_blocked">Usuario blockeado</string>
+    <string name="message_sent_for">Este mensaje fue enviado para</string>
+    <string name="login_to_another_account_for_chat">Este usuario no corresponde con el que actualmente se encuentra logueado. Para poder seguir el chat, es necesario ingresar en la aplicación con la cuenta indicada.</string>
     <string name="WEB_DEVELOPMENT">Desarrollo web</string>
     <string name="COOKING">Cocina</string>
     <string name="WOODWORKING">Carpintería</string>
