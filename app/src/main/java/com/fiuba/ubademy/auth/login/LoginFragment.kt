@@ -15,10 +15,7 @@ import androidx.navigation.findNavController
 import com.fiuba.ubademy.MainActivity
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentLoginBinding
-import com.fiuba.ubademy.utils.BusyFragment
-import com.fiuba.ubademy.utils.hideError
-import com.fiuba.ubademy.utils.hideKeyboard
-import com.fiuba.ubademy.utils.showError
+import com.fiuba.ubademy.utils.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -90,10 +87,6 @@ class LoginFragment : Fragment() {
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
 
-        // TODO: remove this
-        googleSignInClient.signOut()
-        Firebase.auth.signOut()
-
         return binding.root
     }
 
@@ -139,21 +132,15 @@ class LoginFragment : Fragment() {
         BusyFragment.hide()
 
         when (loginStatus) {
-            LoginStatus.SUCCESS -> {
-                goToMain()
-            }
+            LoginStatus.SUCCESS -> goToMain()
             LoginStatus.INVALID_CREDENTIALS -> Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_LONG).show()
+            LoginStatus.USER_BLOCKED -> Toast.makeText(context, R.string.user_blocked, Toast.LENGTH_LONG).show()
             LoginStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
         }
     }
 
     private fun signInWithGoogle(view: View) {
         view.hideKeyboard()
-
-        // TODO: remove this
-        googleSignInClient.signOut()
-        Firebase.auth.signOut()
-
         signInWithGoogleActivityResultLauncher.launch(googleSignInClient.signInIntent)
     }
 
@@ -165,8 +152,13 @@ class LoginFragment : Fragment() {
                 val credential = GoogleAuthProvider.getCredential(idToken, null)
                 val authResult = Firebase.auth.signInWithCredential(credential).await()
                 val getTokenResult = authResult.user!!.getIdToken(false).await()
-                viewModel.loginWithGoogle(getTokenResult.token!!)
-                goToMain()
+
+                when (viewModel.loginWithGoogle(getTokenResult.token!!)) {
+                    LoginStatus.SUCCESS -> goToMain()
+                    LoginStatus.INVALID_CREDENTIALS -> Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_LONG).show()
+                    LoginStatus.USER_BLOCKED -> Toast.makeText(context, R.string.user_blocked, Toast.LENGTH_LONG).show()
+                    LoginStatus.FAIL -> Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
+                }
             } catch (e: Exception) {
                 Timber.e(e)
                 Toast.makeText(context, R.string.request_failed, Toast.LENGTH_LONG).show()
@@ -175,7 +167,20 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun goToMain() {
+    override fun onStart() {
+        super.onStart()
+
+        // region LOGOUT
+        viewModel.loggedUserId.value = ""
+        googleSignInClient.signOut()
+        Firebase.auth.signOut()
+        requireContext().clearSharedPreferencesData()
+        requireContext().clearSharedPreferencesChat()
+        // endregion
+    }
+
+    private suspend fun goToMain() {
+        viewModel.updateFcmToken()
         val mainIntent = Intent(this.context, MainActivity::class.java)
         startActivity(mainIntent)
     }

@@ -7,11 +7,12 @@ import com.fiuba.ubademy.network.UbademyApiService
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
 fun AndroidViewModel.setSharedPreferencesData(sharedPreferencesData: SharedPreferencesData) {
-    val sharedPreferences = getApplication<UbademyApplication>().getSharedPreferences(name, Context.MODE_PRIVATE)
+    val sharedPreferences = getApplication<UbademyApplication>().getSharedPreferences(ubademy_user_shared_preferences, Context.MODE_PRIVATE)
     with (sharedPreferences.edit()) {
         putString(pref_id_key, sharedPreferencesData.id)
         putString(pref_first_name_key, sharedPreferencesData.firstName)
@@ -55,4 +56,15 @@ suspend fun AndroidViewModel.getPlaceName(placeId: String?) : String {
         "-"
     else
         getPlaceById(placeId)?.address ?: "-"
+}
+
+suspend fun getFcmToken() : String? {
+    return try {
+        val token = FirebaseMessaging.getInstance().token.await()
+        Timber.i(token)
+        token
+    } catch (e: Exception) {
+        Timber.e(e)
+        null
+    }
 }

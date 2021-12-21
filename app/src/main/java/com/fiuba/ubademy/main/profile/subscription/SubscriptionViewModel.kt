@@ -55,12 +55,13 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
     suspend fun subscribe(subscriptionCode: SubscriptionCode) : SubscribeStatus {
         var subscribeStatus = SubscribeStatus.FAIL
         try {
-            val response = api().subscribe(SubscribeRequest(
-                subscription = subscriptionCode,
-                userId = userId
+            val response = api().subscribe(userId, SubscribeRequest(
+                subscription = subscriptionCode
             ))
             if (response.isSuccessful)
                 subscribeStatus = SubscribeStatus.SUCCESS
+            else if (response.code() == 422)
+                subscribeStatus = SubscribeStatus.INSUFFICIENT_FUNDS
         } catch (e: Exception) {
             Timber.e(e)
         }

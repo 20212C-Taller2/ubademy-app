@@ -8,7 +8,7 @@ interface UbademyApiService {
     // region users
     @POST("users/register")
     suspend fun createAccount(@Body createAccountRequest: CreateAccountRequest)
-            : Response<Void>
+            : Response<LoginResponse>
 
     @POST("users/login")
     suspend fun login(@Body loginRequest: LoginRequest)
@@ -26,8 +26,20 @@ interface UbademyApiService {
     suspend fun getUsers(@Query("appUsers") appUsers: Boolean = true, @Query("offset") offset: Int, @Query("limit") limit: Int)
             : Response<GetUsersResponse>
 
+    @POST("users")
+    suspend fun getUsersByIds(@Body userIds: List<String>)
+            : Response<List<GetUserResponse>>
+
     @PATCH("users/{userId}")
     suspend fun editProfile(@Path("userId") userId: String, @Body editProfileRequest: EditProfileRequest)
+            : Response<Void>
+
+    @PATCH("users/{userId}")
+    suspend fun updateFcmToken(@Path("userId") userId: String, @Body updateFcmTokenRequest: UpdateFcmTokenRequest)
+            : Response<Void>
+
+    @POST("users/notify")
+    suspend fun notify(@Body notifyRequest: NotifyRequest)
             : Response<Void>
     // endregion
 
@@ -123,8 +135,8 @@ interface UbademyApiService {
     suspend fun getSubscriber(@Path("userId") userId: String)
             : Response<Subscriber>
 
-    @POST("subscriptions")
-    suspend fun subscribe(@Body subscribeRequest: SubscribeRequest)
+    @POST("subscriptions/subscribers/{userId}/subscription")
+    suspend fun subscribe(@Path("userId") userId: String, @Body subscribeRequest: SubscribeRequest)
             : Response<Void>
     // endregion
 }

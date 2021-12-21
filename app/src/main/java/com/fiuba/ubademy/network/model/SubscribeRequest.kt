@@ -1,6 +1,8 @@
 package com.fiuba.ubademy.network.model
 
+import com.squareup.moshi.Json
+
 data class SubscribeRequest(
-    val userId: String,
+    @Json(name = "subscription_code")
     val subscription: SubscriptionCode
 )
