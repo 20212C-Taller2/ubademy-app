@@ -77,6 +77,15 @@ class AddCollaboratorViewModel(application: Application) : AndroidViewModel(appl
             val response = api().enrollCollaborator(courseId.value!!, userId)
             if (response.isSuccessful)
                 addCollaboratorStatus = AddCollaboratorStatus.SUCCESS
+            else {
+                val error = response.errorBody()?.string()
+                addCollaboratorStatus = when {
+                    (error?.contains("ERROR_CREATOR_REGISTER", true) == true) -> AddCollaboratorStatus.USER_IS_CREATOR
+                    (error?.contains("ERROR_STUDENT_REGISTER", true) == true) -> AddCollaboratorStatus.USER_IS_STUDENT
+                    (error?.contains("ERROR_COLLABORATOR_ALREADY_ENROLLED", true) == true) -> AddCollaboratorStatus.USER_IS_COLLABORATOR
+                    else -> AddCollaboratorStatus.FAIL
+                }
+            }
         } catch (e: Exception) {
             Timber.e(e)
         }

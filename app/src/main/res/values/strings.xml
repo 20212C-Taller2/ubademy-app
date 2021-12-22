@@ -132,6 +132,9 @@
     <string name="add_collaborator">Agregar colaborador</string>
     <string name="confirm_add_collaborator">¿Desea agregar %1$s como colaborador?</string>
     <string name="add_collaborator_succeeded">Se agregó %1$s como colaborador</string>
+    <string name="user_is_creator">El usuario es creador del curso</string>
+    <string name="user_is_collaborator">El usuario ya es colaborador del curso</string>
+    <string name="user_is_student">El usuario ya es estudiante del curso</string>
     <string name="add_collaborator_failed">No se pudo agregar colaborador</string>
     <string name="expired_session">Sesión expirada</string>
     <string name="user_blocked">Usuario blockeado</string>
