@@ -4,6 +4,8 @@
 
 [Inicio](#-inicio)
 
+[Docente](#-docente)
+
 ## Ingreso al sistema
 
 Al abrir la aplicación, el usuario accede a la pantalla inicial donde puede crear un nuevo usuario o ingresar en la app, usando credenciales o su cuenta de Google.
@@ -34,3 +36,33 @@ Al acceder a la sección de perfil, uno puede revisar sus datos. Es posible edit
 
 ![login](/screenshots/my_profile_edit.png)
 
+La plataforma Ubademy tiene 3 suscripciones:
+* _Gratuita_ Permite acceso illimitado a cursos de este nivel y no cuesta nada
+* _Básica_ Se compra en forma de packs y cada pack da acceso a una cantidad limitada de cursos de este nivel
+* _Completa_ Se compra en forma de packs y cada pack da acceso a una cantidad limitada de cursos de este nivel y del nivel básico
+
+![login](/screenshots/subscriptions.png)
+
+## Docente
+
+Como docente, uno puede crear cursos que desea y no se cobra nada al usuario por hacerlo. Al acceder a la sección correspondiente, se van a listar los cursos que creó el usuario. De allí se puede crear un curso nuevo o acceder a los cursos ya creados para gestionarlos.
+
+![login](/screenshots/teacher_courses.png)
+
+Al crear un curso se tiene que proveer una serie de datos junto con el contenido multimedia que lo acompañe.
+
+![login](/screenshots/create_course.png)
+
+Luego de crear cursos, el usuario es redirigido a la pantalla donde puede gestionarlo.
+
+![login](/screenshots/manage_course.png)
+
+Desde allí se puede acceder al contenido del curso y editarlo. Lo último es identico a su creación.
+
+También se puede agregar colaboradores. Al presionar boton correspondiente se visualizarán los usuarios del sistema, exceptuando los que ya son colaboradores, para poder agregarlos. Para esto, solo es necesario elegir un usuario de la lista y confirmarlo.
+
+![login](/screenshots/add_collaborator.png)
+
+El creador del curso también puede crear exámenes a ser resueltos por estudiantes. Dirigiendose a la sección correspondiente, se listarán los exámenes creados para el curso.
+
+![login](/screenshots/exams.png)
