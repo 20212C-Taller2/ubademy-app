@@ -62,11 +62,13 @@ class ViewCourseFragment : Fragment() {
                 lifecycleScope.launch {
                     val unenrollStudentStatus = viewModel.unenrollStudent()
                     BusyFragment.hide()
-                    if (unenrollStudentStatus == UnenrollStudentStatus.SUCCESS) {
-                        Toast.makeText(context, R.string.unenroll_succeeded, Toast.LENGTH_LONG).show()
-                        findNavController().navigate(ViewCourseFragmentDirections.actionViewCourseFragmentToStudentCoursesFragment())
-                    } else {
-                        Toast.makeText(context, R.string.unenroll_failed, Toast.LENGTH_LONG).show()
+                    when (unenrollStudentStatus) {
+                        UnenrollStudentStatus.SUCCESS -> {
+                            Toast.makeText(context, R.string.unenroll_succeeded, Toast.LENGTH_LONG).show()
+                            findNavController().navigate(ViewCourseFragmentDirections.actionViewCourseFragmentToStudentCoursesFragment())
+                        }
+                        UnenrollStudentStatus.TIME_LIMIT_OVERDUE -> Toast.makeText(context, R.string.time_limit_overdue, Toast.LENGTH_LONG).show()
+                        UnenrollStudentStatus.FAIL -> Toast.makeText(context, R.string.unenroll_failed, Toast.LENGTH_LONG).show()
                     }
                 }
             }

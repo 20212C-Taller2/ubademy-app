@@ -27,6 +27,13 @@ class ViewCourseViewModel(application: Application) : AndroidViewModel(applicati
             val response = api().unenrollStudent(courseId.value!!, getSharedPreferencesData().id)
             if (response.isSuccessful)
                 unenrollStudentStatus = UnenrollStudentStatus.SUCCESS
+            else {
+                val error = response.errorBody()?.string()
+                unenrollStudentStatus = when {
+                    (error?.contains("ERROR_UNENROLLMENT_DATE_OVERDUE", true) == true) -> UnenrollStudentStatus.TIME_LIMIT_OVERDUE
+                    else -> UnenrollStudentStatus.FAIL
+                }
+            }
         } catch (e: Exception) {
             Timber.e(e)
         }

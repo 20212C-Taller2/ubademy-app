@@ -64,6 +64,7 @@
     <string name="enroll_failed">No se pudo realizar la inscripción</string>
     <string name="enroll_succeeded">Inscripción exitosa</string>
     <string name="unenroll_failed">No se pudo realizar la desinscripción</string>
+    <string name="time_limit_overdue">Ya pasó el límite de tiempo para desinscribirse</string>
     <string name="unenroll_succeeded">Desinscripción exitosa</string>
     <string name="there_is_no_courses">No se han encontrado cursos</string>
     <string name="there_is_no_more_courses">No se han encontrado más cursos</string>
