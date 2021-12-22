@@ -71,13 +71,17 @@ class AddCollaboratorFragment : Fragment() {
                 lifecycleScope.launch {
                     val addCollaboratorStatus = viewModel.addCollaborator(it.id)
                     BusyFragment.hide()
-                    if (addCollaboratorStatus == AddCollaboratorStatus.SUCCESS) {
-                        val newCollaboratorIds = viewModel.collaboratorIds.value!!.plus(listOf(it.id))
-                        viewModel.collaboratorIds.postValue(newCollaboratorIds)
-                        findNavController().previousBackStackEntry?.savedStateHandle?.set("collaboratorIds", newCollaboratorIds)
-                        Toast.makeText(context, getString(R.string.add_collaborator_succeeded, it.displayName), Toast.LENGTH_LONG).show()
-                    } else {
-                        Toast.makeText(context, R.string.add_collaborator_failed, Toast.LENGTH_LONG).show()
+                    when (addCollaboratorStatus) {
+                        AddCollaboratorStatus.SUCCESS -> {
+                            val newCollaboratorIds = viewModel.collaboratorIds.value!!.plus(listOf(it.id))
+                            viewModel.collaboratorIds.postValue(newCollaboratorIds)
+                            findNavController().previousBackStackEntry?.savedStateHandle?.set("collaboratorIds", newCollaboratorIds)
+                            Toast.makeText(context, getString(R.string.add_collaborator_succeeded, it.displayName), Toast.LENGTH_LONG).show()
+                        }
+                        AddCollaboratorStatus.USER_IS_CREATOR -> Toast.makeText(context, R.string.user_is_creator, Toast.LENGTH_LONG).show()
+                        AddCollaboratorStatus.USER_IS_STUDENT -> Toast.makeText(context, R.string.user_is_student, Toast.LENGTH_LONG).show()
+                        AddCollaboratorStatus.USER_IS_COLLABORATOR -> Toast.makeText(context, R.string.user_is_collaborator, Toast.LENGTH_LONG).show()
+                        AddCollaboratorStatus.FAIL -> Toast.makeText(context, R.string.add_collaborator_failed, Toast.LENGTH_LONG).show()
                     }
                 }
             }
