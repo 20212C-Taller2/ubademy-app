@@ -63,6 +63,18 @@ También se puede agregar colaboradores. Al presionar boton correspondiente se v
 
 ![login](/screenshots/add_collaborator.png)
 
-El creador del curso también puede crear exámenes a ser resueltos por estudiantes. Dirigiendose a la sección correspondiente, se listarán los exámenes creados para el curso.
+El creador del curso también puede crear exámenes a ser resueltos por estudiantes. Dirigiendose a la sección correspondiente, se listarán los exámenes creados para el curso, filtrados por su estado.
 
 ![login](/screenshots/exams.png)
+
+El exámen es, básicamente, una serie de preguntas de respuesta libre. Se pueden agregar y quitar preguntas, pero el examen debe tener por lo menos una para poder crearlo.
+
+![login](/screenshots/create_exam.png)
+
+Al completar el formulario, el usuario puede:
+* Crear el examen, en cuyo caso no queda publicado para los estudiantes, puede ser editado y publicado después.
+* Crear y publicar el examen para los estudiantes. No será posible editarlo una vez hecho esto.
+
+Desde el listado de exámenes se puede acceder a un examen particular. Si el examen es publicado, solo se puede visualizarlo. Caso contrario, puede ser editado y guardado o también publicado (el proceso es idéntico al de creación).
+
+![login](/screenshots/view_exam.png)
