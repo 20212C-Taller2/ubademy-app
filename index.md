@@ -78,3 +78,16 @@ Al completar el formulario, el usuario puede:
 Desde el listado de exámenes se puede acceder a un examen particular. Si el examen es publicado, solo se puede visualizarlo. Caso contrario, puede ser editado y guardado o también publicado (el proceso es idéntico al de creación).
 
 ![login](/screenshots/view_exam.png)
+
+Otra cosa que el docente puede hacer es ver listado de alumnos del curso. Se puede usar filtro por nombre o apellido para una búsqueda más rapida.
+
+![login](/screenshots/students.png)
+
+Se puede seleccionar un alumno para ver su perfil publico.
+
+![login](/screenshots/public_profile.png)
+
+De allí se puede acceder al chat con el estudiante.
+
+![login](/screenshots/chat.png)
+
