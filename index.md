@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Ubademy mobile app manual
 
 You can use the [editor on GitHub](https://github.com/20212C-Taller2/ubademy-app/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
