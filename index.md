@@ -27,3 +27,10 @@ Luego de ingresar al sistema, aparece pantalla de inicio con algunos datos bási
 De modo alternativo, a diferentes secciones de la aplicación se puede acceder vía menú lateral.
 
 ![login](/screenshots/drawer.png)
+
+Al acceder a la sección de perfil, uno puede revisar sus datos. Es posible editar algunos de ellos, tocando el botón de lápiz.
+
+![login](/screenshots/my_profile.png)
+
+![login](/screenshots/my_profile_edit.png)
+
