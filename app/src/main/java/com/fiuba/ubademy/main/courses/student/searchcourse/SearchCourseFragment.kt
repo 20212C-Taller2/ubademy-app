@@ -74,10 +74,16 @@ class SearchCourseFragment : Fragment() {
                 lifecycleScope.launch {
                     val enrollStudentStatus = viewModel.enrollStudent(it.id)
                     BusyFragment.hide()
-                    if (enrollStudentStatus == EnrollStudentStatus.SUCCESS) {
-                        findNavController().navigate(SearchCourseFragmentDirections.actionSearchCourseFragmentToViewCourseFragment(it))
-                    } else {
-                        Toast.makeText(context, R.string.enroll_failed, Toast.LENGTH_LONG).show()
+                    when (enrollStudentStatus) {
+                        EnrollStudentStatus.SUCCESS -> {
+                            Toast.makeText(context, R.string.enroll_succeeded, Toast.LENGTH_LONG).show()
+                            findNavController().navigate(SearchCourseFragmentDirections.actionSearchCourseFragmentToViewCourseFragment(it))
+                        }
+                        EnrollStudentStatus.USER_IS_CREATOR -> Toast.makeText(context, R.string.user_is_creator, Toast.LENGTH_LONG).show()
+                        EnrollStudentStatus.USER_IS_STUDENT -> Toast.makeText(context, R.string.user_is_student, Toast.LENGTH_LONG).show()
+                        EnrollStudentStatus.USER_IS_COLLABORATOR -> Toast.makeText(context, R.string.user_is_collaborator, Toast.LENGTH_LONG).show()
+                        EnrollStudentStatus.SUBSCRIPTION_UNAVAILABLE -> Toast.makeText(context, R.string.subscription_unavailable, Toast.LENGTH_LONG).show()
+                        EnrollStudentStatus.FAIL -> Toast.makeText(context, R.string.enroll_failed, Toast.LENGTH_LONG).show()
                     }
                 }
             }
