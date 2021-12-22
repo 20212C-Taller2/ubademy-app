@@ -62,6 +62,7 @@
     <string name="confirm_enrolling">¿Desea inscribirse al curso "%1$s"?</string>
     <string name="confirm_unenrolling">¿Desea desinscribirse del curso "%1$s"?</string>
     <string name="enroll_failed">No se pudo realizar la inscripción</string>
+    <string name="enroll_succeeded">Inscripción exitosa</string>
     <string name="unenroll_failed">No se pudo realizar la desinscripción</string>
     <string name="unenroll_succeeded">Desinscripción exitosa</string>
     <string name="there_is_no_courses">No se han encontrado cursos</string>
@@ -136,6 +137,7 @@
     <string name="user_is_collaborator">El usuario ya es colaborador del curso</string>
     <string name="user_is_student">El usuario ya es estudiante del curso</string>
     <string name="add_collaborator_failed">No se pudo agregar colaborador</string>
+    <string name="subscription_unavailable">La suscripción actual no permite inscribirse a este curso</string>
     <string name="expired_session">Sesión expirada</string>
     <string name="user_blocked">Usuario blockeado</string>
     <string name="message_sent_for">Este mensaje fue enviado para</string>

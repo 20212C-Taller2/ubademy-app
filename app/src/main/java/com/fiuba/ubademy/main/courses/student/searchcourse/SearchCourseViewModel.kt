@@ -94,6 +94,16 @@ class SearchCourseViewModel(application: Application) : AndroidViewModel(applica
             val response = api().enrollStudent(courseId, getSharedPreferencesData().id)
             if (response.isSuccessful)
                 enrollStudentStatus = EnrollStudentStatus.SUCCESS
+            else {
+                val error = response.errorBody()?.string()
+                enrollStudentStatus = when {
+                    (error?.contains("ERROR_CREATOR_STUDENT_ENROLL", true) == true) -> EnrollStudentStatus.USER_IS_CREATOR
+                    (error?.contains("ERROR_COLLABORATOR_STUDENT_ENROLL", true) == true) -> EnrollStudentStatus.USER_IS_COLLABORATOR
+                    (error?.contains("ERROR_STUDENT_ALREADY_ENROLLED", true) == true) -> EnrollStudentStatus.USER_IS_STUDENT
+                    (error?.contains("STUDENT_SUBSCRIPTION_NOT_AVAILABLE", true) == true) -> EnrollStudentStatus.SUBSCRIPTION_UNAVAILABLE
+                    else -> EnrollStudentStatus.FAIL
+                }
+            }
         } catch (e: Exception) {
             Timber.e(e)
         }
