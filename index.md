@@ -1,10 +1,10 @@
 # Manual de usuario de aplicación Ubademy
 
-[Ingreso al sistema](#-ingreso-al-sistema)
+[Ingreso al sistema](#ingreso-al-sistema)
 
-[Inicio](#-inicio)
+[Inicio](#inicio)
 
-[Docente](#-docente)
+[Docente](#docente)
 
 ## Ingreso al sistema
 
