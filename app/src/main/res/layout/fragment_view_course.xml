@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_l"
                 android:text="@string/content"
+                app:icon="@drawable/ic_baseline_video_library_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/placeViewCourseLayout" />
 
@@ -33,19 +34,21 @@
                 android:id="@+id/examsViewCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_l"
+                android:layout_marginTop="@dimen/margin_s"
                 android:text="@string/exams"
-                app:layout_constraintBaseline_toBaselineOf="@+id/contentViewCourseButton"
-                app:layout_constraintStart_toEndOf="@+id/contentViewCourseButton" />
+                app:icon="@drawable/ic_baseline_rate_review_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contentViewCourseButton" />
 
             <Button
                 android:id="@+id/unenrollViewCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_m"
+                android:layout_marginTop="@dimen/margin_s"
                 android:text="@string/unenroll"
+                app:icon="@drawable/ic_baseline_backspace_24"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contentViewCourseButton" />
+                app:layout_constraintTop_toBottomOf="@+id/examsViewCourseButton" />
 
             <TextView
                 android:id="@+id/descriptionViewCourseLabel"

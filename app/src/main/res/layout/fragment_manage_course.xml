@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_l"
                 android:text="@string/content"
+                app:icon="@drawable/ic_baseline_video_library_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/placeManageCourseLayout" />
 
@@ -33,28 +34,31 @@
                 android:id="@+id/examsManageCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_l"
+                android:layout_marginTop="@dimen/margin_s"
                 android:text="@string/exams"
-                app:layout_constraintBaseline_toBaselineOf="@+id/addCollaboratorManageCourseButton"
-                app:layout_constraintStart_toEndOf="@+id/addCollaboratorManageCourseButton" />
+                app:icon="@drawable/ic_baseline_reviews_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addCollaboratorManageCourseButton" />
 
             <Button
                 android:id="@+id/studentsManageCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_l"
+                android:layout_marginTop="@dimen/margin_s"
                 android:text="@string/students"
+                app:icon="@drawable/ic_baseline_groups_24"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addCollaboratorManageCourseButton" />
+                app:layout_constraintTop_toBottomOf="@+id/examsManageCourseButton" />
 
             <Button
                 android:id="@+id/editManageCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_l"
+                android:layout_marginTop="@dimen/margin_s"
                 android:text="@string/edit"
-                app:layout_constraintBaseline_toBaselineOf="@+id/contentManageCourseButton"
-                app:layout_constraintStart_toEndOf="@+id/contentManageCourseButton" />
+                app:icon="@drawable/ic_baseline_edit_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contentManageCourseButton" />
 
             <TextView
                 android:id="@+id/descriptionManageCourseLabel"
@@ -163,20 +167,21 @@
                 android:id="@+id/addCollaboratorManageCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_l"
+                android:layout_marginTop="@dimen/margin_s"
                 android:text="@string/collaborator"
-                app:icon="@drawable/ic_baseline_add_24"
+                app:icon="@drawable/ic_baseline_person_add_24"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contentManageCourseButton" />
+                app:layout_constraintTop_toBottomOf="@+id/editManageCourseButton" />
 
             <Button
                 android:id="@+id/takenExamsManageCourseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_l"
                 android:text="@string/taken_exams"
-                app:layout_constraintBaseline_toBaselineOf="@+id/studentsManageCourseButton"
-                app:layout_constraintStart_toEndOf="@+id/studentsManageCourseButton" />
+                app:icon="@drawable/ic_baseline_rate_review_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/studentsManageCourseButton"
+                android:layout_marginTop="@dimen/margin_s" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
