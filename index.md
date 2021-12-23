@@ -37,7 +37,7 @@ Al acceder a la sección de perfil, uno puede revisar sus datos. Es posible edit
 ![login](/screenshots/my_profile_edit.png)
 
 La plataforma Ubademy tiene 3 suscripciones:
-* _Gratuita_ Permite acceso illimitado a cursos de este nivel y no cuesta nada
+* _Gratuita_ Permite acceso ilimitado a cursos de este nivel y no cuesta nada
 * _Básica_ Se compra en forma de packs y cada pack da acceso a una cantidad limitada de cursos de este nivel
 * _Completa_ Se compra en forma de packs y cada pack da acceso a una cantidad limitada de cursos de este nivel y del nivel básico
 
@@ -57,17 +57,17 @@ Luego de crear cursos, el usuario es redirigido a la pantalla donde puede gestio
 
 ![login](/screenshots/manage_course.png)
 
-Desde allí se puede acceder al contenido del curso y editarlo. Lo último es identico a su creación.
+Desde allí se puede acceder al contenido del curso y editarlo. Lo último es idéntico a su creación.
 
-También se puede agregar colaboradores. Al presionar boton correspondiente se visualizarán los usuarios del sistema, exceptuando los que ya son colaboradores, para poder agregarlos. Para esto, solo es necesario elegir un usuario de la lista y confirmarlo.
+También se puede agregar colaboradores. Al presionar botón correspondiente se visualizarán los usuarios del sistema, exceptuando los que ya son colaboradores, para poder agregarlos. Para esto, solo es necesario elegir un usuario de la lista y confirmarlo.
 
 ![login](/screenshots/add_collaborator.png)
 
-El creador del curso también puede crear exámenes a ser resueltos por estudiantes. Dirigiendose a la sección correspondiente, se listarán los exámenes creados para el curso, filtrados por su estado.
+El creador del curso también puede crear exámenes a ser resueltos por estudiantes. Dirigiéndose a la sección correspondiente, se listarán los exámenes creados para el curso, filtrados por su estado.
 
 ![login](/screenshots/exams.png)
 
-El exámen es, básicamente, una serie de preguntas de respuesta libre. Se pueden agregar y quitar preguntas, pero el examen debe tener por lo menos una para poder crearlo.
+El examen es, básicamente, una serie de preguntas de respuesta libre. Se pueden agregar y quitar preguntas, pero el examen debe tener por lo menos una para poder crearlo.
 
 ![login](/screenshots/create_exam.png)
 
@@ -79,11 +79,11 @@ Desde el listado de exámenes se puede acceder a un examen particular. Si el exa
 
 ![login](/screenshots/view_exam.png)
 
-Otra cosa que el docente puede hacer es ver listado de alumnos del curso. Se puede usar filtro por nombre o apellido para una búsqueda más rapida.
+Otra cosa que el docente puede hacer es ver listado de alumnos del curso. Se puede usar filtro por nombre o apellido para una búsqueda más rápida.
 
 ![login](/screenshots/students.png)
 
-Se puede seleccionar un alumno para ver su perfil publico.
+Se puede seleccionar un alumno para ver su perfil público.
 
 ![login](/screenshots/public_profile.png)
 
@@ -91,3 +91,14 @@ De allí se puede acceder al chat con el estudiante.
 
 ![login](/screenshots/chat.png)
 
+Por último, el docente puede ver los exámenes que sus alumnos rindieron, filtrandolos por un examen particular de ser necesario.
+
+![login](/screenshots/taken_exams.png)
+
+Desde acá se puede visualizar un examen corregido o corregir uno rendido.
+
+![login](/screenshots/view_taken_exam.png)
+
+Revisión del examen implica una nota y un comentario opcional para el estudiante.
+
+![login](/screenshots/review_exam.png)
