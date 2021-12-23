@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.fiuba.ubademy.main.courses.TakenExam
 import com.fiuba.ubademy.main.courses.GetUserStatus
+import com.fiuba.ubademy.main.courses.TakenExam
 import com.fiuba.ubademy.network.model.GetUserResponse
 import com.fiuba.ubademy.utils.api
 import timber.log.Timber

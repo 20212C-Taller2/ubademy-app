@@ -1,12 +1,12 @@
 package com.fiuba.ubademy.main.courses.teacher.exams.viewexam
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.fiuba.ubademy.R
 
 class ViewExamFragment : Fragment() {
@@ -23,7 +23,7 @@ class ViewExamFragment : Fragment() {
         val question = view.findViewById<TextView>(R.id.viewExamQuestion)
         val linearLayout = view.findViewById<LinearLayout>(R.id.questionsViewExamLinearLayout)
 
-        exam.questions.forEach { q ->
+        exam.questions.sortedBy { q -> q.number }.forEach { q ->
             val qTextView = TextView(context)
             qTextView.layoutParams = question.layoutParams
             qTextView.visibility = View.VISIBLE

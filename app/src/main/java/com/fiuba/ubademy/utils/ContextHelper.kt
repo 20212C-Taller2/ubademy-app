@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.fiuba.ubademy.AuthActivity
 import com.fiuba.ubademy.BuildConfig
+import com.fiuba.ubademy.InvalidSessionReason
 import com.fiuba.ubademy.network.UbademyApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -12,7 +13,6 @@ import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
-import com.fiuba.ubademy.InvalidSessionReason
 
 fun Context.getSharedPreferencesData() : SharedPreferencesData {
     val sharedPreferences = getSharedPreferences(ubademy_user_shared_preferences, Context.MODE_PRIVATE)

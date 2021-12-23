@@ -1,9 +1,9 @@
 package com.fiuba.ubademy.main.profile.chat
 
-import androidx.recyclerview.widget.RecyclerView
-import com.fiuba.ubademy.databinding.ItemMessageBinding
 import android.view.Gravity
+import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.ubademy.R
+import com.fiuba.ubademy.databinding.ItemMessageBinding
 import com.google.android.material.color.MaterialColors
 
 class MessageViewHolder(private val binding: ItemMessageBinding) : RecyclerView.ViewHolder(binding.root) {
