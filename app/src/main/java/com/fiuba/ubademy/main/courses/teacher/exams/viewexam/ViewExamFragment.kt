@@ -23,7 +23,7 @@ class ViewExamFragment : Fragment() {
         val question = view.findViewById<TextView>(R.id.viewExamQuestion)
         val linearLayout = view.findViewById<LinearLayout>(R.id.questionsViewExamLinearLayout)
 
-        exam.questions.forEach { q ->
+        exam.questions.sortedBy { q -> q.number }.forEach { q ->
             val qTextView = TextView(context)
             qTextView.layoutParams = question.layoutParams
             qTextView.visibility = View.VISIBLE

@@ -51,7 +51,7 @@ class TakeExamFragment : Fragment() {
         val questionEditText = binding.takeExamQuestionEditText
         val linearLayout = binding.questionsTakeExamLinearLayout
 
-        exam.questions.forEach { q ->
+        exam.questions.sortedBy { q -> q.number }.forEach { q ->
             val qTextView = TextView(context)
             qTextView.layoutParams = question.layoutParams
             qTextView.visibility = View.VISIBLE
