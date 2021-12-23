@@ -10,6 +10,8 @@
 
 [Estudiante](#estudiante)
 
+[Notificaciones](#notificaciones)
+
 ## Ingreso al sistema
 
 Al abrir la aplicación, el usuario accede a la pantalla inicial donde puede crear un nuevo usuario o ingresar en la app, usando credenciales o su cuenta de Google.
@@ -44,6 +46,8 @@ La plataforma Ubademy tiene 3 suscripciones:
 * _Gratuita_ Permite acceso ilimitado a cursos de este nivel y no cuesta nada
 * _Básica_ Se compra en forma de packs y cada pack da acceso a una cantidad limitada de cursos de este nivel
 * _Completa_ Se compra en forma de packs y cada pack da acceso a una cantidad limitada de cursos de este nivel y del nivel básico
+
+Los paquetes de suscripciones Básica y Completa pueden comprarse por independientemente.
 
 ![image](/screenshots/subscriptions.png)
 
@@ -115,13 +119,13 @@ Los colaboradores tienen acceso a un subconjunto de funcionalidades que están d
 
 ![image](/screenshots/collaborator_courses.png)
 
-Como colaborador, uno puede ver el contenido del curso, acceder al listado de alumnos y corregir los exámenes. Estas funcionalidades están identicas a las del creador.
+Como colaborador, uno puede ver el contenido del curso, acceder al listado de alumnos y corregir los exámenes. Estas funcionalidades son idénticas a las del creador.
 
 ![image](/screenshots/assist_course.png)
 
 ## Estudiante
 
-Dirigiendose a la sección correspondiente, el usuario puede ver todos los cursos a los cuales se inscribió.
+Dirigiéndose a la sección correspondiente, el usuario puede ver todos los cursos a los cuales se inscribió.
 
 ![image](/screenshots/student_courses.png)
 
@@ -133,9 +137,9 @@ Para inscribirse a un curso, alcanza con seleccionar uno y confirmar la inscripc
 
 ![image](/screenshots/view_course.png)
 
-El estudiante puede acceder al contenido (igual que creador o colaborador), rendir exámenes o desinscribirse. Para desinscribirse basta con tocar el boton y confirmar la operación. Solo se puede desinscribirse durante un tiempo limitado luego de la inscripción.
+El estudiante puede acceder al contenido (igual que creador o colaborador), rendir exámenes o desinscribirse. Para desinscribirse basta con tocar el bóton y confirmar la operación. Solo se puede desinscribirse durante un tiempo limitado luego de la inscripción.
 
-Al tocar el boton `Exámenes` el usuario puede acceder a los exámenes publicados del curso. Pendientes, rendidos y corregidos.
+Al tocar el bóton `Exámenes` el usuario puede acceder a los exámenes publicados del curso. Pendientes, rendidos y corregidos.
 
 ![image](/screenshots/student_exams.png)
 
@@ -147,6 +151,24 @@ Al seleccionar un examen rendido uno puede ver lo que envió para su corrección
 
 ![image](/screenshots/view_taken_exam_student.png)
 
-Al seleccionar un examen corregido uno puede ver lo que envió para su corrección y ademas la calificación: quién la hizo, la nota y comentario opcional.
+Al seleccionar un examen corregido uno puede ver lo que envió para su corrección y además la calificación: quién la hizo, la nota y comentario opcional (si hay).
 
 ![image](/screenshots/view_reviewed_exam_student.png)
+
+## Notificaciones
+
+La aplicación cuenta con notificaciones acerca de los mensajes de chat recibidos (excepto si el usuario está chateando con la misma persona en el momento).
+
+![image](/screenshots/notification_locked.png)
+
+Si el usuario no está usando la aplicación, al tocar la notificación se va a abrir pantalla de ingreso. Caso contrario, hay 2 escenarios.
+
+Si la notificación es sobre un mensaje destinado a otro usuario de Ubademy en el mismo dispositivo, se va a mostrar un cartel explicando esta situación. Volviendo por atras se puede acceder a la pantalla en la cual estaba el usuario previamente.
+
+![image](/screenshots/notification_other_user.png)
+
+Si la notificación es sobre un mensaje destinado al mismo usuario de Ubademy que está usando la aplicación en el momento, se va a abrir el chat. Volviendo por atras se puede acceder a la pantalla en la cual estaba el usuario previamente.
+
+![image](/screenshots/notification_unlocked.png)
+
+![image](/screenshots/notification_current_user.png)
