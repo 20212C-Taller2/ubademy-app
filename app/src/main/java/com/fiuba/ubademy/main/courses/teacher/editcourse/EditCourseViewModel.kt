@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import com.fiuba.ubademy.network.model.Course
 import com.fiuba.ubademy.network.model.EditCourseRequest
 import com.fiuba.ubademy.utils.api
-import com.fiuba.ubademy.utils.getPlaceName
 import com.fiuba.ubademy.utils.getSharedPreferencesData
 import timber.log.Timber
 

@@ -1,17 +1,16 @@
 package com.fiuba.ubademy
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.fiuba.ubademy.utils.getSharedPreferencesData
 import com.fiuba.ubademy.main.profile.chat.ChatFragment
 import com.fiuba.ubademy.main.profile.chat.Message
 import com.fiuba.ubademy.main.profile.chat.MessageAdapter
@@ -20,6 +19,7 @@ import com.fiuba.ubademy.network.model.GetUserResponse
 import com.fiuba.ubademy.network.model.NotifyRequest
 import com.fiuba.ubademy.utils.api
 import com.fiuba.ubademy.utils.clearSharedPreferencesChat
+import com.fiuba.ubademy.utils.getSharedPreferencesData
 import com.fiuba.ubademy.utils.setSharedPreferencesChat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout

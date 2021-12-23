@@ -1,24 +1,24 @@
 package com.fiuba.ubademy.main.profile.subscription
 
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.fiuba.ubademy.R
 import com.fiuba.ubademy.databinding.FragmentSubscriptionBinding
+import com.fiuba.ubademy.network.model.Subscription
 import com.fiuba.ubademy.utils.BusyFragment
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import android.content.ClipData
-import android.content.ClipboardManager
-import androidx.core.content.ContextCompat.getSystemService
-import com.fiuba.ubademy.network.model.Subscription
 
 class SubscriptionFragment : Fragment() {
 

@@ -1,13 +1,5 @@
 package com.fiuba.ubademy
 
-import com.fiuba.ubademy.network.model.UpdateFcmTokenRequest
-import com.fiuba.ubademy.utils.api
-import com.fiuba.ubademy.utils.getSharedPreferencesData
-import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.firebase.messaging.RemoteMessage
-import kotlinx.coroutines.*
-import timber.log.Timber
-
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -15,10 +7,19 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.fiuba.ubademy.network.model.GetUserResponse
+import com.fiuba.ubademy.network.model.UpdateFcmTokenRequest
+import com.fiuba.ubademy.utils.api
 import com.fiuba.ubademy.utils.getSharedPreferencesChat
+import com.fiuba.ubademy.utils.getSharedPreferencesData
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import kotlin.random.Random
 
 class UbademyFirebaseMessagingService : FirebaseMessagingService() {
