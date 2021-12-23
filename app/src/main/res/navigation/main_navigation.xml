@@ -344,6 +344,9 @@
         <action
             android:id="@+id/action_assistCourseFragment_to_studentsFragment"
             app:destination="@id/studentsFragment" />
+        <action
+            android:id="@+id/action_assistCourseFragment_to_viewPublicProfileFragment"
+            app:destination="@id/viewPublicProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCollaboratorFragment"

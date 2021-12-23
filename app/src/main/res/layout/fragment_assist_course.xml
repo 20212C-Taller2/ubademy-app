@@ -20,6 +20,28 @@
             android:padding="@dimen/padding_l"
             tools:context=".main.courses.teacher.assistcourse.AssistCourseFragment">
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/teacherAssistCourseChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_m"
+                android:layout_marginTop="@dimen/margin_m"
+                android:enabled="false"
+                android:text="@{assistCourseViewModel.getUserResponse.displayName}"
+                app:layout_constraintStart_toEndOf="@+id/teacherAssistCourseLabel"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionAssistCourseLabel"
+                tools:text="@string/display_name" />
+
+            <TextView
+                android:id="@+id/teacherAssistCourseLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/teacher"
+                android:textAlignment="viewStart"
+                android:textStyle="italic"
+                app:layout_constraintBaseline_toBaselineOf="@+id/teacherAssistCourseChip"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <Button
                 android:id="@+id/contentAssistCourseButton"
                 android:layout_width="wrap_content"
@@ -112,7 +134,7 @@
                 android:layout_marginTop="@dimen/margin_m"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionAssistCourseLabel">
+                app:layout_constraintTop_toBottomOf="@+id/teacherAssistCourseChip">
 
                 <ImageView
                     android:id="@+id/placeAssistCourseIcon"
