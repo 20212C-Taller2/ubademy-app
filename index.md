@@ -53,7 +53,7 @@ Como docente, uno puede crear cursos que desea y no se cobra nada al usuario por
 
 ![image](/screenshots/teacher_courses.png)
 
-Al crear un curso se tiene que proveer una serie de datos junto con el contenido multimedia que lo acompañe.
+Al crear un curso se tiene que proveer una serie de datos junto con el contenido multimedia que lo acompañe. El campo `Ubicación` es opcional.
 
 ![image](/screenshots/create_course.png)
 
@@ -129,6 +129,24 @@ Para inscribirse en un curso nuevo, existe el buscador de cursos. Este se accede
 
 ![image](/screenshots/search_course.png)
 
-Para inscribirse a un curso, alcanza con seleccionar uno y confirmar la inscripción. Sin embargo, salvo que el curso sea gratuito, el usuario tiene que contar con una inscripción disponible (básica o completa para cursos de nivel básico, completa para cursos de nivel completo).
+Para inscribirse a un curso, alcanza con seleccionar uno y confirmar la inscripción. Sin embargo, salvo que el curso sea gratuito, el usuario tiene que contar con una inscripción disponible (básica o completa para cursos de nivel básico, completa para cursos de nivel completo). Al inscribirse se mostrará pantalla del curso para el estudiante (la misma a la cual se accede desde el listado de cursos).
 
 ![image](/screenshots/view_course.png)
+
+El estudiante puede acceder al contenido (igual que creador o colaborador), rendir exámenes o desinscribirse. Para desinscribirse basta con tocar el boton y confirmar la operación. Solo se puede desinscribirse durante un tiempo limitado luego de la inscripción.
+
+Al tocar el boton `Exámenes` el usuario puede acceder a los exámenes publicados del curso. Pendientes, rendidos y corregidos.
+
+![image](/screenshots/student_exams.png)
+
+Al seleccionar un examen pendiente uno puede rendirlo, completando las preguntas y enviando examen.
+
+![image](/screenshots/take_exam.png)
+
+Al seleccionar un examen rendido uno puede ver lo que envió para su corrección.
+
+![image](/screenshots/view_taken_exam_student.png)
+
+Al seleccionar un examen corregido uno puede ver lo que envió para su corrección y ademas la calificación: quién la hizo, la nota y comentario opcional.
+
+![image](/screenshots/view_reviewed_exam_student.png)
