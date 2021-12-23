@@ -119,7 +119,7 @@ Los colaboradores tienen acceso a un subconjunto de funcionalidades que están d
 
 ![image](/screenshots/collaborator_courses.png)
 
-Como colaborador, uno puede ver el contenido del curso, acceder al listado de alumnos y corregir los exámenes. Estas funcionalidades son idénticas a las del creador.
+Como colaborador, uno puede ver el contenido del curso, acceder al listado de alumnos y corregir los exámenes. Estas funcionalidades son idénticas a las del creador, al cuyo perfil público se puede acceder.
 
 ![image](/screenshots/assist_course.png)
 
