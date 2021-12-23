@@ -8,6 +8,8 @@
 
 [Colaborador](#colaborador)
 
+[Estudiante](#estudiante)
+
 ## Ingreso al sistema
 
 Al abrir la aplicación, el usuario accede a la pantalla inicial donde puede crear un nuevo usuario o ingresar en la app, usando credenciales o su cuenta de Google.
@@ -47,7 +49,7 @@ La plataforma Ubademy tiene 3 suscripciones:
 
 ## Docente
 
-Como docente, uno puede crear cursos que desea y no se cobra nada al usuario por hacerlo. Al acceder a la sección correspondiente, se van a listar los cursos que creó el usuario. De allí se puede crear un curso nuevo o acceder a los cursos ya creados para gestionarlos.
+Como docente, uno puede crear cursos que desea y no se cobra nada al usuario por hacerlo. Al contrario, docente recibe pagos por alumnos que se inscriben en sus cursos. Al acceder a la sección correspondiente, se van a listar los cursos que creó el usuario. De allí se puede crear un curso nuevo o acceder a los cursos ya creados para gestionarlos.
 
 ![image](/screenshots/teacher_courses.png)
 
@@ -95,7 +97,7 @@ De allí se puede acceder al chat con el estudiante.
 
 ![image](/screenshots/chat.png)
 
-Por último, el docente puede ver los exámenes que sus alumnos rindieron, filtrandolos por un examen particular de ser necesario.
+Por último, el docente puede ver los exámenes que sus alumnos rindieron, filtrándolos por un examen particular de ser necesario.
 
 ![image](/screenshots/taken_exams.png)
 
@@ -113,7 +115,20 @@ Los colaboradores tienen acceso a un subconjunto de funcionalidades que están d
 
 ![image](/screenshots/collaborator_courses.png)
 
-Como colaborador, uno puede ver el contenido del curso, acceder al listado de alumnos y corregir los exámenes.
+Como colaborador, uno puede ver el contenido del curso, acceder al listado de alumnos y corregir los exámenes. Estas funcionalidades están identicas a las del creador.
 
 ![image](/screenshots/assist_course.png)
 
+## Estudiante
+
+Dirigiendose a la sección correspondiente, el usuario puede ver todos los cursos a los cuales se inscribió.
+
+![image](/screenshots/student_courses.png)
+
+Para inscribirse en un curso nuevo, existe el buscador de cursos. Este se accede tocando el botón de lupa. Aquí se muestran todos los cursos existentes en Ubademy, con posibilidad de filtrarlos por tipo y/o suscripción.
+
+![image](/screenshots/search_course.png)
+
+Para inscribirse a un curso, alcanza con seleccionar uno y confirmar la inscripción. Sin embargo, salvo que el curso sea gratuito, el usuario tiene que contar con una inscripción disponible (básica o completa para cursos de nivel básico, completa para cursos de nivel completo).
+
+![image](/screenshots/view_course.png)
