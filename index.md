@@ -18,7 +18,7 @@ Al abrir la aplicación, el usuario accede a la pantalla inicial donde puede cre
 
 ![image](/screenshots/login.png)
 
-Si el usuario es nuevo, puede optar por crear una cuenta nueva o usar la de Google. Al crear una cuenta nueva, es necesario proveer algunos datos básicos, incluyendo email y contraseña que se usaran para futuros ingresos en la app. Los campos `Ubicación` e `Intereses` son opcionales. Los usuarios que ingresan con Google pueden completar esos datos al editar su perfil.
+Si el usuario es nuevo, puede optar por crear una cuenta nueva o usar la de Google. Al crear una cuenta nueva, es necesario proveer algunos datos básicos, incluyendo email y contraseña que se usarán para futuros ingresos en la app. Los campos `Ubicación` e `Intereses` son opcionales. Los usuarios que ingresan con Google pueden completar esos datos al editar su perfil.
 
 ![image](/screenshots/create_account.png)
 
@@ -43,11 +43,11 @@ Al acceder a la sección de perfil, uno puede revisar sus datos. Es posible edit
 ![image](/screenshots/my_profile_edit.png)
 
 La plataforma Ubademy tiene 3 suscripciones:
-* _Gratuita_ Permite acceso ilimitado a cursos de este nivel y no cuesta nada
-* _Básica_ Se compra en forma de packs y cada pack da acceso a una cantidad limitada de cursos de este nivel
-* _Completa_ Se compra en forma de packs y cada pack da acceso a una cantidad limitada de cursos de este nivel y del nivel básico
+* _Gratuita_ - Permite acceso ilimitado a cursos de este nivel y no cuesta nada
+* _Básica_ - Se compra en forma de packs y cada pack da acceso a una cantidad limitada de cursos de este nivel
+* _Completa_ - Se compra en forma de packs y cada pack da acceso a una cantidad limitada de cursos de este nivel y del nivel básico
 
-Los paquetes de suscripciones Básica y Completa pueden comprarse por independientemente.
+Los paquetes de suscripciones Básica y Completa pueden comprarse independientemente.
 
 ![image](/screenshots/subscriptions.png)
 
@@ -61,7 +61,7 @@ Al crear un curso se tiene que proveer una serie de datos junto con el contenido
 
 ![image](/screenshots/create_course.png)
 
-Luego de crear cursos, el usuario es redirigido a la pantalla donde puede gestionarlo.
+Luego de crear un curso, el usuario es redirigido a la pantalla donde puede gestionarlo.
 
 ![image](/screenshots/manage_course.png)
 
@@ -82,7 +82,7 @@ El examen es, básicamente, una serie de preguntas de respuesta libre. Se pueden
 ![image](/screenshots/create_exam.png)
 
 Al completar el formulario, el usuario puede:
-* Crear el examen, en cuyo caso no queda publicado para los estudiantes, puede ser editado y publicado después.
+* Crear el examen, en cuyo caso no queda publicado para los estudiantes. Puede ser editado y publicado después.
 * Crear y publicar el examen para los estudiantes. No será posible editarlo una vez hecho esto.
 
 Desde el listado de exámenes se puede acceder a un examen particular. Si el examen es publicado, solo se puede visualizarlo. Caso contrario, puede ser editado y guardado o también publicado (el proceso es idéntico al de creación).
@@ -105,7 +105,7 @@ Por último, el docente puede ver los exámenes que sus alumnos rindieron, filtr
 
 ![image](/screenshots/taken_exams.png)
 
-Desde acá se puede visualizar un examen corregido o corregir uno rendido.
+Desde acá se puede visualizar un examen corregido o revisar uno rendido. También se puede acceder al perfil del alumno y al de usuario que corrigió el examen.
 
 ![image](/screenshots/view_taken_exam.png)
 
@@ -115,7 +115,7 @@ Revisión del examen implica una nota y un comentario opcional para el estudiant
 
 ## Colaborador
 
-Los colaboradores tienen acceso a un subconjunto de funcionalidades que están disponibles para el creador. Al acceder a la sección correspondiente, se van a listar los cursos dónde el usuario figura como colaborador. De allí se puede acceder a un curso particular.
+Los colaboradores tienen acceso a un subconjunto de funcionalidades que están disponibles para el creador. Al acceder a la sección correspondiente se van a listar los cursos donde el usuario figura como colaborador. De allí se puede acceder a un curso particular.
 
 ![image](/screenshots/collaborator_courses.png)
 
@@ -163,11 +163,11 @@ La aplicación cuenta con notificaciones acerca de los mensajes de chat recibido
 
 Si el usuario no está usando la aplicación, al tocar la notificación se va a abrir pantalla de ingreso. Caso contrario, hay 2 escenarios.
 
-Si la notificación es sobre un mensaje destinado a otro usuario de Ubademy en el mismo dispositivo, se va a mostrar un cartel explicando esta situación. Volviendo por atras se puede acceder a la pantalla en la cual estaba el usuario previamente.
+Si la notificación es sobre un mensaje destinado a otro usuario de Ubademy en el mismo dispositivo, se va a mostrar un cartel explicando esta situación. Volviendo por atrás se puede acceder a la pantalla en la cual el usuario estaba previamente.
 
 ![image](/screenshots/notification_other_user.png)
 
-Si la notificación es sobre un mensaje destinado al mismo usuario de Ubademy que está usando la aplicación en el momento, se va a abrir el chat. Volviendo por atras se puede acceder a la pantalla en la cual estaba el usuario previamente.
+Si la notificación es sobre un mensaje destinado al mismo usuario de Ubademy que está usando la aplicación en el momento, se va a abrir el chat. Volviendo por atrás se puede acceder a la pantalla en la cual el usuario estaba previamente.
 
 ![image](/screenshots/notification_unlocked.png)
 
