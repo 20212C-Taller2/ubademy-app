@@ -65,14 +65,4 @@ class CreateAccountViewModel(application: Application) : AndroidViewModel(applic
 
         return createAccountStatus
     }
-
-    suspend fun updateFcmToken() {
-        try {
-            val fcmtoken = getFcmToken()
-            if (fcmtoken != null)
-                api().updateFcmToken(createdUserId.value!!, UpdateFcmTokenRequest(fcmtoken))
-        } catch (e: Exception) {
-            Timber.e(e)
-        }
-    }
 }
