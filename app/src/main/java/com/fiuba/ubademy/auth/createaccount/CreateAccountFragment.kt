@@ -167,7 +167,6 @@ class CreateAccountFragment : Fragment() {
 
         BusyFragment.show(parentFragmentManager)
         val createAccountStatus : CreateAccountStatus = viewModel.createAccount()
-        viewModel.updateFcmToken()
         BusyFragment.hide()
 
         when (createAccountStatus) {
